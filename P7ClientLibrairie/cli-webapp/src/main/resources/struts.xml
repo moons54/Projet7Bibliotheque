@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <package name="default" extends="struts-default">
+
+    <!-- Action par défaut -->
+    <default-action-ref name="index" />
+        <global-results>
+            <result name="error">/jsp/error.jsp</result>
+        </global-results>
+
+    <!-- Action d'index -->
+    <action name="index">
+        <!-- gestion de la vue -->
+        <result>/jsp/index.jsp</result>
+    </action>
+
+
+        <!-- Action Authentification -->
+        <action name="Login" class="action.LoginAction" method="doLogin">
+            <result name="input">jsp/login/authentification.jsp</result>
+            <result name="success" type="redirectAction">index</result>
+        </action>
+
+        <!-- Action Authentification -->
+        <action name="maliste" class="action.LoginAction" method="doList">
+            <result name="success">jsp/login/listeutilisateur.jsp</result>
+        </action>
+
+        <!--Action de delog -->
+        <action name="DoLogout" class="action.LoginAction" method="doLogout">
+            <result type="redirectAction">index</result>
+        </action>
+
+      <!--  &lt;!&ndash;Action permettant de creer un nouvelle utilisateur&ndash;&gt;
+        <action name="utilisateur_new"
+                class="action.LoginAction"
+                method="doCreate">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+            <result name="input">jsp/login/inscription.jsp</result>
+            <result name="success" type="redirectAction">index</result>
+                &lt;!&ndash;<param name="actionName">utilisateur_detail</param>
+                <param name="idutilisateur">${lecteur.id}</param>&ndash;&gt;
+            &lt;!&ndash;</result>&ndash;&gt;
+        </action>-->
+
+        <!-- Action "inscription" -->
+        <action name="utilisateur_new" class="action.LoginAction" method="doCreate">
+            <result name="input">jsp/login/inscription.jsp</result>
+            <result name="success">jsp/index.jsp</result>
+        </action>
+
+        <!--Action permettant d'afficher le détail d'un utilisateur-->
+        <action name="utilisateur_detail"
+                class="action.LoginAction"
+                method="doDetail">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <!--   <result name="success">jsp/topo/detail.jsp</result> -->
+            <result>jsp/login/detailutilisateur.jsp</result>
+        </action>
+    </package>
+
+</struts>
