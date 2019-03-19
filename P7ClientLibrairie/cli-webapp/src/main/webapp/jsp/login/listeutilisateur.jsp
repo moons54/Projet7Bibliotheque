@@ -27,14 +27,13 @@
 
     <li>
         <s:a action="utilisateur_detail">
-        <s:param name="idutilisateur" value="id"></s:param>
-        <s:property value="identifiant" />
-        <s:property value="motDePasse"/>
-        <s:property value="dateInscription"/>
-        <s:property value="nom"/>
-        <s:property value="prenom"/>
-        <s:property value="dateDeNaissance"/>
-    </s:a>
+            <s:param name="nom" value="nom"/>
+            <s:property value="identifiant"/>
+            <s:property value="motDePasse"/>
+            <s:property value="dateInscription"/>
+            <s:property value="nom"/>
+            <s:property value="prenom"/>
+        </s:a>
 
     </li>
 </s:iterator>

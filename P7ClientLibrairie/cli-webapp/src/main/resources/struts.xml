@@ -36,26 +36,27 @@
             <result type="redirectAction">index</result>
         </action>
 
-      <!--  &lt;!&ndash;Action permettant de creer un nouvelle utilisateur&ndash;&gt;
-        <action name="utilisateur_new"
-                class="action.LoginAction"
-                method="doCreate">
-            <interceptor-ref name="store">
-                <param name="operationMode">STORE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack"/>
-            <result name="input">jsp/login/inscription.jsp</result>
-            <result name="success" type="redirectAction">index</result>
-                &lt;!&ndash;<param name="actionName">utilisateur_detail</param>
-                <param name="idutilisateur">${lecteur.id}</param>&ndash;&gt;
-            &lt;!&ndash;</result>&ndash;&gt;
-        </action>-->
+
+
 
         <!-- Action "inscription" -->
-        <action name="utilisateur_new" class="action.LoginAction" method="doCreate">
+        <action name="nutilisateur" class="action.LoginAction" method="doCreate">
             <result name="input">jsp/login/inscription.jsp</result>
-            <result name="success">jsp/index.jsp</result>
+
+           <!--<result name="success">jsp/login/detailutilisateur.jsp</result>-->
+            <result name="success" type="redirectAction">
+                <param name="actionName">ncoordonnees</param>
+                <param name="idutilisateur">${lecteur.id}</param>
+            </result>
         </action>
+
+        <!-- Action "inscription" -->
+        <action name="ncoordonnees" class="action.LoginAction" method="dovalidate">
+            <result name="input">jsp/login/inscriptionpage2.jsp</result>
+
+            <result name="success">jsp/login/detailutilisateur.jsp</result>
+        </action>
+
 
         <!--Action permettant d'afficher le détail d'un utilisateur-->
         <action name="utilisateur_detail"

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 import java.util.List;
 
-
+@XmlType(name = "Lecteur")
 public class Lecteur {
 	private int iD;
 	private String identifiant;
@@ -13,11 +13,8 @@ public class Lecteur {
 	private String motDePasse;
 	private Date dateInscription;
 	private Date dateDeNaissance;
-	//private List<Coordonnees> coordonneesList;
-//	public Emprunt unnamed_Emprunt_;
-//	public ArrayList<Emprunt> emprunt = new ArrayList<Emprunt>();
+	private String num_cni;
 
-//TODO VOIR SI INTERET DE PASSER LISTE DE COORDONNEES
 
 
 	public Lecteur(int iD) {
@@ -84,23 +81,15 @@ public class Lecteur {
 		this.dateDeNaissance = dateDeNaissance;
 	}
 
-	/*public List<Coordonnees> getCoordonneesList() {
-		return coordonneesList;
+	public String getNum_cni() {
+		return num_cni;
 	}
 
-	public void setCoordonneesList(List<Coordonnees> coordonneesList) {
-		this.coordonneesList = coordonneesList;
-	}
-*/
-	/**
-public Coordonnees getCoordonnees() {
-	return coordonnees;
+	public void setNum_cni(String num_cni) {
+		this.num_cni = num_cni;
 	}
 
-	public void setCoordonnees(Coordonnees coordonnees) {
-		this.coordonnees = coordonnees;
-	}
-*/
+
 
 	@Override
 	public String toString() {
@@ -112,6 +101,7 @@ public Coordonnees getCoordonnees() {
 				", motDePasse='" + motDePasse + '\'' +
 				", dateInscription=" + dateInscription +
 				", dateDeNaissance=" + dateDeNaissance +
+				", num_cni='" + num_cni + '\'' +
 				'}';
 	}
 }

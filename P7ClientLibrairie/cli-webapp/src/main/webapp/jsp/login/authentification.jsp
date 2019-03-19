@@ -7,11 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="a" uri="/struts-tags" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
+<a:actionerror/>
 
 </body>
 
@@ -42,7 +44,7 @@
 </s:form>
 
 <s:if test="%{#session.user==null}">
-    <li><s:a action="utilisateur_new">Inscription</s:a></li>
+    <li><s:a action="nutilisateur">Inscription</s:a></li>
 </s:if>
 
 </html>

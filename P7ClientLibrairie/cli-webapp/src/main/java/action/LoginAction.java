@@ -3,12 +3,17 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
+import org.biblio.p7.service.*;
 import org.biblio.p7.service.AuthentificationService;
 import org.biblio.p7.service.AuthentificationService_Service;
+import org.biblio.p7.service.Coordonnees;
 import org.biblio.p7.service.Lecteur;
 import org.biblio.p7.service.RecherchercoordonneeResponse;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -20,14 +25,29 @@ public class LoginAction extends ActionSupport implements SessionAware {
     AuthentificationService por=authentificationService_service.getAuthentificationServicePort();
 
     //param en Entrée
+    Integer iD;
     String identifiant;
     String motDePasse;
+    String motDePasse2;
     Integer idutilisateur;
+    String nom;
+    String prenom;
+    XMLGregorianCalendar dateInscription;
+    XMLGregorianCalendar dateNaissance;
+    String num_Cni;
+    String rue;
+    String CodePostale;
+    String Ville;
+    String Telephone;
+    String email;
+
+    String dtp;
 
     //param en Sortie
     private Map<String, Object> session;
     private List<Lecteur> lecteurs;
     private Lecteur lecteur;
+    private Coordonnees coordonnees;
 
 
     //GETTER AND SETTER
@@ -75,7 +95,126 @@ public class LoginAction extends ActionSupport implements SessionAware {
         return idutilisateur;
     }
 
-    //METHODE
+    public void setIdutilisateur(Integer idutilisateur) {
+        this.idutilisateur = idutilisateur;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public XMLGregorianCalendar getDateInscription() {
+        return dateInscription;
+    }
+
+    public void setDateInscription(XMLGregorianCalendar dateInscription) {
+        this.dateInscription = dateInscription;
+    }
+
+    public XMLGregorianCalendar getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(XMLGregorianCalendar dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public void setLecteur(Lecteur lecteur) {
+        this.lecteur = lecteur;
+    }
+
+    public String getNum_Cni() {
+        return num_Cni;
+    }
+
+    public void setNum_Cni(String num_Cni) {
+        this.num_Cni = num_Cni;
+    }
+
+    public String getMotDePasse2() {
+        return motDePasse2;
+    }
+
+    public void setMotDePasse2(String motDePasse2) {
+        this.motDePasse2 = motDePasse2;
+    }
+
+    public Integer getiD() {
+        return iD;
+    }
+
+    public void setiD(Integer iD) {
+        this.iD = iD;
+    }
+
+    public String getRue() {
+        return rue;
+    }
+
+    public void setRue(String rue) {
+        this.rue = rue;
+    }
+
+    public String getCodePostale() {
+        return CodePostale;
+    }
+
+    public void setCodePostale(String codePostale) {
+        CodePostale = codePostale;
+    }
+
+    public String getVille() {
+        return Ville;
+    }
+
+    public void setVille(String ville) {
+        Ville = ville;
+    }
+
+    public String getTelephone() {
+        return Telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        Telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDtp() {
+        return dtp;
+    }
+
+    public void setDtp(String dtp) {
+        this.dtp = dtp;
+    }
+
+    public Coordonnees getCoordonnees() {
+        return coordonnees;
+    }
+
+    public void setCoordonnees(Coordonnees coordonnees) {
+        this.coordonnees = coordonnees;
+    }
+//METHODE
 
 
     //Authentification de l'utilisateur
@@ -89,6 +228,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
             System.out.println("je suis dans la condition " + identifiant + "et le mot de passe " + motDePasse);
 
             try {
+
 
 
                 System.out.println();
@@ -109,7 +249,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 this.addActionError("mt de pass invalide");
             }
 //            System.out.println("----le lecteur---"+lecteur+"---------------------val de lecteur"+lecteur.getIdentifiant()+ "----------"+lecteur.getMotDePasse());
-         //   this.session.put("user",lecteur);
+            //   this.session.put("user",lecteur);
             vresult=ActionSupport.SUCCESS;
 
         }
@@ -127,26 +267,27 @@ public class LoginAction extends ActionSupport implements SessionAware {
     public String doLogout(){
         System.out.println("on supprime l'utilisateur courznt");
         this.session.remove("user");
-return ActionSupport.SUCCESS;
+        return ActionSupport.SUCCESS;
     }
 
 
     //METHODE CREANT UN NOUVEL UTILISATEUR
 
     public String doCreate(){
+        Lecteur lecteur=new Lecteur();
         String vresult = ActionSupport.INPUT;
 
         //condition validant l'ajout de formulaire
 
-        if (this.lecteur !=null) {
+        if (this.identifiant !=null) {
 
-            if (this.lecteur.getIdentifiant()==null) {
-              //  this.addFieldError(" topo.nom", "ne peut pas etre vide");
-                System.out.println("attention ne peut pas etre vide");
+            if (this.motDePasse == null||this.motDePasse.hashCode()!=this.motDePasse2.hashCode()) {
+                this.addActionError("erreur");
+                System.out.println("saisie mot de passe invalide "+motDePasse.hashCode() + "    "+motDePasse2.hashCode());
             } else
             {
 
-                System.out.println("bien present");
+                System.out.println("ok");
             }
 
 
@@ -155,10 +296,15 @@ return ActionSupport.SUCCESS;
             {
                 try
                 {
-                   // managerFactory.getUtilisateurManager().ajoututilisateur(this.utilisateur);
-                  por.ajouterLecteur(this.lecteur);
+
+                    lecteur.setIdentifiant(identifiant);
+                    lecteur.setMotDePasse(motDePasse);
+                    lecteur.setNom(nom);
+                    lecteur.setPrenom(prenom);
+                    lecteur.setDateDeNaissance(dateNaissance);
+                    por.ajouterLecteur(lecteur);
                     vresult = ActionSupport.SUCCESS;
-                    this.addActionMessage("bienvenue");
+                    this.addActionMessage("premier etape pour   "+identifiant);
                 } catch (Exception e)
                 {
 
@@ -171,17 +317,18 @@ return ActionSupport.SUCCESS;
         return vresult;
     };
 
+
     //Methode pour le détail d'un utilisateur
 
     public String doDetail(){
         //gestion des erreurs si id du topo null
-        if(idutilisateur==null){
+        if(nom==null){
 
             System.out.println("--------------------- rien ");
             //  this.addActionError(getText("error.topo.missing.id."));
         }else
             //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
-        lecteur=por.rechercher(idutilisateur);
+            lecteur=por.rechercherparNom(nom);
 
         {
             // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
@@ -190,6 +337,52 @@ return ActionSupport.SUCCESS;
         }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
 
+    };
+
+
+    public String dovalidate(){
+        Coordonnees coordonnees=new Coordonnees();
+
+        String vresult = ActionSupport.INPUT;
+
+        //condition validant l'ajout de formulaire
+
+        if (this.email!=null) {
+
+            if (this.Telephone == null) {
+                this.addActionError("erreur");
+                } else
+            {
+
+                System.out.println("ok");
+            }
+
+
+
+            if (!this.hasErrors())
+            {
+                try
+                {
+                    coordonnees.setRue(rue);
+                    coordonnees.setCodePostal(CodePostale);
+                    coordonnees.setVille(Ville);
+                    coordonnees.setEmail(email);
+                    coordonnees.setRue(rue);
+                    coordonnees.setLecteur(por.rechercher(idutilisateur));
+
+                    por.ajouterCoordonnees(coordonnees);
+                    vresult = ActionSupport.SUCCESS;
+                    this.addActionMessage("Bienvenue  "+identifiant);
+                } catch (Exception e)
+                {
+
+                    vresult = ActionSupport.ERROR;
+                }
+
+            }
+        }
+
+        return vresult;
     };
 
 }

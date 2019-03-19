@@ -7,21 +7,26 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %>
 
 <head>
     <%@ include file="../_include/head.jsp"%>
     <title>Inscription</title>
-</head>
+        <sx:head />
 <html>
 <body>
 
-<s:form action="utilisateur_new">
-    <s:textfield name="lecteur.identifiant" label="Pseudo"  />
-    <s:textfield name="lecteur.motDePasse" label="Mot de Passe"  />
-    <s:textfield name="lecteur.nom" label="nom"/>
-    <s:textfield name="lecteur.prenom" label="prenom" />
-    <s:textfield name="lecteur.dateDeNaissance" label="date de naiss"/>
-    <s:textfield name="lecteur.dateInscription" label="date insc" />
+<s:form action="nutilisateur">
+    <s:textfield name="identifiant" label="Pseudo"  />
+    <s:password name="motDePasse" label="Mot de Passe"  />
+    <s:password name="motDePasse2" label="deuxieme saisie mot de passe"/>
+    <s:textfield name="nom" label="nom"/>
+    <s:textfield name="prenom" label="prenom" />
+   <%-- <s:textfield name="num_Cni" label="numero CNI"/>--%>
+    <%--<s:date name="dateNaissance" format="dd/MM/yyyy"/>--%>
+    <%--&lt;%&ndash;    <s:textfield name="lecteur.dateInscription" label="date insc" />&ndash;%&gt;--%>
+    <%--<sx:datetimepicker name="dateNaissance" label="Format(yyyy-MM-dd)"
+                       displayFormat="yyyy-MM-dd"/>--%>
     <s:submit />
 </s:form>
 

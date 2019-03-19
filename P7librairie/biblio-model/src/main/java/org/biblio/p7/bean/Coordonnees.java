@@ -1,6 +1,12 @@
 package org.biblio.p7.bean;
+
+import javax.xml.bind.annotation.XmlType;
+
 //@Named
-public class Coordonnees extends Lecteur{
+
+
+@XmlType(name = "Coordonnées")
+public class Coordonnees {
 	private int iD;
 	private String rue;
 	private String codePostal;
@@ -9,8 +15,6 @@ public class Coordonnees extends Lecteur{
 	private String email;
 	 private Lecteur lecteur;
 
-	 //TODO voir si on peut pas prioriser une adresse plutot qu'une autre
-    //TODO INTERET OU NON DE PASSER L EMAIL DANS COORDONNES ou dans LECTEUR
 
 
 

@@ -12,16 +12,23 @@
 
 
     <%@ include file="../_include/head.jsp"%>
-    <title>Détail d'un nouveau lecteur</title>
 
 
 </head>
 <body>
 
-<s:property value="lecteur.id"/>
-<s:property value="lecteur.indentifiant"/>
+
+<s:actionmessage name="ncoordonnees"/>
+<title>Détail d'un lecteur</title>
+
+
+<s:property value="lecteur.iD"/>
+<s:property value="lecteur.identifiant"/>
 <s:property value="lecteur.nom"/>
 <s:property value="lecteur.prenom"/>
+<s:property value="lecteur.motDePasse"/>
+<s:property value="lecteur.dateInscription"/>
+
 
     </body>
 </html>

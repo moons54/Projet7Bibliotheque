@@ -6,8 +6,11 @@ import org.biblio.p7.consumer.impl.RowMapper.LecteurRM;
 import org.biblio.p7.contract.LecteurDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +18,10 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
@@ -26,7 +32,7 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
     @Override
     public List<Lecteur> affichelecteur() {
         LOGGER.info("voir si affiche lecteur");
-        String vsql = "SELECT * FROM public.Lecteur ";
+        String vsql = "SELECT id, identifiant, nom, prenom, motdepasse, date_inscription, date_de_naissance, num_cni FROM public.Lecteur ";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 
         LecteurRM rmlect = new LecteurRM();
@@ -43,18 +49,39 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String modipass = passwordEncoder.encode(lecteur.getMotDePasse());
         System.out.println("------------- encodage"+modipass);
-//         String vSQL = "INSERT INTO public.lecteur(identifiant, nom, prenom, motdepasse, date_inscription, num_cni, date_de_naissance) VALUES (?,?,?,?,${modipass},?,?) ";
+        Date nw=new Date();
+
+        //  lecteur.setMotDePasse(modipass);
+    //      String vSQL = "INSERT INTO public.lecteur(identifiant, nom, prenom, motdepasse, date_inscription, num_cni, date_de_naissance) VALUES (?,?,?,?,${modipass},?,?) ";
 
 
 
-  String vSQL = "INSERT INTO public.lecteur(identifiant, nom, prenom, motdepasse, date_inscription, date_de_naissance) VALUES "
-                + "(:identifiant,:nom,:prenom,:motDePasse,:dateInscription,:dateDeNaissance)";
+  String vSQL = "INSERT INTO public.lecteur(identifiant, nom, prenom, motdepasse, date_inscription, date_de_naissance,num_cni) VALUES "
+                + "(:identifiant,:nom,:prenom,:motDePasse,:dateInscription,:dateDeNaissance,:num_cni)";
         //JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
 
-        SqlParameterSource vParams = new BeanPropertySqlParameterSource(lecteur);
-        NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        //SqlParameterSource vParams = new BeanPropertySqlParameterSource(lecteur);
+        SqlParameterSource ajoutparam = new MapSqlParameterSource()
+                .addValue("identifiant", lecteur.getIdentifiant())
+                .addValue("nom", lecteur.getNom())
+                .addValue("prenom", lecteur.getPrenom())
+                .addValue("motDePasse", modipass)
+                .addValue("dateInscription",nw)
+                .addValue("dateDeNaissance", lecteur.getDateDeNaissance())
+                .addValue("num_cni", lecteur.getNum_cni());
 
-        vJdbcTemplate.update(vSQL, vParams);
+
+        //Gestion de la clé primaire
+        KeyHolder holder = new GeneratedKeyHolder();
+        NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        vJdbcTemplate.update(vSQL, ajoutparam, holder, new String[]{"id"});
+        lecteur.setiD(holder.getKey().intValue());
+
+
+
+     //   NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+
+       // vJdbcTemplate.update(vSQL, vParams);
 
 
     }
