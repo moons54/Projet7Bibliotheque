@@ -260,6 +260,11 @@ public class LoginAction extends ActionSupport implements SessionAware {
     public String doList() {
 
         lecteurs = por.rechercherlesLecteurs();
+        System.out.println("val de lecteur"+lecteurs);
+
+        for (Lecteur l: lecteurs){
+            System.out.println("val de lecteur"+l.getID()+"===="+l.getIdentifiant());
+        }
 
         return ActionSupport.SUCCESS;
     }
@@ -274,7 +279,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     //METHODE CREANT UN NOUVEL UTILISATEUR
 
     public String doCreate(){
-        Lecteur lecteur=new Lecteur();
+      //  Lecteur lecteur=new Lecteur();
         String vresult = ActionSupport.INPUT;
 
         //condition validant l'ajout de formulaire
@@ -303,6 +308,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                     lecteur.setPrenom(prenom);
                     lecteur.setDateDeNaissance(dateNaissance);
                     por.ajouterLecteur(lecteur);
+                  //  idutilisateur=lecteur.getID();
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("premier etape pour   "+identifiant);
                 } catch (Exception e)
@@ -341,8 +347,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
 
     public String dovalidate(){
-        Coordonnees coordonnees=new Coordonnees();
+      Coordonnees coordonnees=new Coordonnees();
 
+//        System.out.println("valeur de iduti"+idutilisateur+"lecteur id"+lecteur.getID());
         String vresult = ActionSupport.INPUT;
 
         //condition validant l'ajout de formulaire

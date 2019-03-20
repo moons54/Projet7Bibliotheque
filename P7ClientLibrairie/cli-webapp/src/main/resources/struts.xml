@@ -42,11 +42,9 @@
         <!-- Action "inscription" -->
         <action name="nutilisateur" class="action.LoginAction" method="doCreate">
             <result name="input">jsp/login/inscription.jsp</result>
-
-           <!--<result name="success">jsp/login/detailutilisateur.jsp</result>-->
             <result name="success" type="redirectAction">
-                <param name="actionName">ncoordonnees</param>
-                <param name="idutilisateur">${lecteur.id}</param>
+            <param name="actionName">ncoordonnees</param>
+                <param name="idutilisateur">${lecteur.iD}</param>
             </result>
         </action>
 
