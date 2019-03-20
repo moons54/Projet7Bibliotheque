@@ -10,24 +10,19 @@ import java.sql.SQLException;
 
 public class LecteurRM implements RowMapper<Lecteur> {
 
- // CoordonneesDaoImpl coordonneesDao;
+    // CoordonneesDaoImpl coordonneesDao;
 
     @Override
     public Lecteur mapRow(ResultSet rs, int rowNum) throws SQLException {
         Lecteur lect = new Lecteur();
-
         lect.setiD(rs.getInt("id"));
         lect.setIdentifiant(rs.getString("identifiant"));
         lect.setNom(rs.getString("nom"));
         lect.setPrenom(rs.getString("prenom"));
-
         lect.setMotDePasse(rs.getString("motdepasse"));
         lect.setDateDeNaissance(rs.getDate("date_de_naissance"));
         lect.setDateInscription(rs.getDate("date_inscription"));
         lect.setNum_cni(rs.getString("num_cni"));
-
-  //      CoordonneesDaoImpl coordonneesDao=new CoordonneesDaoImpl();
-  //   lect.setCoordonneesList(coordonneesDao.listeCoordonneByLecteur(rs.getInt("lecteurid")));
         return lect;
     }
 }

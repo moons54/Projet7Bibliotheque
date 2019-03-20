@@ -6,7 +6,7 @@ import java.util.List;
 
 @XmlType(name = "Lecteur")
 public class Lecteur {
-	private int iD;
+	private int id;
 	private String identifiant;
 	private String nom;
 	private String prenom;
@@ -16,20 +16,15 @@ public class Lecteur {
 	private String num_cni;
 
 
-
-	public Lecteur(int iD) {
-		this.iD = iD;
-	}
-
 	public Lecteur() {
 	}
 
-	public int getiD() {
-		return iD;
+	public int getId() {
+		return id;
 	}
 
-	public void setiD(int iD) {
-		this.iD = iD;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getIdentifiant() {
@@ -89,12 +84,10 @@ public class Lecteur {
 		this.num_cni = num_cni;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Lecteur{" +
-				"iD=" + iD +
+				"id=" + id +
 				", identifiant='" + identifiant + '\'' +
 				", nom='" + nom + '\'' +
 				", prenom='" + prenom + '\'' +

@@ -72,10 +72,10 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
 
 
         //Gestion de la clé primaire
-        KeyHolder holder = new GeneratedKeyHolder();
+     //   KeyHolder holder = new GeneratedKeyHolder();
         NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-        vJdbcTemplate.update(vSQL, ajoutparam, holder, new String[]{"id"});
-        lecteur.setiD(holder.getKey().intValue());
+        vJdbcTemplate.update(vSQL, ajoutparam);
+        //lecteur.setiD(holder.getKey().intValue());
 
 
 
