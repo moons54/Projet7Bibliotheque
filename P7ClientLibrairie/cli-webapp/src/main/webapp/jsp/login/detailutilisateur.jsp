@@ -22,7 +22,7 @@
 <title>Détail d'un lecteur</title>
 
 
-<s:property value="lecteur.iD"/>
+<s:property value="lecteur.id"/>
 <s:property value="lecteur.identifiant"/>
 <s:property value="lecteur.nom"/>
 <s:property value="lecteur.prenom"/>

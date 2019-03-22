@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlType;
 //@Named
 
 
-@XmlType(name = "Coordonnées")
+@XmlType(name = "Coordonnees")
 public class Coordonnees {
 	private int iD;
 	private String rue;

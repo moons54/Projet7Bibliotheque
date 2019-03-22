@@ -44,7 +44,7 @@
             <result name="input">jsp/login/inscription.jsp</result>
             <result name="success" type="redirectAction">
             <param name="actionName">ncoordonnees</param>
-                <param name="idutilisateur">${lecteur.iD}</param>
+                <param name="idutilisateur"></param>
             </result>
         </action>
 

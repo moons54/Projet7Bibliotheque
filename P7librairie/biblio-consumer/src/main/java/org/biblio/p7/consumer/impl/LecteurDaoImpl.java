@@ -45,6 +45,8 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
     //revoir code sur ajoute secteur
     @Override
     public void ajouteLecteur(Lecteur lecteur) {
+        LOGGER.info("afficher le nouveau lecteur");
+
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String modipass = passwordEncoder.encode(lecteur.getMotDePasse());
@@ -110,6 +112,8 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
 
     @Override
     public Lecteur rechercher(Integer iD) {
+        LOGGER.info("rechercher le lecteur");
+
         String vsql = "SELECT * FROM public.Lecteur WHERE id=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
         LecteurRM rmlect = new LecteurRM();
@@ -120,6 +124,7 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
 
     @Override
     public Lecteur rechercherByLecteur(String nom) {
+        LOGGER.info("affiche le rechreche par lecteur");
         String vsql = "SELECT * FROM public.Lecteur WHERE nom=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
         LecteurRM rmlect = new LecteurRM();
@@ -131,8 +136,10 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
     //methode de verification de login
     @Override
     public Lecteur controleLecteur(String identifiant, String motdepasse) {
+        LOGGER.info("Controle de l'identification");
 
-            String vsql = "SELECT * FROM public.Lecteur WHERE identifiant=? ";
+
+        String vsql = "SELECT * FROM public.Lecteur WHERE identifiant=? ";
 
 
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));

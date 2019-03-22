@@ -29,6 +29,10 @@
         </dependency>
         <dependency>
             <groupId>org.biblio.p7</groupId>
+            <artifactId>biblio-technical</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.biblio.p7</groupId>
             <artifactId>biblio-model</artifactId>
         </dependency>
         <dependency>

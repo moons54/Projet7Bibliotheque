@@ -22,7 +22,7 @@
     <s:password name="motDePasse2" label="deuxieme saisie mot de passe"/>
     <s:textfield name="nom" label="nom"/>
     <s:textfield name="prenom" label="prenom" />
-    <s:hidden name="idutilisateur"  label="numéro interne" requiredLabel="true"><s:property value="idutilisateur"/></s:hidden>
+    <%--<s:hidden name="idutilisateur"  label="numéro interne" requiredLabel="true"><s:property value="idutilisateur"/></s:hidden>--%>
 
     <%-- <s:textfield name="num_Cni" label="numero CNI"/>--%>
     <%--<s:date name="dateNaissance" format="dd/MM/yyyy"/>--%>

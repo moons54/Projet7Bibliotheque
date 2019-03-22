@@ -1,12 +1,12 @@
 package action;
-
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
+
 import org.biblio.p7.service.*;
 import org.biblio.p7.service.AuthentificationService;
 import org.biblio.p7.service.AuthentificationService_Service;
-import org.biblio.p7.service.Coordonnees;
+
 import org.biblio.p7.service.Lecteur;
 import org.biblio.p7.service.RecherchercoordonneeResponse;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +17,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
+
 public class LoginAction extends ActionSupport implements SessionAware {
 
 
@@ -25,7 +26,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     AuthentificationService por=authentificationService_service.getAuthentificationServicePort();
 
     //param en Entrée
-    Integer iD;
+    Integer id;
     String identifiant;
     String motDePasse;
     String motDePasse2;
@@ -151,12 +152,13 @@ public class LoginAction extends ActionSupport implements SessionAware {
         this.motDePasse2 = motDePasse2;
     }
 
-    public Integer getiD() {
-        return iD;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setiD(Integer iD) {
-        this.iD = iD;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getRue() {
@@ -214,7 +216,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
     public void setCoordonnees(Coordonnees coordonnees) {
         this.coordonnees = coordonnees;
     }
-//METHODE
+
+    //METHODE
 
 
     //Authentification de l'utilisateur
@@ -260,17 +263,10 @@ public class LoginAction extends ActionSupport implements SessionAware {
     public String doList() {
 
         lecteurs = por.rechercherlesLecteurs();
-        System.out.println("val de lecteur"+lecteurs);
-
-        for (Lecteur l: lecteurs){
-            System.out.println("val de lecteur"+l.getID()+"===="+l.getIdentifiant());
-        }
-
         return ActionSupport.SUCCESS;
     }
 
     public String doLogout(){
-        System.out.println("on supprime l'utilisateur courznt");
         this.session.remove("user");
         return ActionSupport.SUCCESS;
     }
@@ -279,7 +275,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     //METHODE CREANT UN NOUVEL UTILISATEUR
 
     public String doCreate(){
-      //  Lecteur lecteur=new Lecteur();
+       // Lecteur lecteur=new Lecteur();
         String vresult = ActionSupport.INPUT;
 
         //condition validant l'ajout de formulaire
@@ -308,7 +304,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
                     lecteur.setPrenom(prenom);
                     lecteur.setDateDeNaissance(dateNaissance);
                     por.ajouterLecteur(lecteur);
-                  //  idutilisateur=lecteur.getID();
+                    System.out.println("--------------------------------------valeur de lecteur"+lecteur.toString());
+              //   idutilisateur=lecteur.getId();
+                    System.out.println("val de idut"+idutilisateur);
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("premier etape pour   "+identifiant);
                 } catch (Exception e)
@@ -328,17 +326,19 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public String doDetail(){
         //gestion des erreurs si id du topo null
-        if(nom==null){
+        if(idutilisateur==null){
 
             System.out.println("--------------------- rien ");
             //  this.addActionError(getText("error.topo.missing.id."));
         }else
             //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
-            lecteur=por.rechercherparNom(nom);
+          //  lecteur=por.rechercherparNom(nom);
+        lecteur=por.rechercher(idutilisateur);
 
         {
             // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
             System.out.println("-------------------"+"pas d'id");
+          //  System.out.println("---------------------"+getId());
 
         }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
@@ -346,8 +346,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     };
 
 
-    public String dovalidate(){
-      Coordonnees coordonnees=new Coordonnees();
+    public String dovalidate() {
 
 //        System.out.println("valeur de iduti"+idutilisateur+"lecteur id"+lecteur.getID());
         String vresult = ActionSupport.INPUT;
@@ -377,7 +376,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                     coordonnees.setRue(rue);
                     coordonnees.setLecteur(por.rechercher(idutilisateur));
 
-                    por.ajouterCoordonnees(coordonnees);
+                  //  por.ajouterCoordonnees(coordonnees);
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("Bienvenue  "+identifiant);
                 } catch (Exception e)
@@ -391,5 +390,4 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
         return vresult;
     };
-
 }

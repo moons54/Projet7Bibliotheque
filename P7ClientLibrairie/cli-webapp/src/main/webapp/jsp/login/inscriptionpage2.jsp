@@ -23,7 +23,7 @@
     <s:textfield name="ville" label="ville"/>
     <s:textfield name="telephone" label="numéro de téléphone"/>
     <s:textfield name="email" label="email" />
-    <s:textfield name="idutilisateur" label="lecteur"><s:property value="lecteur.iD"/></s:textfield>
+    <s:textfield name="idutilisateur" label="lecteur"><s:property value="lecteur.id"/></s:textfield>
     <s:submit />
 </s:form>
 

@@ -15,7 +15,7 @@ public class LecteurRM implements RowMapper<Lecteur> {
     @Override
     public Lecteur mapRow(ResultSet rs, int rowNum) throws SQLException {
         Lecteur lect = new Lecteur();
-        lect.setiD(rs.getInt("id"));
+        lect.setId(rs.getInt("id"));
         lect.setIdentifiant(rs.getString("identifiant"));
         lect.setNom(rs.getString("nom"));
         lect.setPrenom(rs.getString("prenom"));
