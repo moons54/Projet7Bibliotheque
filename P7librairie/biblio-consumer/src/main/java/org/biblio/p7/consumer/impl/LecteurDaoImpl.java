@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -74,10 +75,10 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
 
 
         //Gestion de la clé primaire
-     //   KeyHolder holder = new GeneratedKeyHolder();
+      //KeyHolder holder = new GeneratedKeyHolder();
         NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         vJdbcTemplate.update(vSQL, ajoutparam);
-        //lecteur.setiD(holder.getKey().intValue());
+      //  lecteur.setId(holder.getKey().intValue());
 
 
 
@@ -101,18 +102,35 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
 
     @Override
     public void modifieLecteur(Lecteur lecteur) {
-        String vSQL = "UPDATE public.lecteur SET identifiant=:identifiant, nom=:nom, prenom=:prenom, motdepasse=:motDePasse, date_inscription=:dateInscription,"
-                + "date_de_naissance=:dateDeNaissance WHERE id=:id";
+        LOGGER.warn("dans la methode modif lecteur");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String modipass = passwordEncoder.encode(lecteur.getMotDePasse());
+        System.out.println("------------- encodage"+modipass);
+        String numcni="jkljlk";
+        Date nw=new Date();
 
-        SqlParameterSource vParams = new BeanPropertySqlParameterSource(lecteur);
+        String vSQL = "UPDATE public.lecteur SET identifiant=:identifiant, nom=:nom, prenom=:prenom, motdepasse=:motDePasse, date_inscription=:dateInscription,"
+                + "date_de_naissance=:dateDeNaissance, num_cni=:num_cni WHERE id=:id";
+     //   SqlParameterSource vParams = new BeanPropertySqlParameterSource(lecteur);
+        SqlParameterSource ajoutparam = new MapSqlParameterSource()
+                .addValue("identifiant", lecteur.getIdentifiant())
+                .addValue("nom", lecteur.getNom())
+                .addValue("prenom", lecteur.getPrenom())
+                .addValue("motDePasse", modipass)
+                .addValue("dateInscription",nw)
+                .addValue("dateDeNaissance", nw)
+                .addValue("num_cni", numcni);
+        System.out.println("valeur de lecteur apres modif"+lecteur.toString());
         NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
-        vJdbcTemplate.update(vSQL, vParams);
+        vJdbcTemplate.update(vSQL, ajoutparam);
 
     }
 
     @Override
     public Lecteur rechercher(Integer iD) {
-        LOGGER.info("rechercher le lecteur");
+       LOGGER.info("rechercher le lecteur");
+      BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+           //     String modipass = passwordEncoder.;
 
         String vsql = "SELECT * FROM public.Lecteur WHERE id=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
@@ -128,6 +146,7 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
         String vsql = "SELECT * FROM public.Lecteur WHERE nom=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
         LecteurRM rmlect = new LecteurRM();
+
 
         Lecteur lecteur = vJdbcTemplate.queryForObject(vsql, new Object[]{nom}, rmlect);
         return lecteur;

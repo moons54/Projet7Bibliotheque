@@ -43,8 +43,8 @@
         <action name="nutilisateur" class="action.LoginAction" method="doCreate">
             <result name="input">jsp/login/inscription.jsp</result>
             <result name="success" type="redirectAction">
-            <param name="actionName">ncoordonnees</param>
-                <param name="idutilisateur"></param>
+            <param name="actionName">confirme_utilisateur</param>
+                <param name="nom">${nom}</param>
             </result>
         </action>
 
@@ -55,6 +55,17 @@
             <result name="success">jsp/login/detailutilisateur.jsp</result>
         </action>
 
+        <!--Action permettant d'afficher le détail d'un utilisateur-->
+        <action name="confirme_utilisateur"
+                class="action.LoginAction"
+                method="docontrole">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <!--   <result name="success">jsp/topo/detail.jsp</result> -->
+            <result>jsp/login/confirmeutilisateur.jsp</result>
+        </action>
 
         <!--Action permettant d'afficher le détail d'un utilisateur-->
         <action name="utilisateur_detail"
@@ -67,6 +78,32 @@
             <!--   <result name="success">jsp/topo/detail.jsp</result> -->
             <result>jsp/login/detailutilisateur.jsp</result>
         </action>
+
+        <action name="utilisateur_supp"
+                class="action.LoginAction"
+                method="doSupp">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+
+            <!--   <result name="success">jsp/topo/detail.jsp</result> -->
+            <result>jsp/index.jsp</result>
+        </action>
+
+
+        <action name="utilisateur_mod"
+                class="action.LoginAction"
+                method="domodif">
+
+            <result name="input">/jsp/login/modifutilisateur.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">utilisateur_detail</param>
+            <param name="id">${lecteur.id}</param>
+            </result>
+        </action>
+
+
     </package>
 
 </struts>

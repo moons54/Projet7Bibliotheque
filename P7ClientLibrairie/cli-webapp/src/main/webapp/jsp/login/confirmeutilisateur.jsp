@@ -18,17 +18,29 @@
 <body>
 
 
-<s:actionmessage name="ncoordonnees"/>
-<title>Détail d'un lecteur</title>
+<title>Validation de votre saisie</title>
 
 
-<s:property value="lecteur.id"/>
-<s:property value="lecteur.identifiant"/>
-<s:property value="lecteur.nom"/>
-<s:property value="lecteur.prenom"/>
-<s:property value="lecteur.motDePasse"/>
-<s:property value="lecteur.dateInscription"/>
+<ul>
+
+    <li><s:property value="lecteur.id"/></li>
+    <li><s:property value="lecteur.identifiant"/></li>
+    <li><s:property value="lecteur.nom"/></li>
+    <li><s:property value="lecteur.prenom"/></li>
+    <li><s:property value="lecteur.motDePasse"/></li>
+    <li><s:property value="lecteur.dateInscription"/></li>
+
+</ul>
+
 
 
     </body>
+
+        <div><s:a action="ncoordonnees">Confirmer cette saisie<s:param name="idutilisateur" value="lecteur.id"/></s:a>
+        <div><s:a action="utilisateur_supp">Annuler cette saisie<s:param name="idutilisateur" value="lecteur.id"/></s:a>
+
+
+</div>
+
 </html>
+

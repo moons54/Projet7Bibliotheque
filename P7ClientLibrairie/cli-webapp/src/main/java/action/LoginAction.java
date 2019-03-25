@@ -1,6 +1,7 @@
 package action;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
 import org.biblio.p7.service.*;
@@ -11,15 +12,17 @@ import org.biblio.p7.service.Lecteur;
 import org.biblio.p7.service.RecherchercoordonneeResponse;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class LoginAction extends ActionSupport implements SessionAware {
+public class
+LoginAction extends ActionSupport implements SessionAware {
 
+    private final Logger LOGGER=(Logger) LogManager.getLogger(LoginAction.class);
 
 
     AuthentificationService_Service authentificationService_service=new AuthentificationService_Service();
@@ -37,9 +40,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
     XMLGregorianCalendar dateNaissance;
     String num_Cni;
     String rue;
-    String CodePostale;
-    String Ville;
-    String Telephone;
+    String codePostal;
+    String ville;
+    String telephone;
     String email;
 
     String dtp;
@@ -169,28 +172,28 @@ public class LoginAction extends ActionSupport implements SessionAware {
         this.rue = rue;
     }
 
-    public String getCodePostale() {
-        return CodePostale;
+    public String getCodePostal() {
+        return codePostal;
     }
 
-    public void setCodePostale(String codePostale) {
-        CodePostale = codePostale;
+    public void setCodePostal(String codePostal) {
+        this.codePostal = codePostal;
     }
 
     public String getVille() {
-        return Ville;
+        return ville;
     }
 
     public void setVille(String ville) {
-        Ville = ville;
+        this.ville = ville;
     }
 
     public String getTelephone() {
-        return Telephone;
+        return telephone;
     }
 
     public void setTelephone(String telephone) {
-        Telephone = telephone;
+        this.telephone = telephone;
     }
 
     public String getEmail() {
@@ -222,9 +225,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     //Authentification de l'utilisateur
     public String doLogin() {
-        System.out.println("dans la methode ");
+       LOGGER.info("DANS LA METHODE DOLOGIN");
+
         String vresult = ActionSupport.INPUT;
-        // TODO regler la methode car on rentre avec une valeur vide voir peut etre db condition
 
         if (!StringUtils.isAllEmpty(identifiant, motDePasse)) {
 
@@ -275,7 +278,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
     //METHODE CREANT UN NOUVEL UTILISATEUR
 
     public String doCreate(){
-       // Lecteur lecteur=new Lecteur();
+        LOGGER.info("DANS LA METHODE DOCREATE");
+
+        Lecteur lecteur=new Lecteur();
         String vresult = ActionSupport.INPUT;
 
         //condition validant l'ajout de formulaire
@@ -303,9 +308,10 @@ public class LoginAction extends ActionSupport implements SessionAware {
                     lecteur.setNom(nom);
                     lecteur.setPrenom(prenom);
                     lecteur.setDateDeNaissance(dateNaissance);
+                    lecteur.setNumCni("34333232");
                     por.ajouterLecteur(lecteur);
-                    System.out.println("--------------------------------------valeur de lecteur"+lecteur.toString());
-              //   idutilisateur=lecteur.getId();
+                //    System.out.println("--------------------------------------valeur de lecteur"+lecteur.toString());
+                setIdutilisateur(lecteur.getId());
                     System.out.println("val de idut"+idutilisateur);
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("premier etape pour   "+identifiant);
@@ -325,6 +331,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
     //Methode pour le détail d'un utilisateur
 
     public String doDetail(){
+        LOGGER.info("DANS LA METHODE DODETAIL");
+
         //gestion des erreurs si id du topo null
         if(idutilisateur==null){
 
@@ -348,6 +356,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public String dovalidate() {
 
+Coordonnees coordonnees=new Coordonnees();
+System.out.println();
+        System.out.println("--------------------------------val de lectid---------------"+idutilisateur);
 //        System.out.println("valeur de iduti"+idutilisateur+"lecteur id"+lecteur.getID());
         String vresult = ActionSupport.INPUT;
 
@@ -355,7 +366,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
         if (this.email!=null) {
 
-            if (this.Telephone == null) {
+            if (this.telephone == null) {
                 this.addActionError("erreur");
                 } else
             {
@@ -370,13 +381,19 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 try
                 {
                     coordonnees.setRue(rue);
-                    coordonnees.setCodePostal(CodePostale);
-                    coordonnees.setVille(Ville);
+                    coordonnees.setCodePostal(codePostal);
+                    coordonnees.setVille(ville);
                     coordonnees.setEmail(email);
-                    coordonnees.setRue(rue);
+                    coordonnees.setTelephone(telephone);
                     coordonnees.setLecteur(por.rechercher(idutilisateur));
-
-                  //  por.ajouterCoordonnees(coordonnees);
+                    System.out.println("--------------------------------------" +
+                            "" +
+                            "" +
+                            "" +
+                            "" +
+                            "" +
+                            "voir la veleur de coordonnées"+coordonnees);
+                   por.ajouterCoordonnees(coordonnees);
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("Bienvenue  "+identifiant);
                 } catch (Exception e)
@@ -390,4 +407,78 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
         return vresult;
     };
+
+    public String docontrole() throws Exception {
+        LOGGER.info("DANS LA METHODE DOCONTROLE");
+
+        if(nom==null){
+
+            System.out.println("--------------------- rien ");
+            //  this.addActionError(getText("error.topo.missing.id."));
+        }else
+            //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
+            //  lecteur=por.rechercherparNom(nom);
+            lecteur=por.rechercherparNom(this.nom);
+
+        {
+            // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
+            System.out.println("-------------------"+"pas de nom");
+            //  System.out.println("---------------------"+getId());
+
+        }
+        return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
+
+
+
+    }
+
+    public String doSupp() throws Exception {
+        LOGGER.info("DANS LA METHODE DOSUPP");
+        String vresult=ActionSupport.INPUT;
+        if (idutilisateur == null) {
+            this.addActionError(getText("error.topo.missing.id"));
+        }else  por.supprimerLecteur(idutilisateur);
+        vresult= ActionSupport.SUCCESS;
+        this.addActionMessage("utilisateur a bien été supprimé avec succes");
+
+        {
+        }
+        return vresult;
+
+    }
+
+    public String domodif() throws Exception {
+
+        LOGGER.info("DANS LA METHODE DOMODIF");
+
+        String resultat = ActionSupport.INPUT;
+
+        if (this.lecteur != null) {
+            if (this.lecteur.getNom() != null) {
+                try {
+                    Lecteur tmputil = por.rechercher(lecteur.getId());
+                            //managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getiD());
+                    tmputil.setIdentifiant(lecteur.getIdentifiant());
+                    tmputil.setMotDePasse(lecteur.getMotDePasse());
+                    tmputil.setNom(lecteur.getNom());
+                    tmputil.setPrenom(lecteur.getPrenom());
+
+                   // tmputil.setId(lecteur.getId());
+
+                    por.modifierLecteur(tmputil);
+                }catch (NoSuchElementException e){
+                ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
+                }
+                resultat = ActionSupport.SUCCESS;
+            } else {
+                this.addActionError("Id doit être défini");
+                resultat = ActionSupport.ERROR;
+            }
+        } else {
+            // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur topo afin de pré-rempir les champs de la page web
+            lecteur = por.rechercher(idutilisateur);
+        }
+        return resultat;
+    }
+
 }

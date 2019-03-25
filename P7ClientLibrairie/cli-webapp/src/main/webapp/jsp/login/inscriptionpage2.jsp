@@ -19,11 +19,12 @@
 <title>Suite de l'inscription</title>
 <s:form action="ncoordonnees">
     <s:textfield name="rue" label="numéro rue + voie"  />
-    <s:textfield name="codePostale" label="code postale"  />
+    <s:textfield name="codePostal" label="code postal"  />
     <s:textfield name="ville" label="ville"/>
     <s:textfield name="telephone" label="numéro de téléphone"/>
     <s:textfield name="email" label="email" />
-    <s:textfield name="idutilisateur" label="lecteur"><s:property value="lecteur.id"/></s:textfield>
+    <%--<s:textfield name="coordonnees.lecteur.id" label="lecteur"><s:property value="idutilisateur"/></s:textfield>--%>
+<s:hidden name="idutilisateur"/>
     <s:submit />
 </s:form>
 
