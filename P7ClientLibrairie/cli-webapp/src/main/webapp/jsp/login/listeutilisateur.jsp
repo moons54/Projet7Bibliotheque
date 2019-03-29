@@ -22,10 +22,9 @@
                         <li>
                             <s:a action="utilisateur_detail">
                                 <s:param name="idutilisateur" value="id"/>
-                                <s:property value="id"/>
+                              <s:property value="id"/>
                                 <s:property value="identifiant"/>
-                                <s:property value="motDePasse"/>
-                                <s:property value="dateInscription"/>
+                              Inscrit depuis le  : <s:property value="dateInscription"/>
                                 <s:property value="nom"/>
                                 <s:property value="prenom"/>
                             </s:a>

@@ -11,6 +11,7 @@
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@ taglib prefix="s" uri="/struts-tags" %>
     <%@ taglib prefix="sx" uri="/struts-dojo-tags" %>
+    <%@ include file="../_include/head.jsp" %>
 
 </head>
 <body><title>Modification profil</title>
@@ -21,9 +22,8 @@
     <s:textfield name="lecteur.motDePasse" label="Mot de passe" requiredLabel="true" ></s:textfield>
     <s:textfield name="lecteur.nom" label="Nom" requiredLabel="true" ></s:textfield>
     <s:textfield name="lecteur.prenom" label="Prénom" requiredLabel="true" ></s:textfield>
-    <s:textfield name="lecteur.id" label=" numid" requiredLabel="true" ></s:textfield>
-    <s:hidden name="idutilisateur"/>
-
+    <s:textfield name="idutilisateur"/>
+<s:hidden name="lecteur.id"/>
 
     <%-- <s:textfield name="coordonnees.email" label="Email" requiredLabel="true" ></s:textfield>
      <s:textfield name="coordonnees.telephone" label="Nationalité" requiredLabel="true" ></s:textfield>

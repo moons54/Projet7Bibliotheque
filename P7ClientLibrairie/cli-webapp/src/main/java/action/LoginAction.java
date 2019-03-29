@@ -331,6 +331,7 @@ LoginAction extends ActionSupport implements SessionAware {
     //Methode pour le détail d'un utilisateur
 
     public String doDetail(){
+
         LOGGER.info("DANS LA METHODE DODETAIL");
 
         //gestion des erreurs si id du topo null
@@ -341,7 +342,8 @@ LoginAction extends ActionSupport implements SessionAware {
         }else
             //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
           //  lecteur=por.rechercherparNom(nom);
-        lecteur=por.rechercher(idutilisateur);
+      lecteur=por.rechercher(idutilisateur);
+        coordonnees=por.recherchercoordonnee(lecteur.getId());
 
         {
             // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
@@ -449,20 +451,33 @@ System.out.println();
 
     public String domodif() throws Exception {
 
+
         LOGGER.info("DANS LA METHODE DOMODIF");
 
         String resultat = ActionSupport.INPUT;
 
-        if (this.lecteur != null) {
-            if (this.lecteur.getNom() != null) {
+        if (lecteur != null) {
+            if (lecteur.getNom() != null) {
                 try {
+
                     Lecteur tmputil = por.rechercher(lecteur.getId());
                             //managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getiD());
                     tmputil.setIdentifiant(lecteur.getIdentifiant());
                     tmputil.setMotDePasse(lecteur.getMotDePasse());
                     tmputil.setNom(lecteur.getNom());
                     tmputil.setPrenom(lecteur.getPrenom());
-
+                    tmputil.setNumCni("TR432FDS");
+                    tmputil.setDateInscription(dateInscription);
+                    tmputil.setDateDeNaissance(dateNaissance);
+                    tmputil.setId(idutilisateur);
+LOGGER.warn(" voir si on y est dedans ");
+                    System.out.println("--------------------------------------" +
+                            "" +
+                            "" +
+                            "" +
+                            "" +
+                            "" +
+                            "voir la veleur de lect"+tmputil);
                    // tmputil.setId(lecteur.getId());
 
                     por.modifierLecteur(tmputil);
@@ -475,10 +490,57 @@ System.out.println();
                 resultat = ActionSupport.ERROR;
             }
         } else {
-            // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur topo afin de pré-rempir les champs de la page web
+            // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur lecteur afin de pré-rempir les champs de la page web
             lecteur = por.rechercher(idutilisateur);
         }
         return resultat;
     }
+
+    public String domodifcoordonnees() throws Exception {
+
+
+        LOGGER.info("DANS LA METHODE DOMODIFcoordonnes");
+
+        String resultat = ActionSupport.INPUT;
+
+        if (coordonnees != null) {
+            if (coordonnees.getEmail() != null) {
+                try {
+
+                    Coordonnees tmputil = por.recherchercoordonnee(coordonnees.getLecteur().getId());
+                    //managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getiD());
+                    tmputil.setRue(coordonnees.getRue());
+                    tmputil.setEmail(coordonnees.getEmail());
+                    tmputil.setCodePostal(coordonnees.getCodePostal());
+                    tmputil.setVille(coordonnees.getVille());
+                    tmputil.setTelephone(coordonnees.getTelephone());
+                    tmputil.setID(coordonnees.getID());
+                  tmputil.setLecteur(por.rechercher(coordonnees.getLecteur().getId()));
+                    LOGGER.warn(" voir si on y est dedans ");
+                    System.out.println("--------------------------------------" +
+                            "" +
+                            "" +
+                            "" +
+                            "" +
+                            "" +
+                            "voir la veleur de lect"+tmputil);
+                    // tmputil.setId(lecteur.getId());
+
+                    por.modifierCooronnees(tmputil);
+                }catch (NoSuchElementException e){
+                    ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
+                }
+                resultat = ActionSupport.SUCCESS;
+            } else {
+                this.addActionError("Id doit être défini");
+                resultat = ActionSupport.ERROR;
+            }
+        } else {
+            // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur lecteur afin de pré-rempir les champs de la page web
+            coordonnees = por.recherchercoordonnee(idutilisateur);
+        }
+        return resultat;
+    }
+
 
 }

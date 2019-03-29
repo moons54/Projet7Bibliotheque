@@ -99,10 +99,20 @@
             <result name="input">/jsp/login/modifutilisateur.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">utilisateur_detail</param>
-            <param name="id">${lecteur.id}</param>
+            <param name="idutilisateur">${coordonnees.lecteur.id}</param>
             </result>
         </action>
 
+        <action name="coordonnees_mod"
+                class="action.LoginAction"
+                method="domodifcoordonnees">
+
+            <result name="input">/jsp/login/modifcoordonnees.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">utilisateur_detail</param>
+                <param name="idutilisateur">${coordonnees.lecteur.id}</param>
+            </result>
+        </action>
 
     </package>
 
