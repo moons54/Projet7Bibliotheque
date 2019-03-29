@@ -17,7 +17,7 @@ public class CoordonneesDaoImpl extends AbstractDaoimpl implements CoordonneesDa
 
     @Override
     public Coordonnees afficheCoordonneByLecteur(Integer iD) {
-        String vsql = "SELECT * FROM public.coordonnees WHERE id=?";
+        String vsql = "SELECT * FROM public.coordonnees WHERE lecteurid=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
         CoordonneesRM rmcoord = new CoordonneesRM();
 Coordonnees coordonnees=vJdbcTemplate.queryForObject(vsql,new Object[]{iD},rmcoord);
@@ -66,10 +66,23 @@ Coordonnees coordonnees=vJdbcTemplate.queryForObject(vsql,new Object[]{iD},rmcoo
 
     @Override
     public void modifierCoordonnees(Coordonnees coordonnees) {
-        String vsql ="UPDATE public.coordonnees SET rue=:rue, code_postale=:codepostal, ville=:ville, telephone=:telephone, email=:email, lecteurid=:lecteurid";
-                SqlParameterSource vParams=new BeanPropertySqlParameterSource(coordonnees);
+        String vsql ="UPDATE public.coordonnees SET rue=:rue, code_postale=:codePostal, ville=:ville, telephone=:telephone, email=:email, lecteurid=:lecteurid WHERE id = :id";
+
+            //    SqlParameterSource vParams=new BeanPropertySqlParameterSource(coordonnees);
+        SqlParameterSource ajoutparam = new MapSqlParameterSource()
+                .addValue("rue", coordonnees.getRue())
+                .addValue("codePostal", coordonnees.getCodePostal())
+                .addValue("ville", coordonnees.getVille())
+                .addValue("telephone", coordonnees.getTelephone())
+                .addValue("email",coordonnees.getEmail())
+                .addValue("lecteurid", coordonnees.getLecteur().getId())
+                .addValue("id",coordonnees.getiD());
+
+
+
+
         NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
-        vJdbcTemplate.update(vsql,vParams);
+        vJdbcTemplate.update(vsql,ajoutparam);
 
     }
 

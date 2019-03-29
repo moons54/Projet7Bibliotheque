@@ -5,22 +5,22 @@
     <Appenders>
         <!-- == Sortie sur la console == -->
         <Console name="STDOUT">
-            <PatternLayout pattern="%highlight{%-5level} [%t] %c : %m%n"/>
+            <PatternLayout pattern="MOONS-%highlight{%-5level} [%t] %c : %m%n"/>
         </Console>
     </Appenders>
 
     <!-- ===== Loggers ===== -->
     <Loggers>
         <!-- == Logger pour Struts == -->
-        <Logger name="com.opensymphony.xwork2" level="INFO">
+       <!-- <Logger name="com.opensymphony.xwork2" level="INFO">
             <AppenderRef ref="STDOUT"/>
         </Logger>
         <Logger name="org.apache.struts2" level="INFO">
             <AppenderRef ref="STDOUT"/>
-        </Logger>
+        </Logger>-->
 
         <!-- == Logger pour l'application == -->
-        <Logger name="org.biblio.p7" level="INFO" additivity="false">
+        <Logger name="org.biblio.p7" level="ERROR" additivity="false">
             <AppenderRef ref="STDOUT"/>
         </Logger>
 

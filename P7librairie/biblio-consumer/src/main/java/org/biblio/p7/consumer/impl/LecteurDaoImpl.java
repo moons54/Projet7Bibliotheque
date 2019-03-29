@@ -102,6 +102,7 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
 
     @Override
     public void modifieLecteur(Lecteur lecteur) {
+
         LOGGER.warn("dans la methode modif lecteur");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String modipass = passwordEncoder.encode(lecteur.getMotDePasse());
@@ -109,9 +110,9 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
         String numcni="jkljlk";
         Date nw=new Date();
 
-        String vSQL = "UPDATE public.lecteur SET identifiant=:identifiant, nom=:nom, prenom=:prenom, motdepasse=:motDePasse, date_inscription=:dateInscription,"
-                + "date_de_naissance=:dateDeNaissance, num_cni=:num_cni WHERE id=:id";
-     //   SqlParameterSource vParams = new BeanPropertySqlParameterSource(lecteur);
+        String vSQL = "UPDATE public.lecteur SET identifiant = :identifiant, nom = :nom, prenom = :prenom, motdepasse = :motDePasse, date_inscription = :dateInscription,"
+                + "date_de_naissance = :dateDeNaissance, num_cni = :num_cni WHERE id = :id";
+       // SqlParameterSource vParams = new BeanPropertySqlParameterSource(lecteur);
         SqlParameterSource ajoutparam = new MapSqlParameterSource()
                 .addValue("identifiant", lecteur.getIdentifiant())
                 .addValue("nom", lecteur.getNom())
@@ -119,7 +120,10 @@ public class LecteurDaoImpl extends AbstractDaoimpl implements LecteurDao {
                 .addValue("motDePasse", modipass)
                 .addValue("dateInscription",nw)
                 .addValue("dateDeNaissance", nw)
-                .addValue("num_cni", numcni);
+                .addValue("num_cni", numcni)
+                .addValue("id",lecteur.getId());
+
+
         System.out.println("valeur de lecteur apres modif"+lecteur.toString());
         NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         vJdbcTemplate.update(vSQL, ajoutparam);
