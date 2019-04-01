@@ -12,8 +12,8 @@
 <head>
     <%@ include file="../_include/head.jsp"%>
     <title>Inscription</title>
-        <sx:head />
-<html>
+    <sx:head />
+    <html>
 <body>
 
 <s:form action="nutilisateur">
@@ -22,32 +22,7 @@
     <s:password name="motDePasse2" label="deuxieme saisie mot de passe"/>
     <s:textfield name="nom" label="nom"/>
     <s:textfield name="prenom" label="prenom" />
-   <%-- <s:textfield name="id" label="id"/>
-    <s:textfield name="idutilisateur" label="id"/>--%>
-
-    <%--<s:hidden name="idutilisateur"  label="numéro interne" requiredLabel="true"><s:property value="idutilisateur"/></s:hidden>--%>
-
-    <%-- <s:textfield name="num_Cni" label="numero CNI"/>--%>
-    <%--<s:date name="dateNaissance" format="dd/MM/yyyy"/>--%>
-    <%--&lt;%&ndash;    <s:textfield name="lecteur.dateInscription" label="date insc" />&ndash;%&gt;--%>
-    <%--<sx:datetimepicker name="dateNaissance" label="Format(yyyy-MM-dd)"
-                       displayFormat="yyyy-MM-dd"/>--%>
     <s:submit />
 </s:form>
-
-<%--
-<s:form action="utilisateur_new">
-&lt;%&ndash;
-    <s:textfield name="lecteur.identifiant" label="Identifiant de connexion" requiredLabel="true" ></s:textfield>
-    <s:textfield name="lecteur.motDePasse" label="Mot de passe" requiredLabel="true" ></s:textfield>
-    <s:textfield name="lecteur.nom" label="Nom" requiredLabel="true" ></s:textfield>
-    <s:textfield name="lecteur.prenom" label="Prénom" requiredLabel="true" ></s:textfield>
-    <s:textfield name="lecteur.dateDeNaissance" label="date de naissance" requiredLabel="true" ></s:textfield>
-  &lt;%&ndash;  <s:textfield name="lecteur.numCni" label="num cni" requiredLabel="true" ></s:textfield>&ndash;%&gt;
-    <s:textfield name="lecteur.dateInscription" label="date inscritption" requiredLabel="true" ></s:textfield>&ndash;%&gt;
-
-    &lt;%&ndash;<s:textfield name="lecteur.email" label="Email" requiredLabel="true" ></s:textfield>&ndash;%&gt;
-    <s:submit value="OK"/>
-</s:form>--%>
 </body>
 </html>

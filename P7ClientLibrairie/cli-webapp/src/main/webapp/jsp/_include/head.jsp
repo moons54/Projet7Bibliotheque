@@ -24,27 +24,36 @@
 --%>
 <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css" rel="stylesheet" integrity="sha384-9NlqO4dP5KfioUGS568UFwM3lbWf3Uj3Qb7FBHuIuhLoDp3ZgAqPE1/MYLEBPZYM" crossorigin="anonymous">
  
-<div class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Bibliotheque P7</a>
+<div class="navbar navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand " href="index.action">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-
+            <li class="nav-item active">
+                <s:a class="nav-link" action="nutilisateur">S'inscrire<span class="sr-only">(current)</span></s:a>
+            </li>
 
             <li class="nav-item active">
                 <s:a class="nav-link" action="Login">Authentification<span class="sr-only">(current)</span></s:a>
             </li>
-            <li class="nav-item active">
-                <s:a class="nav-link" action="maliste">liste utilisateur<span class="sr-only">(current)</span></s:a>
-            </li>
+
           <s:if test="#session.user">
                 <li><s:a>
                     <s:property value="#session.user.identifiant" />
                 </s:a></li>
               <li><s:a action="DoLogout">Déconnexion</s:a></li>
+            </s:if>
+            <s:if test="#session.user.identifiant=='gold43'">
+                <li><s:a>
+                    <s:property value="#session.user.identifiant" />
+                <li class="nav-item active">
+                    <s:a class="nav-link" action="maliste">liste utilisateur<span class="sr-only">(current)</span></s:a>
+                </li>
+                </s:a></li>
+                <li><s:a action="DoLogout">Déconnexion</s:a></li>
             </s:if>
 
         </ul>

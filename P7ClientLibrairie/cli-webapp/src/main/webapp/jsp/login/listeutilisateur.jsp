@@ -13,26 +13,26 @@
 <html>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1> Liste des utilisateurs </h1>
-                <ul>
-                    <s:iterator value="lecteurs">
-                        <li>
-                            <s:a action="utilisateur_detail">
-                                <s:param name="idutilisateur" value="id"/>
-                              <s:property value="id"/>
-                                <s:property value="identifiant"/>
-                              Inscrit depuis le  : <s:property value="dateInscription"/>
-                                <s:property value="nom"/>
-                                <s:property value="prenom"/>
-                            </s:a>
-                        </li>
-                    </s:iterator>
-                </ul>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1> Liste des utilisateurs </h1>
+            <ul>
+                <s:iterator value="lecteurs">
+                    <li>
+                        <s:a action="utilisateur_detail">
+                            <s:param name="idutilisateur" value="id"/>
+                            <s:property value="id"/>
+                            <s:property value="identifiant"/>
+                            Inscrit depuis le  : <s:property value="dateInscription"/>
+                            <s:property value="nom"/>
+                            <s:property value="prenom"/>
+                        </s:a>
+                    </li>
+                </s:iterator>
+            </ul>
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -23,13 +23,7 @@
     <s:textfield name="lecteur.nom" label="Nom" requiredLabel="true" ></s:textfield>
     <s:textfield name="lecteur.prenom" label="Prénom" requiredLabel="true" ></s:textfield>
     <s:textfield name="idutilisateur"/>
-<s:hidden name="lecteur.id"/>
-
-    <%-- <s:textfield name="coordonnees.email" label="Email" requiredLabel="true" ></s:textfield>
-     <s:textfield name="coordonnees.telephone" label="Nationalité" requiredLabel="true" ></s:textfield>
-     <s:textfield name="coordonnees.rue" label="Nationalité" requiredLabel="true" ></s:textfield>
-     <s:textfield name="coordonnees.codePostal" label="Nationalité" requiredLabel="true" ></s:textfield>
- --%>
+    <s:hidden name="lecteur.id"/>
 
     <s:submit />
 </s:form>

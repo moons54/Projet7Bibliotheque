@@ -34,13 +34,13 @@
 
 
 
-    </body>
+</body>
 
-        <div><s:a action="ncoordonnees">Confirmer cette saisie<s:param name="idutilisateur" value="lecteur.id"/></s:a>
-        <div><s:a action="utilisateur_supp">Annuler cette saisie<s:param name="idutilisateur" value="lecteur.id"/></s:a>
+<div><s:a action="ncoordonnees">Confirmer cette saisie<s:param name="idutilisateur" value="lecteur.id"/></s:a>
+    <div><s:a action="utilisateur_supp">Annuler cette saisie<s:param name="idutilisateur" value="lecteur.id"/></s:a>
 
 
-</div>
+    </div>
 
 </html>
 

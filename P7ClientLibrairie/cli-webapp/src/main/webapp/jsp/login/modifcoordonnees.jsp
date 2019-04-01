@@ -16,22 +16,15 @@
 </head>
 <body><title>Modification profil</title>
 <s:form action="coordonnees_mod">
-
-
-
-<s:textfield name="coordonnees.lecteur.id" />
-
-  <s:textfield name="coordonnees.email" label="Email" requiredLabel="true" ></s:textfield>
-     <s:textfield name="coordonnees.telephone" label="telephone" requiredLabel="true" ></s:textfield>
-     <s:textfield name="coordonnees.rue" label="rue" requiredLabel="true" ></s:textfield>
+    <s:textfield name="coordonnees.lecteur.id" />
+    <s:textfield name="coordonnees.email" label="Email" requiredLabel="true" ></s:textfield>
+    <s:textfield name="coordonnees.telephone" label="telephone" requiredLabel="true" ></s:textfield>
+    <s:textfield name="coordonnees.rue" label="rue" requiredLabel="true" ></s:textfield>
     <s:textfield name="coordonnees.codePostal" label="code postale" requiredLabel="true" ></s:textfield>
     <s:textfield name="coordonnees.ville" label="ville" requiredLabel="true" ></s:textfield>
-
     <s:hidden name="coordonnees.ID"/>
-
     <s:textfield name="idutilisateur"/>
     <s:param name="idutilisateur" value="coordonnees.lecteur.id"/>
-
     <s:submit />
 </s:form>
 </body>

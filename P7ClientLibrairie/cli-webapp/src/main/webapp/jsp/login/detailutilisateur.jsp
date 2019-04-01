@@ -23,7 +23,7 @@
 
 <ul>
 
-<s:hidden value="lecteur.id"/>
+    <s:hidden value="lecteur.id"/>
     <li><s:property value="lecteur.identifiant"/></li>
     <li><s:property value="lecteur.nom"/></li>
     <li><s:property value="lecteur.prenom"/></li>
@@ -31,11 +31,11 @@
     <li><s:property value="lecteur.dateInscription"/></li>
 
 
-<s:property value="coordonnees.ID"/>
-<li><s:property value="coordonnees.rue"/></li>
-<li><s:property value="coordonnees.codepostal"/></li>
-<li><s:property value="coordonnees.email"/></li>
-<li><s:property value="coordonnees.telephone"/></li>
+    <s:property value="coordonnees.ID"/>
+    <li><s:property value="coordonnees.rue"/></li>
+    <li><s:property value="coordonnees.codepostal"/></li>
+    <li><s:property value="coordonnees.email"/></li>
+    <li><s:property value="coordonnees.telephone"/></li>
 
 
 
