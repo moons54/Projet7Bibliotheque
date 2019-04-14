@@ -48,7 +48,7 @@ LoginAction extends ActionSupport implements SessionAware {
     String dtp;
 
     //param en Sortie
-    private Map<String, Object> session;
+    static Map<String, Object> session;
     private List<Lecteur> lecteurs;
     private Lecteur lecteur;
     private Coordonnees coordonnees;
@@ -246,6 +246,7 @@ LoginAction extends ActionSupport implements SessionAware {
 
                     System.out.println("---------------------------"+"identifié comme "+ identifiant.toString());
                     this.session.put("user", lecteur);
+                    this.session.put("id",lecteur.getId());
 
                     return vresult;
                 }
@@ -342,6 +343,7 @@ LoginAction extends ActionSupport implements SessionAware {
         }else
             //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
           //  lecteur=por.rechercherparNom(nom);
+
       lecteur=por.rechercher(idutilisateur);
         coordonnees=por.recherchercoordonnee(lecteur.getId());
 
@@ -542,5 +544,29 @@ LOGGER.warn(" voir si on y est dedans ");
         return resultat;
     }
 
+    public String doProfil(){
 
+        LOGGER.info("DANS LA METHODE DODETAIL");
+        System.out.println("valeur de la sesssion" +getSession().get("user").toString());
+idutilisateur=Integer.parseInt(getSession().get("id").toString());
+        //gestion des erreurs si id du topo null
+        if(idutilisateur==null){
+
+            System.out.println("--------------------- rien ");
+            //  this.addActionError(getText("error.topo.missing.id."));
+        }else
+            //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
+            //  lecteur=por.rechercherparNom(nom);
+            lecteur=por.rechercher(idutilisateur);
+        coordonnees=por.recherchercoordonnee(lecteur.getId());
+
+        {
+            // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
+            System.out.println("-------------------"+"pas d'id");
+            //  System.out.println("---------------------"+getId());
+
+        }
+        return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
+
+    };
 }

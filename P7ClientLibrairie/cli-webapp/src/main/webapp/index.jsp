@@ -58,8 +58,8 @@
 
                 <div class="card-body text-primary">
                     <h4 class="card-title">Quelques mots...</h4>
-                    <p class="card-text">Le bâtiment se compose d'un volume sur plan carr\u00e9 de 17,75 m de côt\u00e9 et d'un porche rectangulaire.</p>
-                    <p>   La courbe pyramidale de sa charpente m\u00e9tallique et de sa grande coupole de verre servent d''\u00e9'crin à la salle de lecture.</p>
+                    <p class="card-text">Le b&acirctiment se compose d'un volume sur plan carr&eacute de 17,75 m de c&ocirct&eacute et d'un porche rectangulaire.</p>
+                    <p>   La courbe pyramidale de sa charpente m&eacutetallique et de sa grande coupole de verre servent d'&eacutecrin &agrave la salle de lecture.</p>
                 </div>
             </div>
         </div>

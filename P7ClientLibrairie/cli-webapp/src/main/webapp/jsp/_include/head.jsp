@@ -23,7 +23,7 @@
 <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/superhero/bootstrap.min.css" rel="stylesheet" integrity="sha384-LS4/wo5Z/8SLpOLHs0IbuPAGOWTx30XSoZJ8o7WKH0UJhRpjXXTpODOjfVnNjeHu" crossorigin="anonymous">
 --%>
 <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/minty/bootstrap.min.css" rel="stylesheet" integrity="sha384-9NlqO4dP5KfioUGS568UFwM3lbWf3Uj3Qb7FBHuIuhLoDp3ZgAqPE1/MYLEBPZYM" crossorigin="anonymous">
- 
+<link href="css/biblio.css" rel="stylesheet">
 <div class="navbar navbar-expand-lg navbar-light bg-primary">
     <a class="navbar-brand " href="index.action">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,31 +32,45 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+
             <li class="nav-item active">
                 <s:a class="nav-link" action="nutilisateur">S'inscrire<span class="sr-only">(current)</span></s:a>
             </li>
-
             <li class="nav-item active">
-                <s:a class="nav-link" action="Login">Authentification<span class="sr-only">(current)</span></s:a>
+                <s:a class="nav-link" action="liste_ouvrage">Listes des ouvrages<span class="sr-only">(current)</span></s:a>
+            </li>
+            <li class="nav-item active">
+                <s:a class="nav-link" action="rechercherlivre">Rechercher un ouvrage<span class="sr-only">(current)</span></s:a>
             </li>
 
-          <s:if test="#session.user">
-                <li><s:a>
-                    <s:property value="#session.user.identifiant" />
-                </s:a></li>
-              <li><s:a action="DoLogout">Déconnexion</s:a></li>
-            </s:if>
-            <s:if test="#session.user.identifiant=='gold43'">
-                <li><s:a>
-                    <s:property value="#session.user.identifiant" />
+            <s:if test="%{#session.user.identifiant!=''}">
                 <li class="nav-item active">
+                    <s:a class="nav-link" action="monprofil">Mon compte<s:param name="idutilisateur" value="%{#session.user.id}"/> <span class="sr-only">(current)</span></s:a>
+                <li><s:a action="DoLogout">Déconnexion</s:a></li>
+                </li>
+            </s:if>
+            <%--<s:if test="%{#session.user.identifiant!='admin'}">
+                <li>
+                <s:a class="ami_txtfield"><s:property value="#session.user" />
+                    <li class="nav-item active">
                     <s:a class="nav-link" action="maliste">liste utilisateur<span class="sr-only">(current)</span></s:a>
                 </li>
-                </s:a></li>
+                </s:a>
                 <li><s:a action="DoLogout">Déconnexion</s:a></li>
-            </s:if>
+            </s:if>--%>
 
+            <s:if test="%{#session.user==null}">
+                <li class="nav-item active">
+                    <s:a class="nav-link" action="Login">Authentification<span class="sr-only">(current)</span></s:a>
+                </li>
+            </s:if>
+            <s:if test="#session.user">
+                <h2 class="ami_txtfield"> Bienvenue <s:property value="#session.user.identifiant"/></h2>
+            </s:if>
         </ul>
     </div>
+
+
+
 </div>
 </html>

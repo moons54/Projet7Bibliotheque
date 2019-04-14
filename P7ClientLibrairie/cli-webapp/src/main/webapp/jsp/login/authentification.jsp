@@ -11,23 +11,36 @@
 <html>
 <head>
     <title>Authentification</title>
+    <%@ include file="../_include/head.jsp"%>
 </head>
 <body>
 <a:actionerror/>
-
+<div class="container">
+    <div class="row">
+        <div class="col-xs-1 col-sm-3 col-md-3 col-lg-3"></div>
+        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6">
+            <div class="card text-center center-block ami_card">
+                <div class="header-panel primary">identification</div>
+                <div class="card-body">
+                    <s:form action="Login" class="col-lg-10 col-lg-offset-4">
+                    <div class="form-group">
+                            <%--<label for="identifiant">identifiant</label>--%>
+                        <s:textfield name="identifiant" key="Identifiant" class="form-control form-control-lg" id="identifiant" placeholder="identifiant" labelSeparator=""/>
+                    </div>
+                    <div class="form-group">
+                            <%--<s:label for="motDePasse">Mot de passe</s:label>--%>
+                        <s:password name="motDePasse" key="Mot de passe" class="form-control form-control-lg" placeholder="*********" labelSeparator=""/>
+                    </div>
+                        <s:submit value="Valider" class="btn btn-primary center-block "/></div></div>
+                </s:form>
+            </div>
+            <%--<s:if test="%{#session.user==null}">
+                <li><s:a action="nutilisateur">Inscription</s:a></li>
+            </s:if>--%>
+        </div>
+    </div>
+    <div class="col-xs-1 col-sm-3 col-md-3 col-lg-3"></div>
+</div>
+</div>
 </body>
-
-<%@ include file="../_include/head.jsp"%>
-
-
-<s:form action="Login">
-    <s:textfield name="identifiant" label="Pseudo"  />
-    <s:password name="motDePasse" label="Mot de Passe"  />
-    <s:submit />
-</s:form>
-
-<s:if test="%{#session.user==null}">
-    <li><s:a action="nutilisateur">Inscription</s:a></li>
-</s:if>
-
 </html>

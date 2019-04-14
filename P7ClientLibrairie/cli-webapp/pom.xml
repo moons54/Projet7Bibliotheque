@@ -162,46 +162,34 @@
             </plugins>
         </pluginManagement>
 
+<plugins>
+   <!-- <plugin>
+        <groupId>com.googlecode.maven-download-plugin</groupId>
+        <artifactId>download-maven-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>Download_WSDL_Ouvrage</id>
+                <goals>
+                    <goal>wget</goal>
+                </goals>
+                <phase>validate</phase>
+                <configuration>
+                    <url>http://localhost:8080/biblio_webapp_war_exploded/services/OuvrageService?wsdl</url>
+                    <outputDirectory>${basedir}/src/main/resources/wsdl</outputDirectory>
+                    <outputFileName>OuvrageService.wsdl</outputFileName>
+                </configuration>
+            </execution>
 
-        <!--  <plugin>
-             <groupId>com.googlecode.maven-download-plugin</groupId>
-             <artifactId>maven-download-plugin</artifactId>
-             <version>1.0.0</version>
-             <executions>
-                 <execution>
-                     <id>Download_WSDL_ouvrageservice</id>
-                     <goals>
-                         <goal>wget</goal>
-                     </goals>
-                     <phase>validate</phase>
-                     <configuration>
-                         <url>http://localhost:8080/biblio_webapp_war_exploded/services/OuvrageService?wsdl</url>
-                         <outputDirectory>${basedir}/target/resources/wsdl</outputDirectory>
-                         <outputFileName>OuvrageService.wsdl</outputFileName>
-                     </configuration>
-                 </execution>
-                 <execution>
-                     <id>Download_WSDL_lecteur</id>
-                     <goals>
-                         <goal>wget</goal>
-                     </goals>
-                     <phase>validate</phase>
-                     <configuration>
-                         <url>http://localhost:8080/biblio_webapp_war_exploded/services/AuthentificationService?wsdl</url>
-                         <outputDirectory>${basedir}/src/resources/wsdl</outputDirectory>
-                         <outputFileName>AuthentificationService.wsdl</outputFileName>
-                     </configuration>
-                 </execution>
              </executions>
          </plugin>-->
-        <plugins>
+
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
                 <version>${cxf.version}</version>
                 <executions>
                     <execution>
-                        <id>generate-sources</id>
+                        <id>generate-sources_Authentification</id>
                         <phase>generate-sources</phase>
                         <configuration>
                             <wsdlRoot>${basedir}/src/resources/wsdl</wsdlRoot>
@@ -218,7 +206,27 @@
                            <goal>wsdl2java</goal>
                        </goals>
                     </execution>
-                </executions>
+                    <execution>
+                        <id>generate-sources_ouvrage</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
+                            <wsdlOptions>
+                                <wsdlOption>
+<!--                                    <wsdl>${basedir}/src/main/resources/wsdl/OuvrageService.wsdl</wsdl>-->
+                                   <wsdl>http://localhost:8080/biblio_webapp_war_exploded/services/OuvrageService?wsdl</wsdl>
+                                    <extraargs>
+                                        <extraarg>-client</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+
+            </executions>
             </plugin>
         </plugins>
     </build>

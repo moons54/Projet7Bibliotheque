@@ -23,7 +23,19 @@
         <!-- Action Authentification -->
         <action name="Login" class="action.LoginAction" method="doLogin">
             <result name="input">jsp/login/authentification.jsp</result>
-            <result name="success" type="redirectAction">index</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+            </result>
+        </action>
+
+        <!-- Action affichemonprofil -->
+        <action name="monprofil" class="action.LoginAction" method="doDetail">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <!--   <result name="success">jsp/topo/detail.jsp</result> -->
+            <result>jsp/profil/profil.jsp</result>
         </action>
 
         <!-- Action Authentification -->
@@ -36,10 +48,7 @@
             <result type="redirectAction">index</result>
         </action>
 
-
-
-
-        <!-- Action "inscription" -->
+         <!-- Action "inscription" -->
         <action name="nutilisateur" class="action.LoginAction" method="doCreate">
             <result name="input">jsp/login/inscription.jsp</result>
             <result name="success" type="redirectAction">
@@ -75,7 +84,6 @@
                 <param name="operationMode">RETRIEVE</param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
-            <!--   <result name="success">jsp/topo/detail.jsp</result> -->
             <result>jsp/login/detailutilisateur.jsp</result>
         </action>
 
@@ -111,6 +119,23 @@
                 <param name="idutilisateur">${coordonnees.lecteur.id}</param>
             </result>
         </action>
+
+        <action name="liste_ouvrage"
+                class="action.OuvrageAction"
+                method="doaffiche">
+            <result name="success">jsp/ouvrage/listeouvrage.jsp</result>
+        </action>
+
+        <action name="rechercherlivre"
+                class="action.OuvrageAction"
+                method="dorecherche">
+            <result name="input">jsp/ouvrage/recherchelivre.jsp</result>
+            <result name="success">jsp/ouvrage/listeouvrage.jsp</result>
+                </action>
+
+
+
+
 
     </package>
 
