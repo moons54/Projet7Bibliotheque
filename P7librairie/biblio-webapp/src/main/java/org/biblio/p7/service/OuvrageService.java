@@ -80,7 +80,7 @@ public interface OuvrageService {
     public List<Ouvrage> ListerlesOuvrages();
 
     @WebMethod
-    public List<Ouvrage> ListerlesOuvrageparGenre(Integer Id);
+    public List<OuvrageGenre> ListerlesOuvrageparGenre(@WebParam(name = "iD") Integer id);
 
     @WebMethod
     public void ajouterOuvrage(Ouvrage ouvrage);
@@ -92,11 +92,18 @@ public interface OuvrageService {
     public void ModifierOuvrage(Ouvrage ouvrage);
 
     @WebMethod
-    public Ouvrage rechercherparOuvrage(@WebParam(name="intituleOuvrage")String intituleOuvrage);
+    public Ouvrage rechercherparOuvrage(@WebParam(name = "intituleOuvrage") String intituleOuvrage);
 
     @WebMethod
-    public Ouvrage rechercherparISBN(@WebParam(name="isbn")String isbn);
+    public Ouvrage rechercherparISBN(@WebParam(name = "isbn") String isbn);
 
 
+    @WebMethod
+    public List<Exemplaire> ListerlesExemplairesparintitule(@WebParam(name ="ouvrageid" ) Integer ouvrageid);
 
+    @WebMethod
+    public List<OuvrageGenre> multicriterouvgenre(@WebParam(name = "id") Integer id);
+
+    @WebMethod
+    public List<Ouvrage> multichoix(@WebParam(name = "id") Integer id,@WebParam(name = "nauid")Integer nauid);
 }

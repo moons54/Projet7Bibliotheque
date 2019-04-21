@@ -21,4 +21,6 @@ public interface OuvrageDao {
 
     public List<Ouvrage> Listerlesouvragepargenre(Integer id);
 
+    public List<Ouvrage> multichoix(Integer id, Integer autid);
+
 }

@@ -104,4 +104,17 @@ public class OuvrageDaoImpl extends AbstractDaoimpl implements OuvrageDao {
 
         return afficheliste;
     }
+
+    @Override
+    public List<Ouvrage> multichoix(Integer id, Integer autid){
+        String vsql = "SELECT  * from ouvrage join ouvrage_genre og on ouvrage.id = og.ouvrageid where ((genreid=? and auteurid=?) or genreid=? or ouvrageid=?)";
+
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+        OuvrageRM ouvrageRM = new OuvrageRM();
+
+        List<Ouvrage> afficheliste= vJdbcTemplate.query(vsql,ouvrageRM,id,autid,id,autid);
+
+        return afficheliste;
+    }
+
 }

@@ -136,12 +136,17 @@ managerFactory.getEditionOuvrageManager().supprimerEditionOuvrage(id);
 
     @Override
     public List<Ouvrage> ListerlesOuvrages() {
-        return managerFactory.getOuvrageManager().afficherExemplaire();
+        return //managerFactory.getOuvrageManager().
+                managerFactory.getOuvrageManager().afficherExemplaire();
     }
 
     @Override
-    public List<Ouvrage> ListerlesOuvrageparGenre(Integer Id) {
-        return managerFactory.getOuvrageManager().Listerlesouvragepargenre(Id);
+    public List<OuvrageGenre> ListerlesOuvrageparGenre(Integer id) {
+        return managerFactory.getOuvrageManager().Listerlesouvragepargenre(id);
+    }
+    @Override
+    public List<Exemplaire> ListerlesExemplairesparintitule(Integer ouvrageid) {
+        return managerFactory.getExemplaireManager().afficherlistExemplaire(ouvrageid);
     }
 
     @Override
@@ -167,5 +172,15 @@ managerFactory.getOuvrageManager().supprimerOuvrage(id);
     @Override
     public Ouvrage rechercherparISBN(String isbn) {
         return managerFactory.getOuvrageManager().rechercheparISBN(isbn);
+    }
+
+
+public List<OuvrageGenre> multicriterouvgenre(Integer id){
+        return managerFactory.getOuvrageManager().multicritpargenre(id);
+}
+
+    @Override
+    public List<Ouvrage> multichoix(Integer id,Integer nauid){
+        return managerFactory.getOuvrageManager().multichoix(id,nauid);
     }
 }

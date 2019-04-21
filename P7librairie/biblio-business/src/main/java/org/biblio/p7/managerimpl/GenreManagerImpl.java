@@ -31,4 +31,6 @@ public class GenreManagerImpl extends AbstractManagerImpl implements GenreManage
     public Genre rechercherparId(Integer iD) {
         return getDaoFactory().getGenreDao().rechercherparId(iD);
     }
+
+
 }

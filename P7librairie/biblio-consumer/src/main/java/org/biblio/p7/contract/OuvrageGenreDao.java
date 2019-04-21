@@ -18,4 +18,6 @@ public interface OuvrageGenreDao {
 
     public OuvrageGenre rechercherGenreOuvrage(Integer id);
 
+    public List<OuvrageGenre> listerlesouvragepargenre(Integer id);
+
 }

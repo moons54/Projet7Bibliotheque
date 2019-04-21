@@ -4,18 +4,21 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.struts2.dispatcher.Parameter;
 import org.biblio.p7.service.*;
 
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OuvrageAction extends ActionSupport {
 
 
-    private final Logger LOGGER=(Logger) LogManager.getLogger(OuvrageAction.class);
+    private final Logger LOGGER = (Logger) LogManager.getLogger(OuvrageAction.class);
 
 
-    OuvrageService_Service ouvrageService_service=new OuvrageService_Service();
-    OuvrageService por=ouvrageService_service.getOuvrageServicePort();
+    OuvrageService_Service ouvrageService_service = new OuvrageService_Service();
+    OuvrageService por = ouvrageService_service.getOuvrageServicePort();
 
     //Parametre en Entrée
     Integer id;
@@ -28,11 +31,13 @@ public class OuvrageAction extends ActionSupport {
     private Ouvrage ouvrage;
     private Genre genre;
     private Editeur editeur;
+    private OuvrageGenre ouvrageGenre;
     private Auteur auteur;
     private List<Ouvrage> ouvrageList;
     private List<Exemplaire> exemplaireList;
     private List<Editeur> editeurList;
     private List<Auteur> auteurList;
+    private List<OuvrageGenre> ouvrageGenreList;
 
     //GETTER AND SETTER
 
@@ -150,7 +155,23 @@ public class OuvrageAction extends ActionSupport {
         this.auteurList = auteurList;
     }
 
-    public String doaffiche(){
+    public OuvrageGenre getOuvrageGenre() {
+        return ouvrageGenre;
+    }
+
+    public void setOuvrageGenre(OuvrageGenre ouvrageGenre) {
+        this.ouvrageGenre = ouvrageGenre;
+    }
+
+    public List<OuvrageGenre> getOuvrageGenreList() {
+        return ouvrageGenreList;
+    }
+
+    public void setOuvrageGenreList(List<OuvrageGenre> ouvrageGenreList) {
+        this.ouvrageGenreList = ouvrageGenreList;
+    }
+
+    public String doafficheexemplaire() {
         LOGGER.info("dans la methode doaffiche");
 
         /*if (id==null){
@@ -158,44 +179,106 @@ public class OuvrageAction extends ActionSupport {
         }
         else
         {*/
-           exemplaireList=por.afficherExemplaire();
-       // }
-        System.out.println("-----------------------------");
-        System.out.println();
-        System.out.println();
-        System.out.println("------"+exemplaireList.toString());
+        exemplaireList = por.afficherExemplaire();
 
         return ActionSupport.SUCCESS;
+    }
+
+
+
+    public String doafficheouvrage() {
+        LOGGER.info("dans la methode doaffiche");
+
+
+        ouvrageList = por.listerlesOuvrages();
+
+
+        return ActionSupport.SUCCESS;
+    }
+
+    ;
+
+    public String dorecherche() {
+
+        String vresult = ActionSupport.INPUT;
+
+        //condition validant l'ajout de formulaire
+
+        if (this.genre != null|this.auteur !=null) {
+
+            if (this.genre.getID()== 0|this.auteur.getID()==0) {
+
+
+            } else {
+
+
+            }
+
+
+            if (!this.hasErrors()) {
+                try {
+
+                    ouvrageList=por.multichoix(this.genre.getID(),this.auteur.getID());
+
+
+
+
+                    vresult = ActionSupport.SUCCESS;
+
+                    this.addActionMessage("liste des ouvrage par genre");
+                } catch (Exception e) {
+
+                    vresult = ActionSupport.ERROR;
+                }
+
+            }
+        }
+
+
+        return vresult;
+    }
+
+    public String dorech(){
+
+        String vresult = ActionSupport.INPUT;
+
+        //condition validant l'ajout de formulaire
+
+        if (this.ouvrage !=null) {
+
+            if (this.ouvrage.getIsbn() == null) {
+                this.addFieldError(" topo.nom", "ne peut pas etre vide");
+
+            } else
+            {
+
+
+            }
+
+
+
+            if (!this.hasErrors())
+            {
+                try
+                {
+                    ouvrage=por.rechercherparISBN(ouvrage.getIsbn());
+
+                    vresult = ActionSupport.SUCCESS;
+                    this.addActionMessage("Nouveau Topo consultable et pret a l'emploi");
+                } catch (Exception e)
+                {
+
+                    vresult = ActionSupport.ERROR;
+                }
+
+            }
+        }
+
+        return vresult;
     };
 
-public String dorecherche(){
-      LOGGER.info("DANS LA METHODE DOLOGIN");
-
-    String vresult = ActionSupport.INPUT;
-
-        if (!StringUtils.isAllEmpty(ouvrage.getIntituleOuvrage(), genre.getIntituleGenre())) {
 
 
-        try {
 
 
-            exemplaireList = por.listerlesExemplairesparintitule(ouvrage.getID());
-            System.out.println("-----------------------------");
-            System.out.println();
-            System.out.println();
-            System.out.println(exemplaireList.toString());
-
-                return vresult;
-
-
-        }
-        catch(Exception e){
-            this.addActionError("mt de pass invalide");
-        }
-
-        vresult=ActionSupport.SUCCESS;
-
-    }
-        return vresult;
-}
 }

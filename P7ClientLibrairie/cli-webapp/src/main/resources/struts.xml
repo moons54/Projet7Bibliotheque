@@ -122,21 +122,55 @@
 
         <action name="liste_ouvrage"
                 class="action.OuvrageAction"
-                method="doaffiche">
+                method="doafficheouvrage">
+            <result name="success">jsp/ouvrage/listeouv.jsp</result>
+        </action>
+
+        <action name="liste_exemplaire"
+                class="action.OuvrageAction"
+                method="doafficheouvrage">
+            <result name="success">jsp/ouvrage/listeouv.jsp</result>
+        </action>
+
+
+        <action name="recherche"
+                class="action.OuvrageAction"
+                method="dorecherche">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+            <result name="input">jsp/ouvrage/recherchelivre.jsp</result>
             <result name="success">jsp/ouvrage/listeouvrage.jsp</result>
         </action>
 
-        <action name="rechercherlivre"
+        <action name="rechercheisbn"
                 class="action.OuvrageAction"
-                method="dorecherche">
+                method="dorech">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
             <result name="input">jsp/ouvrage/recherchelivre.jsp</result>
-            <result name="success">jsp/ouvrage/listeouvrage.jsp</result>
-                </action>
+            <result name="success">jsp/ouvrage/detailouvrage.jsp</result>
+        </action>
 
 
 
 
 
+        <action name="selectAction"
+                class="action.SelectAction" method="display">
+            <result name="none">jsp/ouvrage/select.jsp</result>
+        </action>
+        <action name="doubleSelectAction"
+                class="action.DoubleSelectAction" method="display">
+            <result name="none">jsp/ouvrage/doubleselect.jsp</result>
+        </action>
+
+        <action name="resultAction" class="action.DoubleSelectAction">
+            <result name="success">jsp/ouvrage/result.jsp</result>
+        </action>
     </package>
 
 </struts>

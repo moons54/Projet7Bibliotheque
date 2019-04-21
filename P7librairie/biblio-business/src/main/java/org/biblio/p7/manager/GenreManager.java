@@ -16,4 +16,6 @@ public interface GenreManager {
 
     public Genre rechercherparId(Integer iD);
 
+
+
 }

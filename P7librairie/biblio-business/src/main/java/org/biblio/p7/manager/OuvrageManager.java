@@ -1,13 +1,14 @@
 package org.biblio.p7.manager;
 
 import org.biblio.p7.bean.Ouvrage;
+import org.biblio.p7.bean.OuvrageGenre;
 
 import java.util.List;
 
 public interface OuvrageManager {
     public List<Ouvrage> afficherExemplaire();
 
-    public List<Ouvrage> Listerlesouvragepargenre(Integer Id);
+    public List<OuvrageGenre> Listerlesouvragepargenre(Integer Id);
 
     public void ajouterOuvrage(Ouvrage ouvrage);
 
@@ -20,4 +21,8 @@ public interface OuvrageManager {
     public Ouvrage rechercherparId(Integer iD);
 
     public Ouvrage rechercheparISBN(String isbn);
+
+    public List<OuvrageGenre> multicritpargenre(Integer id);
+
+    public List<Ouvrage> multichoix(Integer id,Integer nauid);
 }

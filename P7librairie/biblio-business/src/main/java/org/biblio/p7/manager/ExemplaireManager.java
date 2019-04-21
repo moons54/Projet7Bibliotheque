@@ -14,5 +14,5 @@ public interface ExemplaireManager {
 
     public void modifierExemplaire(Exemplaire exemplaire);
 
-
+    public List<Exemplaire> afficherlistExemplaire(int ouvrageid);
 }

@@ -15,5 +15,5 @@ public interface ExemplaireDao {
 
     public Exemplaire rechercherExemplaire(Integer id);
 
-
+    public List<Exemplaire> rechercherlisteExemplaire(Integer ouvid );
 }

@@ -1,8 +1,11 @@
 package org.biblio.p7.managerimpl;
 
+import org.biblio.p7.bean.Genre;
 import org.biblio.p7.bean.Ouvrage;
+import org.biblio.p7.bean.OuvrageGenre;
 import org.biblio.p7.manager.OuvrageManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OuvrageManagerImpl extends AbstractManagerImpl implements OuvrageManager {
@@ -12,8 +15,8 @@ public class OuvrageManagerImpl extends AbstractManagerImpl implements OuvrageMa
     }
 
     @Override
-    public List<Ouvrage> Listerlesouvragepargenre(Integer Id) {
-        return getDaoFactory().getOuvrageDao().Listerlesouvragepargenre(Id);
+    public List<OuvrageGenre> Listerlesouvragepargenre(Integer Id) {
+        return getDaoFactory().getOuvrageGenreDao().afficherGenreOuvrage(Id);
     }
 
     @Override
@@ -45,4 +48,17 @@ public class OuvrageManagerImpl extends AbstractManagerImpl implements OuvrageMa
     public Ouvrage rechercheparISBN(String isbn) {
         return getDaoFactory().getOuvrageDao().rechercheparISBN(isbn);
     }
+
+    public List<OuvrageGenre> multicritpargenre(Integer id){
+
+       return getDaoFactory().getOuvrageGenreDao().listerlesouvragepargenre(id);
+        };
+
+
+    public List<Ouvrage> multichoix(Integer id,Integer nauid){
+        return getDaoFactory().getOuvrageDao().multichoix(id,nauid);
+    }
 }
+
+
+

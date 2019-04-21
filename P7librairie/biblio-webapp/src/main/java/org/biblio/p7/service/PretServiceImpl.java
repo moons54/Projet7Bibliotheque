@@ -35,7 +35,6 @@ managerFactory.getEmpruntManager().ajouterunemprunt(emprunt);
     @Override
     public void modifierEmprunt(Emprunt emprunt) {
         getManagerFactory().getEmpruntManager().modifierEmprunt(emprunt);
-
     }
 
     @Override

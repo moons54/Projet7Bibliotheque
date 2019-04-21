@@ -22,7 +22,7 @@
     <table class="table table-sm table-light">
         <thead class="table-info">
         <tr>
-            <th scope="col">Référence interne</th>
+
             <th scope="col">Nom de l'ouvrage</th>
             <th scope="col">Déscription</th>
             <th scope="col">Ref ISBN</th>
@@ -31,14 +31,14 @@
         </tr>
         </thead>
         <tbody>
-    <s:iterator value="exemplaireList" >
+    <s:iterator value="ouvrageList" >
         <tr>
-           <th scope="row"><s:property value="referenceInterne"/></th>
-            <td><s:property value="ouvrage.intituleOuvrage" /></td>
-            <td class="glyphicon-font small"><s:property value="ouvrage.description"/></td>
-            <td><s:property value="ouvrage.isbn"/></td>
-            <td><s:property value="ouvrage.auteur.intituleAuteur"/></td>
-        <s:iterator value="ouvrage.editeurs">
+
+            <td><s:property value="intituleOuvrage" /></td>
+            <td class="glyphicon-font small"><s:property value="description"/></td>
+            <td><s:property value="isbn"/></td>
+            <td><s:property value="auteur.intituleAuteur"/></td>
+        <s:iterator value="editeurs">
         <td><s:property value="intituleEditeur"/></td>
         </s:iterator>
 

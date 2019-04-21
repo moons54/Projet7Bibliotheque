@@ -57,4 +57,12 @@ String vSQL="INSERT into public.exemplaire(referenceinterne) values "+
         Exemplaire exemplaire= (Exemplaire) vJdbcTemplate.queryForObject(vsql,new Object[]{id},exemplaireRM);
         return exemplaire;
     }
+
+    public List<Exemplaire> rechercherlisteExemplaire(Integer ouvid ) {
+        String vsql = "SELECT id, referenceinterne,bibliothequeid FROM public.exemplaire where ouvrageid=?";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+        ExemplaireRM exemplaireRM=new ExemplaireRM();
+        List<Exemplaire> exemplaireList=  vJdbcTemplate.query(vsql,new Object[]{ouvid},exemplaireRM);
+        return exemplaireList;
+    }
 }

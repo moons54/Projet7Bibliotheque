@@ -28,4 +28,10 @@ public class ExemplaireManagerImpl extends AbstractManagerImpl implements Exempl
         getDaoFactory().getExemplaireDao().modifierExemplaire(exemplaire);
 
     }
+
+    @Override
+    public List<Exemplaire> afficherlistExemplaire(int ouvrageid) {
+
+        return getDaoFactory().getExemplaireDao().rechercherlisteExemplaire(ouvrageid);
+    }
 }

@@ -40,7 +40,13 @@
                 <s:a class="nav-link" action="liste_ouvrage">Listes des ouvrages<span class="sr-only">(current)</span></s:a>
             </li>
             <li class="nav-item active">
-                <s:a class="nav-link" action="rechercherlivre">Rechercher un ouvrage<span class="sr-only">(current)</span></s:a>
+                <s:a class="nav-link" action="recherche">Rechercher un ouvrage<span class="sr-only">(current)</span></s:a>
+            </li>
+            <li class="nav-item active">
+                <s:a class="nav-link" action="selectAction">select<span class="sr-only">(current)</span></s:a>
+            </li>
+            <li class="nav-item active">
+                <s:a class="nav-link" action="doubleSelectAction">Double SELECT<span class="sr-only">(current)</span></s:a>
             </li>
 
             <s:if test="%{#session.user.identifiant!=''}">
