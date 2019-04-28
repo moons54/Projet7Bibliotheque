@@ -22,4 +22,10 @@ public interface EmpruntManager {
     public List<Emprunt> afficherlesempruntsparLecteur(Integer iD);
 
     public List<Emprunt> afficherleslivresdisponible();
+
+    public List<Emprunt> afficherlesempruntbyexmemplaire(Integer iD);
+
+    public Emprunt rechercherEmpruntparexp(Integer iD);
+
+    public List<Emprunt> rechercherEmpruntparisbn(String isbn);
 }

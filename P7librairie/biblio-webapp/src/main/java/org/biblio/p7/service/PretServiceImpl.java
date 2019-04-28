@@ -61,4 +61,18 @@ managerFactory.getEmpruntManager().ajouterunemprunt(emprunt);
     public List<Emprunt> afficherleslivresdisponible() {
         return getManagerFactory().getEmpruntManager().afficherleslivresdisponible();
     }
+
+    @Override
+    public List<Emprunt> afficherlesempruntbyexmemplaire(Integer iD) {
+        return getManagerFactory().getEmpruntManager().afficherlesempruntbyexmemplaire(iD);
+    }
+
+
+    public Emprunt rechercherEmpruntparexp(Integer iD){
+        return getManagerFactory().getEmpruntManager().rechercherEmpruntparexp(iD);
+    }
+
+    public List<Emprunt> rechercherEmpruntparisbn(String isbn){
+        return  getManagerFactory().getEmpruntManager().rechercherEmpruntparisbn(isbn);
+    }
 }

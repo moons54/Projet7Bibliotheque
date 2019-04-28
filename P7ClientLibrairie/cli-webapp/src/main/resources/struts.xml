@@ -155,6 +155,17 @@
             <result name="success">jsp/ouvrage/detailouvrage.jsp</result>
         </action>
 
+        <action name="detail_livre"
+                class="action.OuvrageAction"
+                method="dodetailouvrage">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <!--   <result name="success">jsp/topo/detail.jsp</result> -->
+            <result>jsp/ouvrage/detailouvrage.jsp</result>
+        </action>
+
 
 
 

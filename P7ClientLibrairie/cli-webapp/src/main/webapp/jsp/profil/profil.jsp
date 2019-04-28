@@ -16,6 +16,15 @@
 
 </head>
 <body>
+<script type="text/javascript">
+    function getDate() {
+        /* methode conv date */
+        let dateTemp = '<s:property value="%{#session.user.dateInscription}"/>';
+        var dateLocale = new Date(dateTemp).toLocaleDateString();
+        document.write(dateLocale);
+    }
+
+</script>
 <title>Mon profil</title>
 <div class="container card" style="margin-top: 10px">
     <div class="row" style="margin-top: 50px">
@@ -29,7 +38,7 @@
                     <ul class="list-group list-group-flush"><s:hidden value="#session.user.id"/>
                         <li class="list-group-item">Nom : <s:property value="#session.user.identifiant"/></li>
                         <li class="list-group-item">prénom : <s:property value="#session.user.nom"/></li>
-                        <li class="list-group-item">Date d'inscription : <s:property value="#session.user.dateInscription"/></li>
+                        <li class="list-group-item" >Date d'inscription : <script>getDate();</script></li>
                     </ul>
                 </div>
             </div>

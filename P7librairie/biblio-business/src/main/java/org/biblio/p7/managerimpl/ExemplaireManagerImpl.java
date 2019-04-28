@@ -1,5 +1,6 @@
 package org.biblio.p7.managerimpl;
 
+import org.biblio.p7.bean.Bibliotheque;
 import org.biblio.p7.bean.Exemplaire;
 import org.biblio.p7.manager.ExemplaireManager;
 
@@ -33,5 +34,15 @@ public class ExemplaireManagerImpl extends AbstractManagerImpl implements Exempl
     public List<Exemplaire> afficherlistExemplaire(int ouvrageid) {
 
         return getDaoFactory().getExemplaireDao().rechercherlisteExemplaire(ouvrageid);
+    }
+
+
+    public Bibliotheque affichebiblio(int id){
+        return getDaoFactory().getBibliothequeDao().rechercherBibliothequeparId(id);
+    }
+
+    @Override
+    public List<Bibliotheque> listerlesbibliotheques() {
+        return getDaoFactory().getBibliothequeDao().afficherBibliotheque();
     }
 }

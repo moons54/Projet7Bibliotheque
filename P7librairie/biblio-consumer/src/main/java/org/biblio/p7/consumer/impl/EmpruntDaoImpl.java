@@ -96,6 +96,16 @@ public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
     }
 
     @Override
+    public List<Emprunt> afficherlesempruntbyexmemplaire(Integer iD) {
+        String vsql = "SELECT * FROM public.emprunt where exemplaireid=?";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+
+        EmpruntRM empruntRM = new EmpruntRM();
+        List<Emprunt> afficheliste = vJdbcTemplate.query(vsql,new Object[]{iD}, empruntRM);
+        return afficheliste;
+    }
+
+    @Override
     public List<Emprunt> afficherleslivresdisponible() {
         String vsql = "SELECT * FROM public.emprunt where situation_empruntid=2";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
@@ -112,5 +122,26 @@ public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
         SituationEmpruntRM situationEmpruntRM = new SituationEmpruntRM();
         SituationDemprunt situationDemprunt = (SituationDemprunt)vJdbcTemplate.queryForObject(vsql, new Object[]{id},situationEmpruntRM);
         return situationDemprunt;
+    }
+
+    public Emprunt rechercherEmpruntparexp(Integer iD) {
+        String vsql = "SELECT * FROM public.emprunt where exemplaireid=?";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+
+        EmpruntRM empruntRM=new EmpruntRM();
+        Emprunt emprunt= (Emprunt)vJdbcTemplate.queryForObject(vsql,new Object[]{iD},empruntRM);
+
+        return emprunt;
+    }
+
+    public List<Emprunt> rechercherEmpruntparisbn(String isbn) {
+         String vsql = "SELECT DISTINCT public.emprunt.situation_empruntid  FROM public.emprunt join exemplaire e on emprunt.exemplaireid = e.id join ouvrage o on e.ouvrageid = o.id where num_isbn ='9782290170267' and situation_empruntid=1";
+          //  String vsql = "select count(DISTINCT public.emprunt.exemplaireid) from public.emprunt join exemplaire e on emprunt.exemplaireid = e.id join ouvrage o on e.ouvrageid = o.id where num_isbn='9782290170267'";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+
+        EmpruntRM empruntRM=new EmpruntRM();
+       List <Emprunt> affichelist= vJdbcTemplate.query(vsql,new Object[]{isbn},empruntRM);
+
+        return affichelist;
     }
 }

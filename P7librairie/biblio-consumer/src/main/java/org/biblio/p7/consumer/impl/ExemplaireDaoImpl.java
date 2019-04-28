@@ -13,7 +13,7 @@ import java.util.List;
 public class ExemplaireDaoImpl extends AbstractDaoimpl implements ExemplaireDao {
     @Override
     public List<Exemplaire> afficherExemplaire() {
-        String vsql = "SELECT id, referenceinterne, ouvrageid,bibliothequeid FROM public.exemplaire ";
+        String vsql = "SELECT id, referenceinterne,status, ouvrageid,bibliothequeid FROM public.exemplaire ";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
         ExemplaireRM exemplaireRM=new ExemplaireRM();
          List<Exemplaire> afficheliste= vJdbcTemplate.query(vsql,exemplaireRM);
@@ -51,7 +51,7 @@ String vSQL="INSERT into public.exemplaire(referenceinterne) values "+
     }
 
     public Exemplaire rechercherExemplaire(Integer id) {
-        String vsql = "SELECT id, referenceinterne, ouvrageid,bibliothequeid FROM public.exemplaire where id=?";
+        String vsql = "SELECT id, referenceinterne,status, ouvrageid,bibliothequeid FROM public.exemplaire where id=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
         ExemplaireRM exemplaireRM=new ExemplaireRM();
         Exemplaire exemplaire= (Exemplaire) vJdbcTemplate.queryForObject(vsql,new Object[]{id},exemplaireRM);
@@ -59,7 +59,7 @@ String vSQL="INSERT into public.exemplaire(referenceinterne) values "+
     }
 
     public List<Exemplaire> rechercherlisteExemplaire(Integer ouvid ) {
-        String vsql = "SELECT id, referenceinterne,bibliothequeid FROM public.exemplaire where ouvrageid=?";
+        String vsql = "SELECT * FROM public.exemplaire where ouvrageid=? and (status is null or status='1')";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
         ExemplaireRM exemplaireRM=new ExemplaireRM();
         List<Exemplaire> exemplaireList=  vJdbcTemplate.query(vsql,new Object[]{ouvid},exemplaireRM);

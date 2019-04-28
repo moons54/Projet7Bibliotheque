@@ -175,12 +175,23 @@ managerFactory.getOuvrageManager().supprimerOuvrage(id);
     }
 
 
-public List<OuvrageGenre> multicriterouvgenre(Integer id){
+    @Override
+    public List<OuvrageGenre> multicriterouvgenre(Integer id){
         return managerFactory.getOuvrageManager().multicritpargenre(id);
 }
 
     @Override
     public List<Ouvrage> multichoix(Integer id,Integer nauid){
         return managerFactory.getOuvrageManager().multichoix(id,nauid);
+    }
+
+    @Override
+    public Bibliotheque affichebiblio(int id){
+        return  managerFactory.getExemplaireManager().affichebiblio(id);
+    }
+
+    @Override
+    public List<Bibliotheque> listerlesbibliotheques(){
+        return managerFactory.getExemplaireManager().listerlesbibliotheques();
     }
 }

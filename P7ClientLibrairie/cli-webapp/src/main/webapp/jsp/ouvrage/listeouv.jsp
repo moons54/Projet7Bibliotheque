@@ -17,31 +17,36 @@
 </head>
 <body>
 
-<div class="container card" style="margin-top: 10px">
 
-    <table class="table table-sm table-light">
+
+    <table class="table table-sm table-striped" style="margin-top: 10px">
         <thead class="table-info">
         <tr>
-            <th scope="col">Référence interne</th>
+
             <th scope="col">Nom de l'ouvrage</th>
-            <th scope="col">Déscription</th>
             <th scope="col">Ref ISBN</th>
             <th scope="col">Auteur</th>
             <th scope="col">Editeur</th>
+            <th scope="col"></th>
+
         </tr>
         </thead>
         <tbody>
         <s:iterator value="ouvrageList" >
             <tr>
-                <th scope="row"></th>
-                <td><s:property value="intituleOuvrage" /></td>
-                <td class="glyphicon-font small"><s:property value="description"/></td>
+<%--                <th scope="row"></th>--%>
+                <td class="h4"><s:property value="intituleOuvrage" />
                 <td><s:property value="isbn"/></td>
                 <td><s:property value="auteur.intituleAuteur"/></td>
                 <s:iterator value="editeurs">
                     <td><s:property value="intituleEditeur"/></td>
                 </s:iterator>
-
+                    <td>
+                        <s:a action="detail_livre">
+                            <s:param name="numISBN" value="isbn"/>
+                            <u>detail</u>
+                        </s:a>
+                    </td>
             </tr>
         </s:iterator>
 
@@ -51,7 +56,7 @@
 
 
 
-</div>
+
 
 </body>
 

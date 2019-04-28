@@ -6,6 +6,7 @@ public class Exemplaire {
 	private int iD;
 	private String referenceInterne;
 	private Ouvrage ouvrage;
+	private String status;
 	//public ArrayList<Emprunt> unnamed_Emprunt_ = new ArrayList<Emprunt>();
 
 	private Bibliotheque bibliotheque;
@@ -49,19 +50,31 @@ public class Exemplaire {
 		this.bibliotheque = bibliotheque;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+	public void setOuvrage(Ouvrage ouvrage) {
+		this.ouvrage = ouvrage;
+
+
+	}
+
+
 	@Override
 	public String toString() {
 		return "Exemplaire{" +
 				"iD=" + iD +
 				", referenceInterne='" + referenceInterne + '\'' +
 				", ouvrage=" + ouvrage +
+				", status='" + status + '\'' +
 				", bibliotheque=" + bibliotheque +
 				'}';
-	}
-
-	public void setOuvrage(Ouvrage ouvrage) {
-		this.ouvrage = ouvrage;
-
-
 	}
 }

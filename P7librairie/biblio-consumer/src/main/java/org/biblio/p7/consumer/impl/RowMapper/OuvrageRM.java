@@ -24,13 +24,8 @@ public class OuvrageRM implements RowMapper<Ouvrage> {
 
        OuvrageGenreDaoImpl ouvrageGenreDao=new OuvrageGenreDaoImpl();
         GenreDaoImpl genreDao=new GenreDaoImpl();
-       // ouvrage.setOuvrageGenres(ouvrageGenre);
-   //  ouvrage.setOuvrageGenres(ouvrageGenreDao.afficherGenreOuvrage(rs.getInt("id")));
-        ouvrage.setGenres(genreDao.RechercherOuvrageparGenre(rs.getInt("id")));
-    //    EditionOuvrageDaoImpl editionOuvrageDao=new EditionOuvrageDaoImpl();
-     //  ouvrage.setEditionOuvrages(editionOuvrageDao.afficherEditionOuvrageparouvrage(rs.getInt("id")));
 
-       // ouvrage.setOuvrageGenres(ouvrageGenreDao.afficherGenreOuvrage(rs.getInt("ouvrageid")));
+        ouvrage.setGenres(genreDao.RechercherOuvrageparGenre(rs.getInt("id")));
 
         EditeurDaoImpl editeurDao=new EditeurDaoImpl();
 

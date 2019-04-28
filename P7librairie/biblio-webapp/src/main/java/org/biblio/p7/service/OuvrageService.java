@@ -106,4 +106,11 @@ public interface OuvrageService {
 
     @WebMethod
     public List<Ouvrage> multichoix(@WebParam(name = "id") Integer id,@WebParam(name = "nauid")Integer nauid);
+
+    @WebMethod
+    public Bibliotheque affichebiblio(@WebParam(name = "id") int id);
+
+    @WebMethod
+    public List<Bibliotheque> listerlesbibliotheques();
+
 }

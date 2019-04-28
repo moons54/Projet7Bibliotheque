@@ -50,4 +50,19 @@ getDaoFactory().getEmpruntDao().modifierEmprunt(emprunt);
     public List<Emprunt> afficherleslivresdisponible() {
         return getDaoFactory().getEmpruntDao().afficherleslivresdisponible();
     }
+
+    @Override
+    public List<Emprunt> afficherlesempruntbyexmemplaire(Integer iD) {
+        return getDaoFactory().getEmpruntDao().afficherlesempruntbyexmemplaire(iD);
+    }
+
+    @Override
+    public Emprunt rechercherEmpruntparexp(Integer iD){
+        return  getDaoFactory().getEmpruntDao().rechercherEmpruntparexp(iD);
+    }
+
+    @Override
+    public List<Emprunt> rechercherEmpruntparisbn(String isbn){
+        return getDaoFactory().getEmpruntDao().rechercherEmpruntparisbn(isbn);
+    }
 }

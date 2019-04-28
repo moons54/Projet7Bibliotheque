@@ -19,6 +19,12 @@ public class OuvrageAction extends ActionSupport {
 
     OuvrageService_Service ouvrageService_service = new OuvrageService_Service();
     OuvrageService por = ouvrageService_service.getOuvrageServicePort();
+    PretServiceService pretService=new PretServiceService();
+    PretService por2=pretService.getPretServicePort();
+
+
+
+
 
     //Parametre en Entrée
     Integer id;
@@ -31,13 +37,18 @@ public class OuvrageAction extends ActionSupport {
     private Ouvrage ouvrage;
     private Genre genre;
     private Editeur editeur;
+    private Exemplaire exemplaire;
     private OuvrageGenre ouvrageGenre;
     private Auteur auteur;
+    private Bibliotheque bibliotheque;
+    private List<Bibliotheque> bibliothequeList;
     private List<Ouvrage> ouvrageList;
     private List<Exemplaire> exemplaireList;
     private List<Editeur> editeurList;
     private List<Auteur> auteurList;
     private List<OuvrageGenre> ouvrageGenreList;
+    List<Emprunt> empruntList;
+
 
     //GETTER AND SETTER
 
@@ -171,6 +182,39 @@ public class OuvrageAction extends ActionSupport {
         this.ouvrageGenreList = ouvrageGenreList;
     }
 
+
+    public List<Emprunt> getEmpruntList() {
+        return empruntList;
+    }
+
+    public void setEmpruntList(List<Emprunt> empruntList) {
+        this.empruntList = empruntList;
+    }
+
+    public Exemplaire getExemplaire() {
+        return exemplaire;
+    }
+
+    public void setExemplaire(Exemplaire exemplaire) {
+        this.exemplaire = exemplaire;
+    }
+
+    public Bibliotheque getBibliotheque() {
+        return bibliotheque;
+    }
+
+    public void setBibliotheque(Bibliotheque bibliotheque) {
+        this.bibliotheque = bibliotheque;
+    }
+
+    public List<Bibliotheque> getBibliothequeList() {
+        return bibliothequeList;
+    }
+
+    public void setBibliothequeList(List<Bibliotheque> bibliothequeList) {
+        this.bibliothequeList = bibliothequeList;
+    }
+
     public String doafficheexemplaire() {
         LOGGER.info("dans la methode doaffiche");
 
@@ -179,8 +223,15 @@ public class OuvrageAction extends ActionSupport {
         }
         else
         {*/
-        exemplaireList = por.afficherExemplaire();
+        exemplaireList = por.listerlesExemplairesparintitule(id);
 
+        return ActionSupport.SUCCESS;
+    }
+
+    public String dodetailouvrage(){
+
+        ouvrage =por.rechercherparISBN(numISBN);
+        exemplaireList=por.listerlesExemplairesparintitule(ouvrage.getID());
         return ActionSupport.SUCCESS;
     }
 
@@ -262,9 +313,19 @@ public class OuvrageAction extends ActionSupport {
                 try
                 {
                     ouvrage=por.rechercherparISBN(ouvrage.getIsbn());
+                    exemplaireList=por.listerlesExemplairesparintitule(ouvrage.getID());
+                    bibliothequeList=por.listerlesbibliotheques();
+
+                  // empruntList=por2.rechercherEmpruntparisbn(ouvrage.getIsbn());
+
+
+
+                           // empruntList.add(emprunt.setExemplaire(exemplaire));
+
+                       // System.out.println("tqilll de empruntlist -----------------///GFDDF"+empruntList.size());
 
                     vresult = ActionSupport.SUCCESS;
-                    this.addActionMessage("Nouveau Topo consultable et pret a l'emploi");
+                    this.addActionMessage(" emprunt consultable");
                 } catch (Exception e)
                 {
 

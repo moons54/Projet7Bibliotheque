@@ -34,4 +34,13 @@ public interface PretService {
 
     @WebMethod
     public List<Emprunt> afficherleslivresdisponible();
+
+    @WebMethod
+    public List<Emprunt> afficherlesempruntbyexmemplaire(@WebParam(name = "iD")Integer iD);
+
+    @WebMethod
+    public Emprunt rechercherEmpruntparexp(@WebParam(name = "iD") Integer iD);
+
+    @WebMethod
+    public List<Emprunt> rechercherEmpruntparisbn(@WebParam(name = "isbn") String isbn);
 }
