@@ -17,7 +17,7 @@
 <body>
 <link href="css/detailOuvrage.css" rel="stylesheet">
     <div class="container-fluid">
-        <title>Détail d'un ouvrage</title>
+        <title>Détail de votre emprunt</title>
         <div class="row ami_card">
             <div class="col-sm-4">
                 <div class="card header">
@@ -57,28 +57,23 @@
             </div>
         </div>
         <div class="container-fluid bibliomarge">
-            <li class="list-group-item alert-primary">Exemplaires Disponibles</li>
-            <div class="row">
-                <s:iterator value="bibliothequeList">
-                    <div class="card col-md alert-secondary bibliotheque">
+            <li class="list-group-item alert-primary">Demande de prolongation d'emprunt réference interne : <s:property value="exemplaire.referenceInterne"/></li>
 
-                       <s:property value="intituleBibliotheque"/>
+<div class="card container-fluid">
+    <div class="card-body">
+        <h3>vous avez la possibilité de prolonger votre emprunt une fois pendant XXX jr</h3>
+<s:form action="ncoordonnees" class="col-lg-12">
+<s:hidden name="id"/>
+    <s:property value="numemprunt"/>
+    <s:property value="renouvellement"/>
+    <s:property value="id"/>
+    <s:property value="exemplaire.ouvrage.description"/>
+        Je demande le renouvellement :
+    <s:textfield name="emprunt.renouvellement" class="form-control" label="renouvellement" requiredLabel="true" labelSeparator="" labelposition="top" ></s:textfield>
 
-                        <div class="container-fluid">
-                            <s:iterator value="exemplaireList">
-                                <s:if test="%{intituleBibliotheque==bibliotheque.intituleBibliotheque}">
-                                    <li> Ouvrage Référence : <strong><s:property value="referenceInterne"/></strong>
-                                        <s:a action="nreservation">
-                                            <s:param name="id" value="ID"/>
-                                            <s:param name="idutilisateur" value="#session.user.id"/>
-                                            <u>reserver</u>
-                                        </s:a>
-                                    </li>
-                                </s:if>
-                            </s:iterator>
-                        </div>
-                    </div>
-                </s:iterator>
+    <s:submit value="Valider"/>
+</s:form>
+    </div>
             </div>
         </div>
     </div>

@@ -20,4 +20,6 @@ public interface ExemplaireManager {
     public Bibliotheque affichebiblio(int id);
 
     public List<Bibliotheque> listerlesbibliotheques();
+
+    public Exemplaire afficherexemplairebyID(Integer id);
 }

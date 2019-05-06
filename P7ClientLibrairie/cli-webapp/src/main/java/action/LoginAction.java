@@ -28,6 +28,13 @@ LoginAction extends ActionSupport implements SessionAware {
     AuthentificationService_Service authentificationService_service=new AuthentificationService_Service();
     AuthentificationService por=authentificationService_service.getAuthentificationServicePort();
 
+    OuvrageService_Service ouvrageService_service=new OuvrageService_Service();
+    OuvrageService por2=ouvrageService_service.getOuvrageServicePort();
+
+    PretService_Service pretServicePort_client=new PretService_Service();
+    PretService por3=pretServicePort_client.getPretServicePort();
+
+
     //param en Entrée
     Integer id;
     String identifiant;
@@ -51,7 +58,16 @@ LoginAction extends ActionSupport implements SessionAware {
     static Map<String, Object> session;
     private List<Lecteur> lecteurs;
     private Lecteur lecteur;
+    private Genre genre;
+    private Editeur editeur;
     private Coordonnees coordonnees;
+    private Ouvrage ouvrage;
+    private Exemplaire exemplaire;
+    private Emprunt emprunt;
+    private List<Ouvrage> ouvrageList;
+    private List<Exemplaire> exemplaireList;
+    private List<Emprunt> empruntList;
+    private List<Emprunt> empruntencours;
 
 
     //GETTER AND SETTER
@@ -220,45 +236,100 @@ LoginAction extends ActionSupport implements SessionAware {
         this.coordonnees = coordonnees;
     }
 
-    //METHODE
+    public Ouvrage getOuvrage() {
+        return ouvrage;
+    }
+
+    public void setOuvrage(Ouvrage ouvrage) {
+        this.ouvrage = ouvrage;
+    }
+
+    public Exemplaire getExemplaire() {
+        return exemplaire;
+    }
+
+    public void setExemplaire(Exemplaire exemplaire) {
+        this.exemplaire = exemplaire;
+    }
+
+    public Emprunt getEmprunt() {
+        return emprunt;
+    }
+
+    public void setEmprunt(Emprunt emprunt) {
+        this.emprunt = emprunt;
+    }
+
+    public List<Ouvrage> getOuvrageList() {
+        return ouvrageList;
+    }
+
+    public void setOuvrageList(List<Ouvrage> ouvrageList) {
+        this.ouvrageList = ouvrageList;
+    }
+
+    public List<Exemplaire> getExemplaireList() {
+        return exemplaireList;
+    }
+
+    public void setExemplaireList(List<Exemplaire> exemplaireList) {
+        this.exemplaireList = exemplaireList;
+    }
+
+    public List<Emprunt> getEmpruntList() {
+        return empruntList;
+    }
+
+    public void setEmpruntList(List<Emprunt> empruntList) {
+        this.empruntList = empruntList;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Editeur getEditeur() {
+        return editeur;
+    }
+
+    public void setEditeur(Editeur editeur) {
+        this.editeur = editeur;
+    }
+
+    public List<Emprunt> getEmpruntencours() {
+        return empruntencours;
+    }
+
+    public void setEmpruntencours(List<Emprunt> empruntencours) {
+        this.empruntencours = empruntencours;
+    }
+//METHODE
 
 
     //Authentification de l'utilisateur
     public String doLogin() {
        LOGGER.info("DANS LA METHODE DOLOGIN");
-
-        String vresult = ActionSupport.INPUT;
+       String vresult = ActionSupport.INPUT;
 
         if (!StringUtils.isAllEmpty(identifiant, motDePasse)) {
-
-            System.out.println("je suis dans la condition " + identifiant + "et le mot de passe " + motDePasse);
-
             try {
-
-
-
-                System.out.println();
-                System.out.println("voir l'encodage--------------------------------------------------------------------- "+motDePasse.toString());
-
                 lecteur = por.controlerLecteur(identifiant, motDePasse);
-
-                if (lecteur != null) {
-
-                    System.out.println("---------------------------"+"identifié comme "+ identifiant.toString());
-                    this.session.put("user", lecteur);
-                    this.session.put("id",lecteur.getId());
-
-                    return vresult;
-                }
+                System.out.println("---------------------------"+"identifié comme "+ identifiant.toString());
+                        /*this.session.put("user", lecteur);
+                        this.session.put("id",lecteur.getId());*/
 
             }
             catch(Exception e){
                 this.addActionError("mt de pass invalide");
             }
-//            System.out.println("----le lecteur---"+lecteur+"---------------------val de lecteur"+lecteur.getIdentifiant()+ "----------"+lecteur.getMotDePasse());
-            //   this.session.put("user",lecteur);
-            vresult=ActionSupport.SUCCESS;
 
+            this.session.put("user", lecteur);
+            this.session.put("id",lecteur.getId());
+            vresult=ActionSupport.SUCCESS;
         }
         return vresult;
     }
@@ -344,9 +415,10 @@ LoginAction extends ActionSupport implements SessionAware {
             //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
           //  lecteur=por.rechercherparNom(nom);
 
-      lecteur=por.rechercher(idutilisateur);
+      lecteur=por.rechercher(Integer.parseInt(this.getSession().get("id").toString()));
         coordonnees=por.recherchercoordonnee(lecteur.getId());
-
+empruntList=por3.afficherlesempruntsparLecteur(lecteur.getId());
+empruntencours=por3.afficherlesempruntsparLecteurencours(lecteur.getId());
         {
             // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
             System.out.println("-------------------"+"pas d'id");
@@ -362,9 +434,7 @@ LoginAction extends ActionSupport implements SessionAware {
 
 Coordonnees coordonnees=new Coordonnees();
 System.out.println();
-        System.out.println("--------------------------------val de lectid---------------"+idutilisateur);
-//        System.out.println("valeur de iduti"+idutilisateur+"lecteur id"+lecteur.getID());
-        String vresult = ActionSupport.INPUT;
+       String vresult = ActionSupport.INPUT;
 
         //condition validant l'ajout de formulaire
 
@@ -424,10 +494,9 @@ System.out.println();
             //  lecteur=por.rechercherparNom(nom);
             lecteur=por.rechercherparNom(this.nom);
 
+
         {
-            // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
-            System.out.println("-------------------"+"pas de nom");
-            //  System.out.println("---------------------"+getId());
+            this.addActionError("il n'y a pas de projet pour ce numéro " );
 
         }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
@@ -510,7 +579,6 @@ LOGGER.warn(" voir si on y est dedans ");
                 try {
 
                     Coordonnees tmputil = por.recherchercoordonnee(coordonnees.getLecteur().getId());
-                    //managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getiD());
                     tmputil.setRue(coordonnees.getRue());
                     tmputil.setEmail(coordonnees.getEmail());
                     tmputil.setCodePostal(coordonnees.getCodePostal());
@@ -554,16 +622,21 @@ idutilisateur=Integer.parseInt(getSession().get("id").toString());
 
             System.out.println("--------------------- rien ");
             //  this.addActionError(getText("error.topo.missing.id."));
-        }else
+        }else{
             //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
             //  lecteur=por.rechercherparNom(nom);
             lecteur=por.rechercher(idutilisateur);
         coordonnees=por.recherchercoordonnee(lecteur.getId());
+       empruntList=por3.afficherlesemprunts();
+       LOGGER.trace("je suis la "+empruntList.size()+"et la ");
+        System.out.println("taille de emprun list ------------------------gtggttrg---" +empruntList.size());}
 
         {
+           //  empruntList=por3.afficherlesemprunts();
             // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
-            System.out.println("-------------------"+"pas d'id");
+            System.out.println("----------"+empruntList+"---------"+"pas d'i"+" et ici");
             //  System.out.println("---------------------"+getId());
+
 
         }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;

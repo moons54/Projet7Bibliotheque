@@ -3,6 +3,7 @@ package org.biblio.p7.managerimpl;
 import org.biblio.p7.bean.Emprunt;
 import org.biblio.p7.manager.EmpruntManager;
 
+import java.util.Date;
 import java.util.List;
 
 public class EmpruntManagerImpl extends AbstractManagerImpl implements EmpruntManager {
@@ -13,6 +14,12 @@ public class EmpruntManagerImpl extends AbstractManagerImpl implements EmpruntMa
 
     @Override
     public void ajouterunemprunt(Emprunt emprunt) {
+        emprunt.setDateDebut(new Date());
+        emprunt.setDateFin(new Date());
+        emprunt.setDateRetourEffectif(new Date());
+        emprunt.setRenouvellement(true);
+
+      //  emprunt.setSituationEmprunt(getDaoFactory().getEmpruntDao().recherchersituationdemprunt(1));
 getDaoFactory().getEmpruntDao().ajouterunemprunt(emprunt);
     }
 
@@ -64,5 +71,13 @@ getDaoFactory().getEmpruntDao().modifierEmprunt(emprunt);
     @Override
     public List<Emprunt> rechercherEmpruntparisbn(String isbn){
         return getDaoFactory().getEmpruntDao().rechercherEmpruntparisbn(isbn);
+    }
+    @Override
+    public List<Emprunt> afficherlesempruntsparLecteurencours(Integer iD){
+        return getDaoFactory().getEmpruntDao().afficherlesempruntsparLecteurencours(iD);
+    }
+
+    public Emprunt addemprunt(Emprunt emprunt){
+        return getDaoFactory().getEmpruntDao().addemprunt(emprunt);
     }
 }

@@ -19,7 +19,7 @@ public class OuvrageAction extends ActionSupport {
 
     OuvrageService_Service ouvrageService_service = new OuvrageService_Service();
     OuvrageService por = ouvrageService_service.getOuvrageServicePort();
-    PretServiceService pretService=new PretServiceService();
+    PretService_Service pretService=new PretService_Service();
     PretService por2=pretService.getPretServicePort();
 
 
@@ -33,6 +33,7 @@ public class OuvrageAction extends ActionSupport {
     String photo;
     String numISBN;
     String referenceInterne;
+    Integer numemprunt;
 
     private Ouvrage ouvrage;
     private Genre genre;
@@ -40,6 +41,7 @@ public class OuvrageAction extends ActionSupport {
     private Exemplaire exemplaire;
     private OuvrageGenre ouvrageGenre;
     private Auteur auteur;
+    private Emprunt emprunt;
     private Bibliotheque bibliotheque;
     private List<Bibliotheque> bibliothequeList;
     private List<Ouvrage> ouvrageList;
@@ -52,6 +54,14 @@ public class OuvrageAction extends ActionSupport {
 
     //GETTER AND SETTER
 
+
+    public Integer getNumemprunt() {
+        return numemprunt;
+    }
+
+    public void setNumemprunt(Integer numemprunt) {
+        this.numemprunt = numemprunt;
+    }
 
     public Integer getId() {
         return id;
@@ -149,6 +159,13 @@ public class OuvrageAction extends ActionSupport {
         this.referenceInterne = referenceInterne;
     }
 
+    public Emprunt getEmprunt() {
+        return emprunt;
+    }
+
+    public void setEmprunt(Emprunt emprunt) {
+        this.emprunt = emprunt;
+    }
 
     public List<Editeur> getEditeurList() {
         return editeurList;
@@ -232,7 +249,18 @@ public class OuvrageAction extends ActionSupport {
 
         ouvrage =por.rechercherparISBN(numISBN);
         exemplaireList=por.listerlesExemplairesparintitule(ouvrage.getID());
+        bibliothequeList=por.listerlesbibliotheques();
+
         return ActionSupport.SUCCESS;
+    }
+
+    public String dodetailExmplaire(){
+
+      ouvrage=por.rechercherparISBN(numISBN);
+        exemplaire=por.afficherexemplairebyID(id);
+      bibliothequeList=por.listerlesbibliotheques();
+
+      return ActionSupport.SUCCESS;
     }
 
 

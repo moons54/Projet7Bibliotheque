@@ -32,4 +32,8 @@ public interface EmpruntDao {
 
     public List<Emprunt> rechercherEmpruntparisbn(String isbn);
 
+    public List<Emprunt> afficherlesempruntsparLecteurencours(Integer iD);
+
+    public Emprunt addemprunt(Emprunt emprunt);
+
 }

@@ -194,4 +194,8 @@ managerFactory.getOuvrageManager().supprimerOuvrage(id);
     public List<Bibliotheque> listerlesbibliotheques(){
         return managerFactory.getExemplaireManager().listerlesbibliotheques();
     }
+
+    public Exemplaire afficherexemplairebyID(Integer id){
+        return managerFactory.getExemplaireManager().afficherexemplairebyID(id);
+    }
 }

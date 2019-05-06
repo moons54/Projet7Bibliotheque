@@ -8,10 +8,10 @@
     <package name="default" extends="struts-default">
 
         <!-- Action par défaut -->
-        <default-action-ref name="index" />
+      <!--  <default-action-ref name="index" />
         <global-results>
             <result name="error">/jsp/error.jsp</result>
-        </global-results>
+        </global-results>-->
 
         <!-- Action d'index -->
         <action name="index">
@@ -26,6 +26,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">index</param>
             </result>
+
         </action>
 
         <!-- Action affichemonprofil -->
@@ -166,6 +167,15 @@
             <result>jsp/ouvrage/detailouvrage.jsp</result>
         </action>
 
+        <action name="detail_exemplaire"
+                class="action.OuvrageAction"
+                method="dodetailExmplaire">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result>jsp/ouvrage/detailexemplaire.jsp</result>
+        </action>
 
 
 
@@ -181,6 +191,27 @@
 
         <action name="resultAction" class="action.DoubleSelectAction">
             <result name="success">jsp/ouvrage/result.jsp</result>
+        </action>
+
+
+        <action name="emprunt_mod"
+                class="action.EmpruntAction"
+                method="domodif">
+
+            <result name="input">jsp/ouvrage/detailexemplaire.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">monprofil</param>
+                <param name="idutilisateur">${#user.id}</param>
+            </result>
+        </action>
+
+        <!-- Action "inscription" -->
+        <action name="nreservation" class="action.EmpruntAction" method="doemprunt">
+            <result name="input">jsp/login/reservation.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">monprofil</param>
+                <param name="idutilisateur">${#session.user.id}</param>
+            </result>
         </action>
     </package>
 

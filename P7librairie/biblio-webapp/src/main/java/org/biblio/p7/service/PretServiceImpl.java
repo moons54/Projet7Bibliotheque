@@ -75,4 +75,12 @@ managerFactory.getEmpruntManager().ajouterunemprunt(emprunt);
     public List<Emprunt> rechercherEmpruntparisbn(String isbn){
         return  getManagerFactory().getEmpruntManager().rechercherEmpruntparisbn(isbn);
     }
+
+    public List<Emprunt> afficherlesempruntsparLecteurencours(Integer iD){
+        return getManagerFactory().getEmpruntManager().afficherlesempruntsparLecteurencours(iD);
+    }
+
+    public Emprunt addemprunt(Emprunt emprunt){
+        return getManagerFactory().getEmpruntManager().addemprunt(emprunt);
+    }
 }

@@ -7,12 +7,27 @@ import org.biblio.p7.consumer.impl.RowMapper.SituationEmpruntRM;
 import org.biblio.p7.contract.EmpruntDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
+
+
+    public static Date ajouterJour(Date date, int nbJour) {
+        Calendar cal = Calendar.getInstance();
+        //cal.setTime(date.getTime();
+        cal.add(Calendar.DAY_OF_MONTH, nbJour);
+        return cal.getTime();
+    }
+
+
+
     @Override
     public List<Emprunt> afficherlesemprunts() {
         String vsql = "SELECT * FROM public.emprunt ";
@@ -26,11 +41,29 @@ public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
     @Override
     public void ajouterunemprunt(Emprunt emprunt) {
         String vSQL="INSERT into public.emprunt(date_debut, date_fin, date_retour_effectif, renouvellement, situation_empruntid, exemplaireid, lecteurid) VALUES "+
-                "(:dateDebut,:dateFin,:dateRetourEffectif,:renouvellement,:situationEmprunt,:exemplaire,:lecteur)";
+                "(:dateDebut,:dateFin,:dateRetourEffectif,1,1,:exemplaire,1)";
         SqlParameterSource vParams=new BeanPropertySqlParameterSource(emprunt);
+
         NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
         vJdbcTemplate.update(vSQL,vParams);
 
+    }
+    @Override
+    public Emprunt addemprunt(Emprunt emprunt) {
+        String vSQL="INSERT into public.emprunt(date_debut, date_fin, date_retour_effectif, renouvellement,situation_empruntid, exemplaireid, lecteurid) VALUES "+
+                "(:dateDebut,:dateFin,:dateRetourEffectif,:renouvellement,:situationEmprunt,:exemplaire,:lecteur)";
+//        SqlParameterSource vParams=new BeanPropertySqlParameterSource(emprunt);
+        SqlParameterSource vParams=new MapSqlParameterSource()
+                .addValue("dateDebut",new Date())
+                .addValue("dateFin",ajouterJour(new Date(),40))
+                .addValue("dateRetourEffectif",ajouterJour(new Date(),40))
+                .addValue("renouvellement",1)
+                .addValue("situationEmprunt",2)
+                .addValue("exemplaire", emprunt.getExemplaire().getiD())
+                .addValue("lecteur",emprunt.getLecteur().getId());
+        NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
+        vJdbcTemplate.update(vSQL,vParams);
+return emprunt;
     }
 
     @Override
@@ -91,7 +124,17 @@ public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 
         EmpruntRM empruntRM = new EmpruntRM();
-        List<Emprunt> afficheliste = vJdbcTemplate.query(vsql, empruntRM);
+        List<Emprunt> afficheliste = vJdbcTemplate.query(vsql,new Object[]{iD}, empruntRM);
+        return afficheliste;
+    }
+
+    @Override
+    public List<Emprunt> afficherlesempruntsparLecteurencours(Integer iD) {
+        String vsql = "SELECT * FROM public.emprunt where lecteurid=? and situation_empruntid!=1";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+
+        EmpruntRM empruntRM = new EmpruntRM();
+        List<Emprunt> afficheliste = vJdbcTemplate.query(vsql,new Object[]{iD}, empruntRM);
         return afficheliste;
     }
 

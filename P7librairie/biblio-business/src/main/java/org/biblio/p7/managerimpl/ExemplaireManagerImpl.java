@@ -45,4 +45,9 @@ public class ExemplaireManagerImpl extends AbstractManagerImpl implements Exempl
     public List<Bibliotheque> listerlesbibliotheques() {
         return getDaoFactory().getBibliothequeDao().afficherBibliotheque();
     }
+
+    @Override
+    public Exemplaire afficherexemplairebyID(Integer id){
+        return getDaoFactory().getExemplaireDao().rechercherExemplaire(id);
+    }
 }

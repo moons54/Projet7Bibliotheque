@@ -28,4 +28,8 @@ public interface EmpruntManager {
     public Emprunt rechercherEmpruntparexp(Integer iD);
 
     public List<Emprunt> rechercherEmpruntparisbn(String isbn);
+
+    public List<Emprunt> afficherlesempruntsparLecteurencours(Integer iD);
+
+    public Emprunt addemprunt(Emprunt emprunt);
 }

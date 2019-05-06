@@ -113,4 +113,7 @@ public interface OuvrageService {
     @WebMethod
     public List<Bibliotheque> listerlesbibliotheques();
 
+    @WebMethod
+    public Exemplaire afficherexemplairebyID(@WebParam(name = "id") Integer id);
+
 }
