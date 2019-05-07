@@ -133,14 +133,15 @@
                                         <s:a action="emprunt_mod">
                                             <s:param name="numISBN" value="exemplaire.ouvrage.isbn"/>
                                             <s:param name="id" value="exemplaire.ID"/>
-                                            <s:param name="numemprunt" value="ID"/> Prolonger votre emprunt</s:a>
+                                            <s:param name="numemprunt" value="ID"/> Prolonger votre emprunt
+                                        <s:param name="idutilisateur" value="idutilisateur"/></s:a>
                                     </s:if>
                                 </s:if>
                                     <s:else>Oui</s:else>
                                 </td></td>
                                 <td>
                                 <s:if test="%{situationEmprunt.situation=='Non rendus à temps'}">
-                                    <i class="fas fa-info-circle fa-1x">  votre delais d'emprunt est dépassé merci de nous contacter</i>
+                                    <i class="fas fa-info-circle fa-1x altColor">  votre delais d'emprunt est dépassé merci de nous contacter</i>
                                     </s:if>
                                     <s:else><s:property value="situationEmprunt.situation"/></s:else>
                                     </td>

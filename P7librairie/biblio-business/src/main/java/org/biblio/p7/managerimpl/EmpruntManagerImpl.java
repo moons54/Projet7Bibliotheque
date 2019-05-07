@@ -29,8 +29,9 @@ getDaoFactory().getEmpruntDao().ajouterunemprunt(emprunt);
     }
 
     @Override
-    public void modifierEmprunt(Emprunt emprunt) {
-getDaoFactory().getEmpruntDao().modifierEmprunt(emprunt);
+    public Emprunt modifierEmprunt(Emprunt emprunt) {
+
+        return getDaoFactory().getEmpruntDao().modifierEmprunt(emprunt);
     }
 
     @Override

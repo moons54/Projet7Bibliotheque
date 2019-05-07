@@ -24,7 +24,7 @@
         <div class="col-xs-1 col-sm-3 col-md-3 col-lg-3"></div>
         <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6">
             <div class="card text-center center-block ami_card">
-                <div class="header-panel primary"><i class="fas fa-users"></i>identification</div>
+                <div class="header-panel primary"><i class="fas fa-users fa-2x"></i>identification</div>
                 <div class="card-body">
                     <s:form action="Login" class="col-lg-10 col-lg-offset-4">
                     <div class="form-group">

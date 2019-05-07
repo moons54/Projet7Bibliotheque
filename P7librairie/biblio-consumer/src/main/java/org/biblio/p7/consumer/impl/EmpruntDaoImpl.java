@@ -57,7 +57,7 @@ public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
                 .addValue("dateDebut",new Date())
                 .addValue("dateFin",ajouterJour(new Date(),40))
                 .addValue("dateRetourEffectif",ajouterJour(new Date(),40))
-                .addValue("renouvellement",1)
+                .addValue("renouvellement",0)
                 .addValue("situationEmprunt",2)
                 .addValue("exemplaire", emprunt.getExemplaire().getiD())
                 .addValue("lecteur",emprunt.getLecteur().getId());
@@ -78,12 +78,23 @@ return emprunt;
         return null;
     }
 
-    @Override
-    public void modifierEmprunt(Emprunt emprunt) {
-        String vSQL="update emprunt set situation_empruntid=:situationEmprunt,date_debut=:dateDebut,date_fin=:dateFin,date_retour_effectif=:dateRetourEffectif,renouvellement=:renouvellement,lecteurid=:lecteur,exemplaireid=:exemplaire";
-        SqlParameterSource vParams=new BeanPropertySqlParameterSource(emprunt);
+   @Override
+    public Emprunt modifierEmprunt(Emprunt emprunt) {
+        String vSQL="update emprunt set situation_empruntid=:situationEmprunt,date_retour_effectif=:dateRetourEffectif,renouvellement=:renouvellement,lecteurid=:lecteur,exemplaireid=:exemplaire where id=:id";
+      //  SqlParameterSource vParams=new BeanPropertySqlParameterSource(emprunt);
+        SqlParameterSource vParams=new MapSqlParameterSource()
+            //    .addValue("dateDebut",emprunt.getDateDebut())
+              // .addValue("dateFin",emprunt.getDateFin())
+             .addValue("dateRetourEffectif",ajouterJour(new Date(),40))
+                .addValue("renouvellement",1)
+                .addValue("situationEmprunt",3)
+                .addValue("exemplaire", emprunt.getExemplaire().getiD())
+                .addValue("lecteur",emprunt.getLecteur().getId())
+                .addValue("id",emprunt.getiD());
+
         NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
         vJdbcTemplate.update(vSQL,vParams);
+        return emprunt;
     }
 
     @Override

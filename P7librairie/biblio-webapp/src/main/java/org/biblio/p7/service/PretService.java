@@ -20,7 +20,7 @@ public interface PretService {
     public Emprunt supprimerEmprunt(@WebParam(name = "iD") Integer iD);
 
     @WebMethod
-    public void modifierEmprunt(Emprunt emprunt);
+    public Emprunt modifierEmprunt(Emprunt emprunt);
 
     @WebMethod
     public Emprunt rechercherEmpruntparId(@WebParam(name = "iD") Integer iD);

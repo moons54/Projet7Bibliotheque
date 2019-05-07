@@ -416,7 +416,7 @@ LoginAction extends ActionSupport implements SessionAware {
           //  lecteur=por.rechercherparNom(nom);
 
       lecteur=por.rechercher(Integer.parseInt(this.getSession().get("id").toString()));
-        coordonnees=por.recherchercoordonnee(lecteur.getId());
+        coordonnees=por.recherchercoordonnee(Integer.parseInt(this.getSession().get("id").toString()));
 empruntList=por3.afficherlesempruntsparLecteur(lecteur.getId());
 empruntencours=por3.afficherlesempruntsparLecteurencours(lecteur.getId());
         {

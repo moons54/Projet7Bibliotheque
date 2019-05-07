@@ -24,7 +24,7 @@
     }
 </script>
 <link href="css/detailOuvrage.css" rel="stylesheet">
-<s:form action="nreservation" class="container-fluid">
+<s:form action="emprunt_mod" class="container-fluid">
     <title>Détail de votre emprunt</title>
         <div class="row ami_card container-fluid">
             <div class="col-sm-4 ">
@@ -69,10 +69,14 @@
             <li class="list-group-item alert-primary">Demande de prolongation d'emprunt réference interne : <s:property value="exemplaire.referenceInterne"/></li>
             <div class="card container-fluid">
                 <div class="card-body">
-                    <h3>Cliquer sur valider pour enregistrer la reservation de cet ouvrage</h3>
-                    <h4>Vous devrez le retourner au plus tard le : <script>calcdateretour()</script></h4>
+                    <h3>Cliquer sur valider prolonger la durée de cet ouvrage</h3>
+                    <h4>Vous bénéficiez d'une periode de prolongation, vous devrez retourner au plus tard le : <script>calcdateretour()</script></h4>
+                    <s:textfield name="emprunt.dateRetourEffectif" label="numéro id emprunt" requiredLabel="true"/>
+
+                    <s:hidden name="emprunt.ID" label="numéro id emprunt" requiredLabel="true" value="%{numemprunt}"/>
                         <s:hidden name="emprunt.lecteur.id" label="numéro id lecteur" requiredLabel="true" value="%{idutilisateur}"/>
                         <s:hidden name="emprunt.exemplaire.ID"  label="num ref exemplaire" value="%{id}" requiredLabel="true"/>
+                    <s:checkbox value="0" name="emprunt.renouvellement" label="renouvellement"></s:checkbox>
                     <div class="row">
                         <div class="col-md-offset-5 col-md-2 col-lg-offset-5 col-lg-2">
                             <s:reset value="Annuler" class="btn btn-danger btn-block" />

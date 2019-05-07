@@ -11,7 +11,7 @@ public interface EmpruntManager {
 
     public Emprunt supprimerEmprunt(Integer iD);
 
-    public void modifierEmprunt(Emprunt emprunt);
+    public Emprunt modifierEmprunt(Emprunt emprunt);
 
     public Emprunt rechercherEmpruntparId(Integer iD);
 

@@ -366,5 +366,47 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
         }
         return vresult;
     };
+    public String doprolongation()
+    {
 
+        LOGGER.info("Dans la methode doemprunt");
+
+        // Emprunt emprunt=new Emprunt();
+
+        String vresult = ActionSupport.INPUT;
+
+        //condition validant l'ajout de formulaire
+        if (this.emprunt!=null)
+        {
+            if (this.emprunt.getExemplaire().getID()==0)
+            {
+
+                this.addActionError("erreur");
+            }
+            else
+            {
+
+            }
+            if (!this.hasErrors())
+            {
+                try {
+                    emprunt.setExemplaire(this.emprunt.getExemplaire());
+                    emprunt.setLecteur(this.emprunt.getLecteur());
+                    emprunt.setRenouvellement(this.emprunt.isRenouvellement());
+                    por3.modifierEmprunt(emprunt);
+                    vresult = ActionSupport.SUCCESS;
+                    this.addActionMessage("reservation  "+emprunt.toString());
+                }
+                catch (Exception e)
+                {
+                    vresult = ActionSupport.ERROR;
+                }
+            }
+        }else {
+            lecteur=por.rechercher(idutilisateur);
+            exemplaire=por2.afficherexemplairebyID(id);
+            emprunt=por3.rechercherEmpruntparId(numemprunt);
+        }
+        return vresult;
+    };
 }

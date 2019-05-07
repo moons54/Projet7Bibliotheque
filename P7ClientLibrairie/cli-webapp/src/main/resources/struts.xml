@@ -194,18 +194,15 @@
         </action>
 
 
-        <action name="emprunt_mod"
-                class="action.EmpruntAction"
-                method="domodif">
-
-            <result name="input">jsp/ouvrage/detailexemplaire.jsp</result>
+        <action name="emprunt_mod" class="action.EmpruntAction" method="doprolongation">
+            <result name="input">jsp/login/prolongation.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">monprofil</param>
-                <param name="idutilisateur">${#user.id}</param>
+                <param name="idutilisateur">${#session.user.id}</param>
             </result>
         </action>
 
-        <!-- Action "inscription" -->
+        <!-- Action "reservation" -->
         <action name="nreservation" class="action.EmpruntAction" method="doemprunt">
             <result name="input">jsp/login/reservation.jsp</result>
             <result name="success" type="redirectAction">
