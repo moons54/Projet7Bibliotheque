@@ -198,4 +198,8 @@ managerFactory.getOuvrageManager().supprimerOuvrage(id);
     public Exemplaire afficherexemplairebyID(Integer id){
         return managerFactory.getExemplaireManager().afficherexemplairebyID(id);
     }
+    @Override
+    public Exemplaire changestatusexemplaire(Exemplaire exemplaire){
+         return managerFactory.getExemplaireManager().changestatusexemplaire(exemplaire);
+    };
 }

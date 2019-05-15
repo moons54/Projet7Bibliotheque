@@ -11,18 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class BatchlibrairieApplication {
-
-    @Autowired
-    JobLauncher jobLauncher;
-
-    @Autowired
-    Job job;
+public class BatchlibrairieApplication implements CommandLineRunner {
 
 
-   public static void main(String[] args) {
+   /*public static void main(String[] args) {
         SpringApplication.run(BatchlibrairieApplication.class, args);
-    }
+    }*/
  /*   @Bean
     public CommandLineRunner demo(EmailServiceImpl emailService ) {
         return (args) -> {
@@ -34,27 +28,27 @@ public class BatchlibrairieApplication {
     }
 */
 
-/*
 
-    public static void main(String[] args)
-    {
-        SpringApplication.run(BatchlibrairieApplication.class, args);
+        @Autowired
+        JobLauncher jobLauncher;
+
+        @Autowired
+        Job job;
+
+        public static void main(String[] args)
+        {
+            SpringApplication.run(BatchlibrairieApplication.class, args);
+        }
+
+        @Override
+        public void run(String... args) throws Exception
+        {
+            JobParameters params = new JobParametersBuilder()
+                    .addString("JobID", String.valueOf(System.currentTimeMillis()))
+                    .toJobParameters();
+            jobLauncher.run(job, params);
+        }
     }
-*/
-
-   /* public static void main(String[] args)
-    {
-        SpringApplication.run(BatchlibrairieApplication.class, args);
-    }
-
-    public void run(String... args) throws Exception
-    {
-        JobParameters params = new JobParametersBuilder()
-                .addString("JobID", String.valueOf(System.currentTimeMillis()))
-                .toJobParameters();
-        jobLauncher.run(job, params);
-    }*/
 
 
 
-}

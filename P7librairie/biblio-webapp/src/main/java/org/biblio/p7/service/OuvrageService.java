@@ -116,4 +116,6 @@ public interface OuvrageService {
     @WebMethod
     public Exemplaire afficherexemplairebyID(@WebParam(name = "id") Integer id);
 
+    @WebMethod
+    public Exemplaire changestatusexemplaire(Exemplaire exemplaire);
 }

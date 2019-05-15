@@ -87,7 +87,7 @@ return emprunt;
               // .addValue("dateFin",emprunt.getDateFin())
              .addValue("dateRetourEffectif",ajouterJour(new Date(),40))
                 .addValue("renouvellement",1)
-                .addValue("situationEmprunt",3)
+                .addValue("situationEmprunt",4)
                 .addValue("exemplaire", emprunt.getExemplaire().getiD())
                 .addValue("lecteur",emprunt.getLecteur().getId())
                 .addValue("id",emprunt.getiD());
@@ -97,6 +97,20 @@ return emprunt;
         return emprunt;
     }
 
+    @Override
+    public Emprunt changestatutemprunt(Emprunt emprunt) {
+        String vSQL="update emprunt set situation_empruntid=:situationEmprunt,lecteurid=:lecteur,exemplaireid=:exemplaire where id=:id";
+        //  SqlParameterSource vParams=new BeanPropertySqlParameterSource(emprunt);
+        SqlParameterSource vParams=new MapSqlParameterSource()
+               .addValue("situationEmprunt",4)
+                .addValue("exemplaire", emprunt.getExemplaire().getiD())
+                .addValue("lecteur",emprunt.getLecteur().getId())
+                .addValue("id",emprunt.getiD());
+
+        NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
+        vJdbcTemplate.update(vSQL,vParams);
+        return emprunt;
+    }
     @Override
     public Emprunt rechercherEmpruntparId(Integer iD) {
         String vsql = "SELECT * FROM public.emprunt where id=?";
@@ -197,5 +211,15 @@ return emprunt;
        List <Emprunt> affichelist= vJdbcTemplate.query(vsql,new Object[]{isbn},empruntRM);
 
         return affichelist;
+    }
+
+    public SituationDemprunt situationDemprunt(int id){
+        String vsql="SELECT * from public.situation_emprunt ";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+
+        SituationEmpruntRM situationEmpruntRM=new SituationEmpruntRM();
+        SituationDemprunt situationEmprunt= vJdbcTemplate.queryForObject(vsql,new Object[]{id},situationEmpruntRM);
+
+        return situationEmprunt;
     }
 }

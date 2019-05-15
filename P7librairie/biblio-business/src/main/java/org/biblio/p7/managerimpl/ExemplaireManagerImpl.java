@@ -50,4 +50,9 @@ public class ExemplaireManagerImpl extends AbstractManagerImpl implements Exempl
     public Exemplaire afficherexemplairebyID(Integer id){
         return getDaoFactory().getExemplaireDao().rechercherExemplaire(id);
     }
+
+    @Override
+    public Exemplaire changestatusexemplaire(Exemplaire exemplaire) {
+        return getDaoFactory().getExemplaireDao().changestatusexemplaire(exemplaire);
+    }
 }

@@ -24,13 +24,19 @@ public class Batchconfig {
         @Autowired
         private StepBuilderFactory steps;
 
-        @Bean
-        public Step stepOne(){
-            return steps.get("stepOne")
-                    .tasklet(new Tache1())
-                    .build();
-        }
+    @Bean
+    public Step stepOne(){
+        return steps.get("stepOne")
+                .tasklet(new Tache1())
+                .build();
+    }
 
+    @Bean
+    public Step stepTwo(){
+        return steps.get("stepTwo")
+                .tasklet(new Tache2())
+                .build();
+    }
 
 
 
@@ -38,7 +44,7 @@ public class Batchconfig {
     public Job demoJob(){
         return jobs.get("demoJob")
                 .incrementer(new RunIdIncrementer())
-                .start(stepOne())
+                .start(stepTwo())
                 .build();
     }
 

@@ -1,6 +1,8 @@
 package org.biblio.p7.managerimpl;
 
 import org.biblio.p7.bean.Emprunt;
+import org.biblio.p7.bean.Exemplaire;
+import org.biblio.p7.bean.SituationDemprunt;
 import org.biblio.p7.manager.EmpruntManager;
 
 import java.util.Date;
@@ -19,8 +21,15 @@ public class EmpruntManagerImpl extends AbstractManagerImpl implements EmpruntMa
         emprunt.setDateRetourEffectif(new Date());
         emprunt.setRenouvellement(true);
 
-      //  emprunt.setSituationEmprunt(getDaoFactory().getEmpruntDao().recherchersituationdemprunt(1));
-getDaoFactory().getEmpruntDao().ajouterunemprunt(emprunt);
+        Exemplaire exemplaire;
+        exemplaire =getDaoFactory().getExemplaireDao().rechercherExemplaire(emprunt.getiD());
+        exemplaire.setStatus("1");
+        getDaoFactory().getExemplaireDao().modifierExemplaire(exemplaire);
+
+        getDaoFactory().getEmpruntDao().ajouterunemprunt(emprunt);
+
+
+
     }
 
     @Override
@@ -79,6 +88,23 @@ getDaoFactory().getEmpruntDao().ajouterunemprunt(emprunt);
     }
 
     public Emprunt addemprunt(Emprunt emprunt){
+       /* Exemplaire exemplaire;
+        exemplaire =getDaoFactory().getExemplaireDao().rechercherExemplaire(emprunt.getiD());
+        exemplaire.setStatus("1");
+        getDaoFactory().getExemplaireDao().modifierExemplaire(exemplaire);*/
+
+       getDaoFactory().getExemplaireDao().changestatusexemplaire(emprunt.getExemplaire());
+
         return getDaoFactory().getEmpruntDao().addemprunt(emprunt);
     }
+
+    public SituationDemprunt recherchersituationdemprunt(int id){
+        return getDaoFactory().getEmpruntDao().recherchersituationdemprunt(id);
+    };
+
+    @Override
+    public Emprunt changestatutemprunt(Emprunt emprunt){
+        return  getDaoFactory().getEmpruntDao().changestatutemprunt(emprunt);
+    }
+
 }

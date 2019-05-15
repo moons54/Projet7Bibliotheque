@@ -22,4 +22,6 @@ public interface ExemplaireManager {
     public List<Bibliotheque> listerlesbibliotheques();
 
     public Exemplaire afficherexemplairebyID(Integer id);
+
+    public Exemplaire changestatusexemplaire(Exemplaire exemplaire);
 }

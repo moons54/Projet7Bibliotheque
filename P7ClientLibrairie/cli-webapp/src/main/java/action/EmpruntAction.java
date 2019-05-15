@@ -351,7 +351,10 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
                 try {
                     emprunt.setExemplaire(this.emprunt.getExemplaire());
                     emprunt.setLecteur(this.emprunt.getLecteur());
+
+
                     por3.addemprunt(emprunt);
+
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("reservation  "+emprunt.toString());
                 }

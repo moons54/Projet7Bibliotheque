@@ -5,6 +5,7 @@ import org.biblio.p7.consumer.impl.RowMapper.ExemplaireRM;
 import org.biblio.p7.contract.ExemplaireDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
@@ -44,7 +45,7 @@ String vSQL="INSERT into public.exemplaire(referenceinterne) values "+
 
     @Override
     public void modifierExemplaire(Exemplaire exemplaire) {
-       String vSQL="update exemplaire set referenceinterne=:referenceInterne";
+       String vSQL="update exemplaire set status=:status where id=?";
         SqlParameterSource vParams=new BeanPropertySqlParameterSource(exemplaire);
         NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
         vJdbcTemplate.update(vSQL,vParams);
@@ -64,5 +65,17 @@ String vSQL="INSERT into public.exemplaire(referenceinterne) values "+
         ExemplaireRM exemplaireRM=new ExemplaireRM();
         List<Exemplaire> exemplaireList=  vJdbcTemplate.query(vsql,new Object[]{ouvid},exemplaireRM);
         return exemplaireList;
+    }
+
+
+    @Override
+    public Exemplaire changestatusexemplaire(Exemplaire exemplaire) {
+        String vSQL="update exemplaire set status=:status where id=:id";
+        SqlParameterSource vParams=new MapSqlParameterSource()
+                .addValue("status",99)
+                .addValue("id",exemplaire.getiD());
+        NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
+        vJdbcTemplate.update(vSQL,vParams);
+    return exemplaire;
     }
 }

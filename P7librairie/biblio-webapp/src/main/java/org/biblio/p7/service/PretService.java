@@ -1,6 +1,7 @@
 package org.biblio.p7.service;
 
 import org.biblio.p7.bean.Emprunt;
+import org.biblio.p7.bean.SituationDemprunt;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -51,4 +52,10 @@ public interface PretService {
 
     @WebMethod
     public Emprunt addemprunt(Emprunt emprunt);
+
+    @WebMethod
+    public SituationDemprunt recherchersituationdemprunt(@WebParam(name = "id") int id);
+
+    @WebMethod
+    public Emprunt changestatutemprunt(Emprunt emprunt);
 }

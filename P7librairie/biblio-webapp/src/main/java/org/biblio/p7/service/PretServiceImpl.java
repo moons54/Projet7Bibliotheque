@@ -1,6 +1,7 @@
 package org.biblio.p7.service;
 
 import org.biblio.p7.bean.Emprunt;
+import org.biblio.p7.bean.SituationDemprunt;
 import org.biblio.p7.managerimpl.ManagerFactoryImpl;
 
 import java.util.List;
@@ -80,7 +81,15 @@ managerFactory.getEmpruntManager().ajouterunemprunt(emprunt);
         return getManagerFactory().getEmpruntManager().afficherlesempruntsparLecteurencours(iD);
     }
 
+    public SituationDemprunt recherchersituationdemprunt(int id){
+        return getManagerFactory().getEmpruntManager().recherchersituationdemprunt(id);
+    }
+
     public Emprunt addemprunt(Emprunt emprunt){
         return getManagerFactory().getEmpruntManager().addemprunt(emprunt);
     }
+
+    public Emprunt changestatutemprunt(Emprunt emprunt){
+        return getManagerFactory().getEmpruntManager().changestatutemprunt(emprunt);
+    };
 }

@@ -89,8 +89,8 @@
         </div>
     </div>
 </div>
-<div class="row" style="margin-top: 50px">
-    <div class="col container-fluid">
+<div class="ami_decal row container-fluid" style="margin-top: 50px">
+    <div class="col col-md-12 col-lg-12 ">
         <div class="card" style="margin-bottom: 50px">
             <div class="card-header">
 
@@ -104,7 +104,6 @@
                     <th scope="col">Date de retour prévue</th>
                     <th scope="col">Durée d'emprunt prolongée</th>
                     <th scope="col">Situation de votre emprunt</th>
-                    <th scope="col">num d'emprunt</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -128,7 +127,7 @@
                                 <td><script>getdemprunt()</script></td>
                                 <td><script>getretourprevu()</script></td>
                                 <td><s:if test="%{renouvellement==false}">
-                                      Non
+
                                     <s:if test="%{situationEmprunt.situation=='En cours'}">
                                         <s:a action="emprunt_mod">
                                             <s:param name="numISBN" value="exemplaire.ouvrage.isbn"/>
@@ -137,7 +136,7 @@
                                         <s:param name="idutilisateur" value="idutilisateur"/></s:a>
                                     </s:if>
                                 </s:if>
-                                    <s:else>Oui</s:else>
+                                    <s:else>Déja prolongé</s:else>
                                 </td></td>
                                 <td>
                                 <s:if test="%{situationEmprunt.situation=='Non rendus à temps'}">
@@ -145,7 +144,6 @@
                                     </s:if>
                                     <s:else><s:property value="situationEmprunt.situation"/></s:else>
                                     </td>
-                                <td><s:property value="ID"/></td>
                             </tr>
                     </s:iterator>
                 </tbody>

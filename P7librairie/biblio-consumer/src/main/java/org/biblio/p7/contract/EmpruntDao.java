@@ -36,4 +36,6 @@ public interface EmpruntDao {
 
     public Emprunt addemprunt(Emprunt emprunt);
 
+    public Emprunt changestatutemprunt(Emprunt emprunt);
+
 }

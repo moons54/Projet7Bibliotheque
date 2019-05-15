@@ -1,6 +1,7 @@
 package org.biblio.p7.manager;
 
 import org.biblio.p7.bean.Emprunt;
+import org.biblio.p7.bean.SituationDemprunt;
 
 import java.util.List;
 
@@ -32,4 +33,8 @@ public interface EmpruntManager {
     public List<Emprunt> afficherlesempruntsparLecteurencours(Integer iD);
 
     public Emprunt addemprunt(Emprunt emprunt);
+
+    public SituationDemprunt recherchersituationdemprunt(int id);
+
+    public Emprunt changestatutemprunt(Emprunt emprunt);
 }

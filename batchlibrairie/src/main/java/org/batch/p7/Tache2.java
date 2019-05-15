@@ -8,17 +8,18 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
-import java.util.Iterator;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
 @Component
-public class Tache1 implements Tasklet {
+public class Tache2 implements Tasklet {
 
 
     @Value("${mail.adresse}")
@@ -40,7 +41,7 @@ public class Tache1 implements Tasklet {
     private String auth;
 
 
-    public Tache1() {
+    public Tache2() {
     }
 
     Lecteur lecteur;
@@ -62,17 +63,28 @@ public class Tache1 implements Tasklet {
 
 
 
-
-       List<Emprunt> empruntList=por3.afficherlesempruntsenretard();
-        /* Iterator<Emprunt> it=empruntList.iterator();
-while (it.hasNext()) {
-    Emprunt emprunt = it.next();
-    System.out.println(emprunt.getExemplaire().getOuvrage().getIntituleOuvrage());
-    System.out.println(emprunt.getLecteur().getNom());*/
+      Calendar calAujourdhui = Calendar.getInstance();
+        SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
+       List<Emprunt> empruntList=por3.afficherlesemprunts();
 
 
           for (Emprunt emprunt : empruntList) {
-              HtmlEmail email = new HtmlEmail();
+
+              if(emprunt.getDateFin().toGregorianCalendar().before(calAujourdhui)){
+
+
+              if (emprunt.getSituationEmprunt().getSituation().contains("En cours")) {
+                  System.out.println("num enr   "+emprunt.getID()+"   ");
+                  System.out.println("livre "+emprunt.getExemplaire().getOuvrage().getIntituleOuvrage()+"   ");
+                  System.out.println("lecteur  "+emprunt.getLecteur().getNom()+"  ");
+                  System.out.println("date de l'emprunt "+emprunt.getDateFin().toString()+ " <  "+df.format(calAujourdhui.getTime()) );
+
+
+                  emprunt.setSituationEmprunt(por3.recherchersituationdemprunt(4));
+                  por3.changestatutemprunt(emprunt);
+              }
+              }
+           /*   HtmlEmail email = new HtmlEmail();
 
               email.setHostName("smtp.googlemail.com");
               email.setSmtpPort(587);
@@ -103,7 +115,7 @@ while (it.hasNext()) {
                   System.out.println("Unable to send an email" + e.getMessage());
               }
 
-
+*/
           }
 
 
