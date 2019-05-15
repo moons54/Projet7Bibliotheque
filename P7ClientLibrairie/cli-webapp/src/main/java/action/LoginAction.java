@@ -24,18 +24,25 @@ LoginAction extends ActionSupport implements SessionAware {
 
     private final Logger LOGGER=(Logger) LogManager.getLogger(LoginAction.class);
 
+    /**
+     * appel des Webservices
+     */
 
+    //WEB SERVICES AUTHENTIFICATION
     AuthentificationService_Service authentificationService_service=new AuthentificationService_Service();
     AuthentificationService por=authentificationService_service.getAuthentificationServicePort();
 
+
+    //WEB SERVICE OUVRAGE
     OuvrageService_Service ouvrageService_service=new OuvrageService_Service();
     OuvrageService por2=ouvrageService_service.getOuvrageServicePort();
 
+    //WEB SERVICE EMPRUNT
     PretService_Service pretServicePort_client=new PretService_Service();
     PretService por3=pretServicePort_client.getPretServicePort();
 
 
-    //param en Entrée
+    //PARAMETRE EN ENTREE
     Integer id;
     String identifiant;
     String motDePasse;
@@ -51,10 +58,9 @@ LoginAction extends ActionSupport implements SessionAware {
     String ville;
     String telephone;
     String email;
-
     String dtp;
 
-    //param en Sortie
+    //PARAMETRE EN SORTIE
     static Map<String, Object> session;
     private List<Lecteur> lecteurs;
     private Lecteur lecteur;
@@ -341,6 +347,7 @@ LoginAction extends ActionSupport implements SessionAware {
         return ActionSupport.SUCCESS;
     }
 
+    //METHODE DE DECONNEXION
     public String doLogout(){
         this.session.remove("user");
         return ActionSupport.SUCCESS;
@@ -348,33 +355,22 @@ LoginAction extends ActionSupport implements SessionAware {
 
 
     //METHODE CREANT UN NOUVEL UTILISATEUR
-
     public String doCreate(){
         LOGGER.info("DANS LA METHODE DOCREATE");
-
         Lecteur lecteur=new Lecteur();
         String vresult = ActionSupport.INPUT;
-
         //condition validant l'ajout de formulaire
-
         if (this.identifiant !=null) {
-
             if (this.motDePasse == null||this.motDePasse.hashCode()!=this.motDePasse2.hashCode()) {
                 this.addActionError("erreur");
-                System.out.println("saisie mot de passe invalide "+motDePasse.hashCode() + "    "+motDePasse2.hashCode());
             } else
             {
-
                 System.out.println("ok");
             }
-
-
-
             if (!this.hasErrors())
             {
                 try
                 {
-
                     lecteur.setIdentifiant(identifiant);
                     lecteur.setMotDePasse(motDePasse);
                     lecteur.setNom(nom);
@@ -382,74 +378,48 @@ LoginAction extends ActionSupport implements SessionAware {
                     lecteur.setDateDeNaissance(dateNaissance);
                     lecteur.setNumCni("34333232");
                     por.ajouterLecteur(lecteur);
-                //    System.out.println("--------------------------------------valeur de lecteur"+lecteur.toString());
                 setIdutilisateur(lecteur.getId());
-                    System.out.println("val de idut"+idutilisateur);
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("premier etape pour   "+identifiant);
                 } catch (Exception e)
                 {
-
                     vresult = ActionSupport.ERROR;
                 }
-
             }
         }
-
         return vresult;
     };
 
 
-    //Methode pour le détail d'un utilisateur
-
+    //METHODE POUR DETAIL D'UN UTILISATEUR
     public String doDetail(){
-
         LOGGER.info("DANS LA METHODE DODETAIL");
-
         //gestion des erreurs si id du topo null
         if(idutilisateur==null){
-
-            System.out.println("--------------------- rien ");
             //  this.addActionError(getText("error.topo.missing.id."));
         }else
-            //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
-          //  lecteur=por.rechercherparNom(nom);
-
-      lecteur=por.rechercher(Integer.parseInt(this.getSession().get("id").toString()));
-        coordonnees=por.recherchercoordonnee(Integer.parseInt(this.getSession().get("id").toString()));
-empruntList=por3.afficherlesempruntsparLecteur(lecteur.getId());
-empruntencours=por3.afficherlesempruntsparLecteurencours(lecteur.getId());
-        {
-            // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
-            System.out.println("-------------------"+"pas d'id");
-          //  System.out.println("---------------------"+getId());
-
-        }
+            lecteur=por.rechercher(Integer.parseInt(this.getSession().get("id").toString()));
+            coordonnees=por.recherchercoordonnee(Integer.parseInt(this.getSession().get("id").toString()));
+            empruntList=por3.afficherlesempruntsparLecteur(lecteur.getId());
+            empruntencours=por3.afficherlesempruntsparLecteurencours(lecteur.getId());
+            {
+            }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
-
     };
 
 
     public String dovalidate() {
 
-Coordonnees coordonnees=new Coordonnees();
-System.out.println();
-       String vresult = ActionSupport.INPUT;
-
+        Coordonnees coordonnees=new Coordonnees();
+        String vresult = ActionSupport.INPUT;
         //condition validant l'ajout de formulaire
-
         if (this.email!=null) {
-
-            if (this.telephone == null) {
-                this.addActionError("erreur");
-                } else
+            if (this.telephone == null)
             {
-
-                System.out.println("ok");
+                this.addActionError("erreur");
+            } else
+            {
             }
-
-
-
             if (!this.hasErrors())
             {
                 try
@@ -460,14 +430,7 @@ System.out.println();
                     coordonnees.setEmail(email);
                     coordonnees.setTelephone(telephone);
                     coordonnees.setLecteur(por.rechercher(idutilisateur));
-                    System.out.println("--------------------------------------" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "voir la veleur de coordonnées"+coordonnees);
-                   por.ajouterCoordonnees(coordonnees);
+                    por.ajouterCoordonnees(coordonnees);
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("Bienvenue  "+identifiant);
                 } catch (Exception e)
@@ -482,57 +445,46 @@ System.out.println();
         return vresult;
     };
 
+    //METHODE CONTROLE DE L'UTILISATEUR
     public String docontrole() throws Exception {
         LOGGER.info("DANS LA METHODE DOCONTROLE");
-
         if(nom==null){
-
-            System.out.println("--------------------- rien ");
             //  this.addActionError(getText("error.topo.missing.id."));
         }else
-            //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
-            //  lecteur=por.rechercherparNom(nom);
             lecteur=por.rechercherparNom(this.nom);
-
-
         {
             this.addActionError("il n'y a pas de projet pour ce numéro " );
-
         }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
-
-
-
     }
 
+    //METHODE SUPPRESSION D'UN UTILISATEUR
     public String doSupp() throws Exception {
         LOGGER.info("DANS LA METHODE DOSUPP");
         String vresult=ActionSupport.INPUT;
-        if (idutilisateur == null) {
-            this.addActionError(getText("error.topo.missing.id"));
-        }else  por.supprimerLecteur(idutilisateur);
-        vresult= ActionSupport.SUCCESS;
-        this.addActionMessage("utilisateur a bien été supprimé avec succes");
+        if (idutilisateur == null)
+        {
 
+            this.addActionError(getText("error.topo.missing.id"));
+        }
+        else
+            por.supprimerLecteur(idutilisateur);
+            vresult= ActionSupport.SUCCESS;
+            this.addActionMessage("utilisateur a bien été supprimé avec succes");
         {
         }
-        return vresult;
-
+    return vresult;
     }
 
     public String domodif() throws Exception {
-
-
         LOGGER.info("DANS LA METHODE DOMODIF");
-
         String resultat = ActionSupport.INPUT;
-
-        if (lecteur != null) {
-            if (lecteur.getNom() != null) {
+        if (lecteur != null)
+        {
+            if (lecteur.getNom() != null)
+            {
                 try {
-
                     Lecteur tmputil = por.rechercher(lecteur.getId());
-                            //managerFactory.getUtilisateurManager().getUtilisateur(utilisateur.getiD());
                     tmputil.setIdentifiant(lecteur.getIdentifiant());
                     tmputil.setMotDePasse(lecteur.getMotDePasse());
                     tmputil.setNom(lecteur.getNom());
@@ -541,25 +493,18 @@ System.out.println();
                     tmputil.setDateInscription(dateInscription);
                     tmputil.setDateDeNaissance(dateNaissance);
                     tmputil.setId(idutilisateur);
-LOGGER.warn(" voir si on y est dedans ");
-                    System.out.println("--------------------------------------" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "voir la veleur de lect"+tmputil);
-                   // tmputil.setId(lecteur.getId());
-
                     por.modifierLecteur(tmputil);
-                }catch (NoSuchElementException e){
+                }
+                catch (NoSuchElementException e)
+                {
                 ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
                 }
                 resultat = ActionSupport.SUCCESS;
-            } else {
+            } else
+                {
                 this.addActionError("Id doit être défini");
                 resultat = ActionSupport.ERROR;
-            }
+                }
         } else {
             // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur lecteur afin de pré-rempir les champs de la page web
             lecteur = por.rechercher(idutilisateur);
@@ -567,79 +512,62 @@ LOGGER.warn(" voir si on y est dedans ");
         return resultat;
     }
 
-    public String domodifcoordonnees() throws Exception {
+    public String domodifcoordonnees() throws Exception
+    {
 
 
         LOGGER.info("DANS LA METHODE DOMODIFcoordonnes");
-
         String resultat = ActionSupport.INPUT;
-
-        if (coordonnees != null) {
-            if (coordonnees.getEmail() != null) {
+        if (coordonnees != null)
+        {
+            if (coordonnees.getEmail() != null)
+            {
                 try {
-
-                    Coordonnees tmputil = por.recherchercoordonnee(coordonnees.getLecteur().getId());
-                    tmputil.setRue(coordonnees.getRue());
-                    tmputil.setEmail(coordonnees.getEmail());
-                    tmputil.setCodePostal(coordonnees.getCodePostal());
-                    tmputil.setVille(coordonnees.getVille());
-                    tmputil.setTelephone(coordonnees.getTelephone());
-                    tmputil.setID(coordonnees.getID());
-                  tmputil.setLecteur(por.rechercher(coordonnees.getLecteur().getId()));
-                    LOGGER.warn(" voir si on y est dedans ");
-                    System.out.println("--------------------------------------" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "voir la veleur de lect"+tmputil);
-                    // tmputil.setId(lecteur.getId());
-
-                    por.modifierCooronnees(tmputil);
-                }catch (NoSuchElementException e){
-                    ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
+                        Coordonnees tmputil = por.recherchercoordonnee(coordonnees.getLecteur().getId());
+                        tmputil.setRue(coordonnees.getRue());
+                        tmputil.setEmail(coordonnees.getEmail());
+                        tmputil.setCodePostal(coordonnees.getCodePostal());
+                        tmputil.setVille(coordonnees.getVille());
+                        tmputil.setTelephone(coordonnees.getTelephone());
+                        tmputil.setID(coordonnees.getID());
+                        tmputil.setLecteur(por.rechercher(coordonnees.getLecteur().getId()));
+                        por.modifierCooronnees(tmputil);
+                    }catch (NoSuchElementException e)
+                        {
+                            ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
+                        }
+                            resultat = ActionSupport.SUCCESS;
+            } else
+                {
+                    this.addActionError("Id doit être défini");
+                    resultat = ActionSupport.ERROR;
                 }
-                resultat = ActionSupport.SUCCESS;
-            } else {
-                this.addActionError("Id doit être défini");
-                resultat = ActionSupport.ERROR;
-            }
-        } else {
+        } else
+            {
             // Si topo est null c'est qu'on va entrer sur la jsp update.jsp, il faut embarquer les données sur lecteur afin de pré-rempir les champs de la page web
-            coordonnees = por.recherchercoordonnee(idutilisateur);
-        }
-        return resultat;
+                coordonnees = por.recherchercoordonnee(idutilisateur);
+            }
+                return resultat;
     }
 
-    public String doProfil(){
-
-        LOGGER.info("DANS LA METHODE DODETAIL");
-        System.out.println("valeur de la sesssion" +getSession().get("user").toString());
-idutilisateur=Integer.parseInt(getSession().get("id").toString());
-        //gestion des erreurs si id du topo null
-        if(idutilisateur==null){
-
-            System.out.println("--------------------- rien ");
-            //  this.addActionError(getText("error.topo.missing.id."));
-        }else{
-            //  =managerFactory.getUtilisateurManager().getUtilisateur(idutilisateur);
-            //  lecteur=por.rechercherparNom(nom);
-            lecteur=por.rechercher(idutilisateur);
-        coordonnees=por.recherchercoordonnee(lecteur.getId());
-       empruntList=por3.afficherlesemprunts();
-       LOGGER.trace("je suis la "+empruntList.size()+"et la ");
-        System.out.println("taille de emprun list ------------------------gtggttrg---" +empruntList.size());}
-
+    public String doProfil()
+    {
+            LOGGER.info("DANS LA METHODE DODETAIL");
+            idutilisateur=Integer.parseInt(getSession().get("id").toString());
+            //gestion des erreurs si id du Utilisateur null
+            if(idutilisateur==null)
         {
-           //  empruntList=por3.afficherlesemprunts();
-            // this.addActionError("il n'y a pas de projet pour ce numéro "+idtopo );
-            System.out.println("----------"+empruntList+"---------"+"pas d'i"+" et ici");
-            //  System.out.println("---------------------"+getId());
-
-
+           //  this.addActionError(getText("error.topo.missing.id."));
         }
-        return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
+        else
+            {
+                lecteur=por.rechercher(idutilisateur);
+                coordonnees=por.recherchercoordonnee(lecteur.getId());
+                empruntList=por3.afficherlesemprunts();
+            }
 
+            {
+            }
+            return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
     };
 }

@@ -14,7 +14,6 @@
     <%@ taglib prefix="margin-top" uri="/struts-dojo-tags" %>
     <%@ include file="../_include/head.jsp" %>
 
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.0/css/select.bootstrap4.min.css"/>
     <!-- Font Awesome -->

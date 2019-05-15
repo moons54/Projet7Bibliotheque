@@ -16,7 +16,7 @@
 
 <body>
 <div class="alert alert-info" role="alert">
-    <strong> Une erreur s'est produite!</strong>}
+    <strong>ATTENTION:  Une erreur s'est produite!</strong>}
 </div>
 
 <s:actionerror/>

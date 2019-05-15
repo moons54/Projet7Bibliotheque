@@ -69,8 +69,6 @@
     <s:property value="id"/>
     <s:property value="exemplaire.ouvrage.description"/>
         Je demande le renouvellement :
-    <s:textfield name="emprunt.renouvellement" class="form-control" label="renouvellement" requiredLabel="true" labelSeparator="" labelposition="top" ></s:textfield>
-
     <s:submit value="Valider"/>
 </s:form>
     </div>

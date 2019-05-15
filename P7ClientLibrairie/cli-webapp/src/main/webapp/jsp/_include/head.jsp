@@ -28,7 +28,7 @@
 <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-iqcNtN3rj6Y1HX/R0a3zu3ngmbdwEa9qQGHdkXwSRoiE+Gj71p0UNDSm99LcXiXV" crossorigin="anonymous">
 
 <link href="css/biblio.css" rel="stylesheet">
-<div class="navbar navbar-expand-lg navbar-light bg-primary">
+<div class="navbar navbar-expand-md navbar-light bg-primary">
     <a class="navbar-brand " href="index.action">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

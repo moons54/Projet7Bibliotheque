@@ -26,7 +26,6 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">index</param>
             </result>
-
         </action>
 
         <!-- Action affichemonprofil -->
@@ -175,22 +174,6 @@
             </interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
             <result>jsp/ouvrage/detailexemplaire.jsp</result>
-        </action>
-
-
-
-
-        <action name="selectAction"
-                class="action.SelectAction" method="display">
-            <result name="none">jsp/ouvrage/select.jsp</result>
-        </action>
-        <action name="doubleSelectAction"
-                class="action.DoubleSelectAction" method="display">
-            <result name="none">jsp/ouvrage/doubleselect.jsp</result>
-        </action>
-
-        <action name="resultAction" class="action.DoubleSelectAction">
-            <result name="success">jsp/ouvrage/result.jsp</result>
         </action>
 
 
