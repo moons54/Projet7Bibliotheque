@@ -49,7 +49,7 @@
         <div class="col-md-9 col-lg-9">
             <div class="table-responsive table-bordered">
                 <h3><i class="fas fa-book fax-2x"></i>Historique de mes lectures</h3>
-                <table class="table table-striped table-bordered table-hover exemple1" style="width:100%" >
+                <table class="table table-striped table-borderHd table-hover exemple1" style="width:100%" >
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Ouvrage</th>

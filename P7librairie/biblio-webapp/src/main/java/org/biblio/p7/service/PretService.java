@@ -58,4 +58,10 @@ public interface PretService {
 
     @WebMethod
     public Emprunt changestatutemprunt(Emprunt emprunt);
+
+    @WebMethod
+    public List<Emprunt> afficherlesempruntsenretarparLecteur(@WebParam(name = "id") Integer iD);
+
+    @WebMethod
+    public List<Emprunt> regrouperlesempruntsenretard();
 }

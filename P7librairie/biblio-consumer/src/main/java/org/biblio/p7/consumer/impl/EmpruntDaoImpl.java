@@ -11,10 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
 
@@ -143,6 +140,26 @@ return emprunt;
         return afficheliste;
     }
 
+
+    public List<Emprunt> regrouperlesempruntsenretard() {
+        String vsql = "SELECT count(emprunt),lecteurid =:lecteur_id FROM emprunt group by lecteurid";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
+
+   //   EmpruntRM empruntRM = new EmpruntRM();
+        Emprunt emprunt=null;
+
+        MapSqlParameterSource vParams = new MapSqlParameterSource();
+         vParams.addValue("lecteurid", emprunt.getLecteur().getId());
+        vParams.addValue("exemplaire_id", emprunt.getExemplaire().getiD());
+
+      List<Map<String, Object>> afficheliste = vJdbcTemplate.queryForList(vsql, vParams);
+        return null;
+    }
+
+
+
+
+
     @Override
     public List<Emprunt> afficherlesempruntsparLecteur(Integer iD) {
         String vsql = "SELECT * FROM public.emprunt where lecteurid=?";
@@ -152,7 +169,15 @@ return emprunt;
         List<Emprunt> afficheliste = vJdbcTemplate.query(vsql,new Object[]{iD}, empruntRM);
         return afficheliste;
     }
+    @Override
+    public List<Emprunt> afficherlesempruntsenretarparLecteur(Integer iD) {
+        String vsql = "SELECT * FROM public.emprunt where situation_empruntid=4 and lecteurid=?";
+        JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 
+        EmpruntRM empruntRM = new EmpruntRM();
+        List<Emprunt> afficheliste = vJdbcTemplate.query(vsql,new Object[]{iD}, empruntRM);
+        return afficheliste;
+    }
     @Override
     public List<Emprunt> afficherlesempruntsparLecteurencours(Integer iD) {
         String vsql = "SELECT * FROM public.emprunt where lecteurid=? and situation_empruntid!=1";

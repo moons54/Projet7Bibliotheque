@@ -92,4 +92,14 @@ managerFactory.getEmpruntManager().ajouterunemprunt(emprunt);
     public Emprunt changestatutemprunt(Emprunt emprunt){
         return getManagerFactory().getEmpruntManager().changestatutemprunt(emprunt);
     };
+
+    @Override
+    public List<Emprunt> afficherlesempruntsenretarparLecteur(Integer iD) {
+        return getManagerFactory().getEmpruntManager().afficherlesempruntsenretarparLecteur(iD);
+    }
+
+    @Override
+    public List<Emprunt> regrouperlesempruntsenretard(){
+        return getManagerFactory().getEmpruntManager().regrouperlesempruntsenretard();
+    }
 }

@@ -37,4 +37,8 @@ public interface EmpruntManager {
     public SituationDemprunt recherchersituationdemprunt(int id);
 
     public Emprunt changestatutemprunt(Emprunt emprunt);
+
+    public List<Emprunt> afficherlesempruntsenretarparLecteur(Integer iD);
+
+    public List<Emprunt> regrouperlesempruntsenretard();
 }

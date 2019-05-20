@@ -107,4 +107,13 @@ public class EmpruntManagerImpl extends AbstractManagerImpl implements EmpruntMa
         return  getDaoFactory().getEmpruntDao().changestatutemprunt(emprunt);
     }
 
+    @Override
+    public List<Emprunt> afficherlesempruntsenretarparLecteur(Integer iD){
+        return getDaoFactory().getEmpruntDao().afficherlesempruntsenretarparLecteur(iD);
+    }
+
+    @Override
+    public List<Emprunt> regrouperlesempruntsenretard(){
+        return getDaoFactory().getEmpruntDao().regrouperlesempruntsenretard();
+    }
 }

@@ -20,6 +20,8 @@ public interface EmpruntDao {
 
     public List<Emprunt> afficherlesempruntsenretard();
 
+    public List<Emprunt> regrouperlesempruntsenretard();
+
     public List<Emprunt> afficherlesempruntsparLecteur(Integer iD);
 
     public List<Emprunt> afficherleslivresdisponible();
@@ -37,5 +39,7 @@ public interface EmpruntDao {
     public Emprunt addemprunt(Emprunt emprunt);
 
     public Emprunt changestatutemprunt(Emprunt emprunt);
+
+    public List<Emprunt> afficherlesempruntsenretarparLecteur(Integer iD);
 
 }
