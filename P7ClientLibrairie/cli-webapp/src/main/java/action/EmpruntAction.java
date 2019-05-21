@@ -1,14 +1,23 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 import org.biblio.p7.service.*;
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.http.HttpServletResponse;
-import java.time.Instant;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class EmpruntAction extends ActionSupport implements SessionAware {
@@ -62,7 +71,18 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
     private List<OuvrageGenre> ouvrageGenreList;
     List<Emprunt> empruntList;
 
+
+
+
     //GETTER AND SETTER
+
+
+    @Value("${duree.emprunt}")
+    private int maxemprunt;
+
+
+    @Value("${duree.prolongation}")
+    private int maxprolongation;
 
     public boolean isRenouvellement() {
         return renouvellement;
@@ -295,17 +315,7 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
                     ouvrage=por2.rechercherparISBN(numISBN);
                     exemplaire=por2.afficherexemplairebyID(id);
                     tmputil.isRenouvellement();
-
                     LOGGER.warn(" voir si on y est dedans ");
-                    System.out.println("--------------------------------------" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "" +
-                            "voir la veleur de lect"+tmputil);
-                    // tmputil.setId(lecteur.getId());
-
                     por3.modifierEmprunt(tmputil);
                 }catch (NoSuchElementException e){
                     ServletActionContext.getResponse().setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -328,7 +338,23 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
     public String doemprunt()
     {
 
+        final DateTime now = new DateTime();
+       // DatatypeFactory.newInstance (). NewXMLGregorianCalendar (now.toGregorianCalendar ());
         LOGGER.info("Dans la methode doemprunt");
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime currentTime2 = LocalDateTime.now();
+        currentTime2=currentTime.plus(maxemprunt, ChronoUnit.DAYS);
+
+        LocalDate date = currentTime2.toLocalDate();
+        GregorianCalendar gcal = GregorianCalendar.from(date.atStartOfDay(ZoneId.systemDefault()));
+        XMLGregorianCalendar datefin = null;
+        try {
+            datefin = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+        } catch (DatatypeConfigurationException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
 
        // Emprunt emprunt=new Emprunt();
 
@@ -351,7 +377,7 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
                 try {
                     emprunt.setExemplaire(this.emprunt.getExemplaire());
                     emprunt.setLecteur(this.emprunt.getLecteur());
-
+                    emprunt.setDateFin(datefin);
 
                     por3.addemprunt(emprunt);
 
@@ -373,7 +399,19 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
     {
 
         LOGGER.info("Dans la methode doemprunt");
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime currentTime2 = LocalDateTime.now();
+        currentTime2=currentTime.plus(maxemprunt, ChronoUnit.DAYS);
 
+        LocalDate date = currentTime2.toLocalDate();
+        GregorianCalendar gcal = GregorianCalendar.from(date.atStartOfDay(ZoneId.systemDefault()));
+        XMLGregorianCalendar datefin = null;
+        try {
+            datefin = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+        } catch (DatatypeConfigurationException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         // Emprunt emprunt=new Emprunt();
 
         String vresult = ActionSupport.INPUT;
@@ -396,6 +434,7 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
                     emprunt.setExemplaire(this.emprunt.getExemplaire());
                     emprunt.setLecteur(this.emprunt.getLecteur());
                     emprunt.setRenouvellement(this.emprunt.isRenouvellement());
+                    emprunt.setDateRetourEffectif(datefin);
                     por3.modifierEmprunt(emprunt);
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage("reservation  "+emprunt.toString());

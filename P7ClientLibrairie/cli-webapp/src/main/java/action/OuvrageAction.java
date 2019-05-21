@@ -344,14 +344,6 @@ public class OuvrageAction extends ActionSupport {
                     exemplaireList=por.listerlesExemplairesparintitule(ouvrage.getID());
                     bibliothequeList=por.listerlesbibliotheques();
 
-                  // empruntList=por2.rechercherEmpruntparisbn(ouvrage.getIsbn());
-
-
-
-                           // empruntList.add(emprunt.setExemplaire(exemplaire));
-
-                       // System.out.println("tqilll de empruntlist -----------------///GFDDF"+empruntList.size());
-
                     vresult = ActionSupport.SUCCESS;
                     this.addActionMessage(" emprunt consultable");
                 } catch (Exception e)

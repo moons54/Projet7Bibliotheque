@@ -51,7 +51,7 @@ public class EmpruntDaoImpl extends AbstractDaoimpl implements EmpruntDao {
                 "(:dateDebut,:dateFin,:dateRetourEffectif,:renouvellement,:situationEmprunt,:exemplaire,:lecteur)";
 //        SqlParameterSource vParams=new BeanPropertySqlParameterSource(emprunt);
         SqlParameterSource vParams=new MapSqlParameterSource()
-                .addValue("dateDebut",new Date())
+                .addValue("dateDebut",emprunt.getDateDebut())
                 .addValue("dateFin",ajouterJour(new Date(),40))
                 .addValue("dateRetourEffectif",ajouterJour(new Date(),40))
                 .addValue("renouvellement",0)
@@ -82,7 +82,7 @@ return emprunt;
         SqlParameterSource vParams=new MapSqlParameterSource()
             //    .addValue("dateDebut",emprunt.getDateDebut())
               // .addValue("dateFin",emprunt.getDateFin())
-             .addValue("dateRetourEffectif",ajouterJour(new Date(),40))
+             .addValue("dateRetourEffectif",emprunt.getDateRetourEffectif())
                 .addValue("renouvellement",1)
                 .addValue("situationEmprunt",4)
                 .addValue("exemplaire", emprunt.getExemplaire().getiD())

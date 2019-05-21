@@ -44,7 +44,8 @@ public class Batchconfig {
     public Job demoJob(){
         return jobs.get("demoJob")
                 .incrementer(new RunIdIncrementer())
-                .start(stepOne())
+                .start(stepTwo())
+                .next(stepOne())
                 .build();
     }
 
