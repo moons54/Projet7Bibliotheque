@@ -52,11 +52,11 @@ Construit avec
 
 Bootstrap 4- Le framework web 
 
-JDK Version 1.8 
+JDK Version 1.8 ( IMPORTANT UTILISER CETTE VERSION SINON VOUS AUREZ DES ERREURS DE COMPILATION)
 
 SOAP 5.5.0 : Gestion des webServices
 
-Appache CXF 3.3.1
+Appache CXF 3.3.2
 
 Maven version 4.0.0  - Gestion de la dépendance
 
