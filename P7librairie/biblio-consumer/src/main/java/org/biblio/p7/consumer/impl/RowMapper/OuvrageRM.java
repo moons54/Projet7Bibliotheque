@@ -30,7 +30,6 @@ public class OuvrageRM implements RowMapper<Ouvrage> {
         EditeurDaoImpl editeurDao=new EditeurDaoImpl();
 
         ouvrage.setEditeurs(editeurDao.afficherEditionparouvrage(rs.getInt("id")));
-        System.out.println("voir ds le rowmap"+ouvrage.toString());
         return ouvrage;
     }
 }

@@ -16,7 +16,7 @@ public abstract class AbstractDaoimpl {
     Classe Mère qui fera hériter toutes les classes Dao
     */
 
-        /* Création de l'attribut Datasource permettant la connexion à la base de données */
+    /* Création de l'attribut Datasource permettant la connexion à la base de données */
 
     @Inject
     @Named("mabiblio")
@@ -30,19 +30,6 @@ public abstract class AbstractDaoimpl {
         AbstractDaoimpl.dataSource = dataSource;
     }
 
-    /* Connexion à la base de données avec l'aide du Driver JDBC (Java Database Connectivity) */
-/**
-        static JdbcTemplate getJdbcTemplate() {
 
-            return new JdbcTemplate();
-
-        }
-
-
-        static NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
-
-            return new NamedParameterJdbcTemplate(dataSource);
-        }
-   */
-    }
+}
 

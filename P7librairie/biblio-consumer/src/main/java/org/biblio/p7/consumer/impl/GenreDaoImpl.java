@@ -11,6 +11,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Class Genre de l'ouvrage
+ */
 public class GenreDaoImpl extends AbstractDaoimpl implements GenreDao {
     @Override
     public List<Genre> afficherGenre() {
@@ -28,7 +32,7 @@ public class GenreDaoImpl extends AbstractDaoimpl implements GenreDao {
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
 
         GenreRM genreRM=new GenreRM();
-       Genre afficheliste=  (Genre) vJdbcTemplate.queryForObject(vsql,new Object[]{id},genreRM);
+        Genre afficheliste=  (Genre) vJdbcTemplate.queryForObject(vsql,new Object[]{id},genreRM);
         return afficheliste;
 
     }

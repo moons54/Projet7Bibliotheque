@@ -14,13 +14,16 @@
 
     <name>biblio-webapp</name>
 
+    <!--PROPRIETE DU PROJET-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <!--DEPENDANCE DE LA PARTIE WEBAPP-->
     <dependencies>
+        <!--Gestion des tests unitaires-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -28,41 +31,50 @@
             <scope>test</scope>
         </dependency>
 
+        <!--Gestion des modules-->
         <dependency>
             <groupId>org.biblio.p7</groupId>
             <artifactId>biblio-model</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.biblio.p7</groupId>
             <artifactId>biblio-business</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.biblio.p7</groupId>
             <artifactId>biblio-technical</artifactId>
         </dependency>
 
-
+        <!--Bibliotheque permettant de générer un servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-
+            <scope>provided</scope>
         </dependency>
+
+        <!--Gestion de apache CXF -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-databinding-jaxb</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
-
         </dependency>
 
+        <!--insertion du framework Spring-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <!--Gestion de la base de donnée en postrgtres-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -70,9 +82,11 @@
 
         <dependency>
             <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-            <version>3.2.1</version>
+            <artifactId>cxf-spring-boot-autoconfigure</artifactId>
+            <version>3.3.2</version>
         </dependency>
+
+        <!--Gestion des log-->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -90,8 +104,11 @@
             <artifactId>log4j-jcl</artifactId>
         </dependency>
 
-
-
+        <!--Gestion des injection de dépandance en lien avec le framework spring-->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -133,7 +150,6 @@
                     <artifactId>download-maven-plugin</artifactId>
                     <version>1.4.1</version>
                 </plugin>
-
             </plugins>
         </pluginManagement>
     </build>

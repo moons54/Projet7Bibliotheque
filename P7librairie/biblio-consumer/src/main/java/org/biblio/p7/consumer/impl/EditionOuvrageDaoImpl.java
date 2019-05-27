@@ -12,10 +12,13 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import java.util.List;
 
+/**
+ * Classe Edition ouvrage
+ */
 public class EditionOuvrageDaoImpl extends AbstractDaoimpl implements EditionOuvrageDao {
     @Override
     public List<EditionOuvrage> afficherEditionOuvrage() {
-String vSQL="select * from edition_ouvrage";
+        String vSQL="select * from edition_ouvrage";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
         EditionOuvrageRM editionOuvrageRM=new EditionOuvrageRM();
         List<EditionOuvrage> afficheliste= vJdbcTemplate.query(vSQL,editionOuvrageRM);
@@ -43,7 +46,7 @@ String vSQL="select * from edition_ouvrage";
 
     @Override
     public EditionOuvrage supprimerEditionOuvrage(Integer iD) {
-        String vSQL="delete from edition_ouvrage where id=?";
+        String vSQL="delete from edition_ouvrage where ouvrageid=?";
 
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
 
@@ -55,7 +58,7 @@ String vSQL="select * from edition_ouvrage";
 
     @Override
     public void modifierEditionOuvrage(EditionOuvrage editionOuvrage) {
-String vSQL="UPDATE edition_ouvrage set annee_editions=:anneeEditions";
+        String vSQL="UPDATE edition_ouvrage set annee_editions=:anneeEditions";
 
         SqlParameterSource vParams=new BeanPropertySqlParameterSource(editionOuvrage);
         NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());

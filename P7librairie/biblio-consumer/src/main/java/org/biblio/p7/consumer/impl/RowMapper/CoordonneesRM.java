@@ -25,8 +25,6 @@ public class CoordonneesRM implements RowMapper<Coordonnees> {
 
         LecteurDaoImpl lecteurDao=new LecteurDaoImpl();
    coord.setLecteur(lecteurDao.rechercher(rs.getInt("lecteurid")));
- //   coord.setLecteur(new Lecteur(rs.getInt("lecteurid")));
-//mondispo.setTopo(new Topo(rs.getInt("topoid")));
         return coord;
     }
 }

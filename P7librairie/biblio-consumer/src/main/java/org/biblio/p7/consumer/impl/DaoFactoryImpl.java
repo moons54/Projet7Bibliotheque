@@ -3,6 +3,8 @@ package org.biblio.p7.consumer.impl;
 import org.biblio.p7.bean.EditionOuvrage;
 import org.biblio.p7.contract.*;
 
+
+
 public class DaoFactoryImpl implements DaoFactory {
 
 

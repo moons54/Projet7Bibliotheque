@@ -17,7 +17,6 @@ public class AuteurDaoImpl extends AbstractDaoimpl implements AuteurDao {
     public List<Auteur> afficherAuteur() {
         String vsql = "SELECT * FROM public.auteur ";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource());
-
         AuteurRM auteurRM=new AuteurRM();
         List<Auteur> afficheliste= vJdbcTemplate.query(vsql,auteurRM);
         return afficheliste;
@@ -31,19 +30,14 @@ public class AuteurDaoImpl extends AbstractDaoimpl implements AuteurDao {
         SqlParameterSource vParams=new BeanPropertySqlParameterSource(auteur);
         NamedParameterJdbcTemplate vJdbcTemplate=new NamedParameterJdbcTemplate(getDataSource());
         vJdbcTemplate.update(vSQL,vParams);
-
-
     }
 
     @Override
     public Auteur supprimerAuteur(Integer iD) {
         String vsql="DELETE from auteur where id=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
-
         AuteurRM auteurRM=new AuteurRM();
-
         vJdbcTemplate.update(vsql,new Object[]{iD});
-
         return null;
     }
 
@@ -60,9 +54,7 @@ public class AuteurDaoImpl extends AbstractDaoimpl implements AuteurDao {
         String vsql = "SELECT * FROM public.auteur WHERE id=?";
         JdbcTemplate vJdbcTemplate = new JdbcTemplate((getDataSource()));
         AuteurRM auteurRM = new AuteurRM();
-
         Auteur auteur=vJdbcTemplate.queryForObject(vsql,new Object[]{iD},auteurRM);
-
         return auteur;
     }
 }
