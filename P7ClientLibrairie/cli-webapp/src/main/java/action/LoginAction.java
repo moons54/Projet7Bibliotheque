@@ -406,7 +406,22 @@ LoginAction extends ActionSupport implements SessionAware {
             }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
     };
-
+    //METHODE POUR DETAIL D'UN temp UTILISATEUR
+    public String doDetail1() throws Exception{
+        lecteur = new Lecteur();
+        LOGGER.info("DANS LA METHODE DODETAIL");
+        //gestion des erreurs si id du topo null
+        if(this.nom==null){
+            //  this.addActionError(getText("error.topo.missing.id."));
+        }else
+            lecteur=por.rechercherparNom(this.nom);
+        // coordonnees=por.recherchercoordonnee(Integer.parseInt(this.getSession().get("id").toString()));
+       // empruntList=por3.afficherlesempruntsparLecteur(lecteur.getId());
+       // empruntencours=por3.afficherlesempruntsparLecteurencours(lecteur.getId());
+        {
+        }
+        return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
+    };
 
     public String dovalidate() {
 
@@ -449,11 +464,11 @@ LoginAction extends ActionSupport implements SessionAware {
     public String docontrole() throws Exception {
         LOGGER.info("DANS LA METHODE DOCONTROLE");
         if(nom==null){
-            //  this.addActionError(getText("error.topo.missing.id."));
+             this.addActionError(getText("error.missing"));
         }else
             lecteur=por.rechercherparNom(this.nom);
         {
-            this.addActionError("il n'y a pas de projet pour ce numéro " );
+            this.addActionError("il n'y a pas d'element pour ce numéro " );
         }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
     }

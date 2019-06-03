@@ -4,6 +4,7 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
+<!--suppress ALL -->
 <struts>
     <package name="default" extends="struts-default">
 
@@ -26,6 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">index</param>
             </result>
+            <result name="error">/jsp/error.jsp</result>
         </action>
 
         <!-- Action affichemonprofil -->
@@ -52,12 +54,15 @@
         <action name="nutilisateur" class="action.LoginAction" method="doCreate">
             <result name="input">jsp/login/inscription.jsp</result>
             <result name="success" type="redirectAction">
-                <param name="actionName">confirme_utilisateur</param>
+
                 <param name="nom">${nom}</param>
+                <param name="actionName">confirme_user</param>
+
             </result>
+            <result name="error">/jsp/error.jsp</result>
         </action>
 
-        <!-- Action "inscription" -->
+        <!-- Action "inscription coordonnées page 2" -->
         <action name="ncoordonnees" class="action.LoginAction" method="dovalidate">
             <result name="input">jsp/login/inscriptionpage2.jsp</result>
 
@@ -65,16 +70,26 @@
         </action>
 
         <!--Action permettant d'afficher le détail d'un utilisateur-->
-        <action name="confirme_utilisateur"
+       <!-- <action name="confirme_utilisateur"
                 class="action.LoginAction"
                 method="docontrole">
+            <result name="success">jsp/login/confirmeutilisateur.jsp</result>
+            &lt;!&ndash;<interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">jsp/login/confirmeutilisateur.jsp</result>&ndash;&gt;
+        </action>-->
+        <action name="confirme_user"
+                class="action.LoginAction"
+                method="doDetail1">
             <interceptor-ref name="store">
                 <param name="operationMode">RETRIEVE</param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
-            <!--   <result name="success">jsp/topo/detail.jsp</result> -->
             <result>jsp/login/confirmeutilisateur.jsp</result>
         </action>
+
 
         <!--Action permettant d'afficher le détail d'un utilisateur-->
         <action name="utilisateur_detail"

@@ -11,6 +11,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -64,6 +66,8 @@ return getDaoFactory().getLecteurDao().affichelecteur();
 
     @Override
     public Lecteur rechercherByNom(String nom) {
+        System.out.println(" dans rec by nom");
+
         return getDaoFactory().getLecteurDao().rechercherByLecteur(nom);
     }
 

@@ -35,7 +35,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <s:if test="%{#session.user.identifiant==''}">
+            <s:if test="%{#session.user==null}">
                 <li class="nav-item active">
                 <li> <s:a class="nav-link" action="nutilisateur">S'inscrire<span class="sr-only">(current)</span></s:a>
                 </li>
