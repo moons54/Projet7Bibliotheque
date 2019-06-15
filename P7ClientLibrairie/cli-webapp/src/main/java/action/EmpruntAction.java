@@ -292,6 +292,21 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
         this.lecteur = lecteur;
     }
 
+    public int getMaxemprunt() {
+        return maxemprunt;
+    }
+
+    public void setMaxemprunt(int maxemprunt) {
+        this.maxemprunt = maxemprunt;
+    }
+
+    public int getMaxprolongation() {
+        return maxprolongation;
+    }
+
+    public void setMaxprolongation(int maxprolongation) {
+        this.maxprolongation = maxprolongation;
+    }
 //LES METHODES
 
     String doemprunbyid(){
@@ -377,6 +392,7 @@ public class EmpruntAction extends ActionSupport implements SessionAware {
                 try {
                     emprunt.setExemplaire(this.emprunt.getExemplaire());
                     emprunt.setLecteur(this.emprunt.getLecteur());
+                    emprunt.setDateDebut(this.emprunt.getDateDebut());
                     emprunt.setDateFin(datefin);
 
                     por3.addemprunt(emprunt);

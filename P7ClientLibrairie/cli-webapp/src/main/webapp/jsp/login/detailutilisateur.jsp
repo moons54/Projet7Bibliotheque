@@ -23,10 +23,10 @@
 
 <ul>
 
-    <s:hidden value="lecteur.id"/>
-    <li><s:property value="lecteur.identifiant"/></li>
-    <li><s:property value="lecteur.nom"/></li>
-    <li><s:property value="lecteur.prenom"/></li>
+    <s:hidden value="id"/>
+    <li><s:property value="identifiant"/></li>
+    <li><s:property value="nom"/></li>
+    <li><s:property value="prenom"/></li>
     <li><s:property value="lecteur.motDePasse"/></li>
     <li><s:property value="lecteur.dateInscription"/></li>
 

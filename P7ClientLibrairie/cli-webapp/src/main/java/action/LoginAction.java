@@ -10,6 +10,7 @@ import org.biblio.p7.service.AuthentificationService_Service;
 
 import org.biblio.p7.service.Lecteur;
 import org.biblio.p7.service.RecherchercoordonneeResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.http.HttpServletResponse;
@@ -59,6 +60,13 @@ LoginAction extends ActionSupport implements SessionAware {
     String telephone;
     String email;
     String dtp;
+
+    @Value("${duree.emprunt}")
+    private int maxemprunt;
+
+
+    @Value("${duree.prolongation}")
+    private int maxprolongation;
 
     //PARAMETRE EN SORTIE
     static Map<String, Object> session;
@@ -313,7 +321,26 @@ LoginAction extends ActionSupport implements SessionAware {
     public void setEmpruntencours(List<Emprunt> empruntencours) {
         this.empruntencours = empruntencours;
     }
-//METHODE
+
+    public int getMaxemprunt() {
+        return maxemprunt;
+    }
+
+    public void setMaxemprunt(int maxemprunt) {
+        this.maxemprunt = maxemprunt;
+    }
+
+    public int getMaxprolongation() {
+        return maxprolongation;
+    }
+
+    public void setMaxprolongation(int maxprolongation) {
+        this.maxprolongation = maxprolongation;
+    }
+
+    //METHODE
+
+
 
 
     //Authentification de l'utilisateur
@@ -335,6 +362,8 @@ LoginAction extends ActionSupport implements SessionAware {
 
             this.session.put("user", lecteur);
             this.session.put("id",lecteur.getId());
+            this.session.put("dureelivre",maxemprunt);
+            this.session.put("prolongation",maxprolongation);
             vresult=ActionSupport.SUCCESS;
         }
         return vresult;
@@ -418,6 +447,23 @@ LoginAction extends ActionSupport implements SessionAware {
         // coordonnees=por.recherchercoordonnee(Integer.parseInt(this.getSession().get("id").toString()));
        // empruntList=por3.afficherlesempruntsparLecteur(lecteur.getId());
        // empruntencours=por3.afficherlesempruntsparLecteurencours(lecteur.getId());
+        {
+        }
+        return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;
+    };
+
+    public String doDetail2() throws Exception{
+        lecteur = new Lecteur();
+        LOGGER.info("DANS LA METHODE DODETAIL");
+        //gestion des erreurs si id du topo null
+        if(this.nom==null){
+            //  this.addActionError(getText("error.topo.missing.id."));
+        }else
+            lecteur=por.rechercher(idutilisateur);
+            coordonnees=por.recherchercoordonnee(idutilisateur);
+        // coordonnees=por.recherchercoordonnee(Integer.parseInt(this.getSession().get("id").toString()));
+        // empruntList=por3.afficherlesempruntsparLecteur(lecteur.getId());
+        // empruntencours=por3.afficherlesempruntsparLecteurencours(lecteur.getId());
         {
         }
         return (this.hasErrors())? ActionSupport.ERROR : ActionSupport.SUCCESS;

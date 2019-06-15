@@ -65,21 +65,17 @@
         <!-- Action "inscription coordonnées page 2" -->
         <action name="ncoordonnees" class="action.LoginAction" method="dovalidate">
             <result name="input">jsp/login/inscriptionpage2.jsp</result>
+            <result name="success" type="redirectAction">Login
+<!--
+                <param name="idutilisateur">${idutilisateur}</param>
+                <param name="actionName">coordonnee_detail</param>-->
 
-            <result name="success">jsp/login/detailutilisateur.jsp</result>
+
+            </result>
+<!--            <result name="success">jsp/login/detailutilisateur.jsp</result>-->
         </action>
 
-        <!--Action permettant d'afficher le détail d'un utilisateur-->
-       <!-- <action name="confirme_utilisateur"
-                class="action.LoginAction"
-                method="docontrole">
-            <result name="success">jsp/login/confirmeutilisateur.jsp</result>
-            &lt;!&ndash;<interceptor-ref name="store">
-                <param name="operationMode">RETRIEVE</param>
-            </interceptor-ref>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
-            <result name="success">jsp/login/confirmeutilisateur.jsp</result>&ndash;&gt;
-        </action>-->
+        <!--Affiche detail d'un lecteur-->
         <action name="confirme_user"
                 class="action.LoginAction"
                 method="doDetail1">
@@ -90,6 +86,17 @@
             <result>jsp/login/confirmeutilisateur.jsp</result>
         </action>
 
+
+        <!--Action le detail utilisateur et coordonnées-->
+        <action name="coordonnee_detail"
+                class="action.LoginAction"
+                method="doDetail2">
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result>jsp/login/detailutilisateur.jsp</result>
+        </action>
 
         <!--Action permettant d'afficher le détail d'un utilisateur-->
         <action name="utilisateur_detail"
@@ -127,7 +134,6 @@
         <action name="coordonnees_mod"
                 class="action.LoginAction"
                 method="domodifcoordonnees">
-
             <result name="input">/jsp/login/modifcoordonnees.jsp</result>
             <result name="success" type="redirectAction">
                 <param name="actionName">utilisateur_detail</param>

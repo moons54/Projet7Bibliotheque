@@ -40,9 +40,9 @@
                 <li> <s:a class="nav-link" action="nutilisateur">S'inscrire<span class="sr-only">(current)</span></s:a>
                 </li>
             </s:if>
-            <%--<li class="nav-item active">
+            <li class="nav-item active">
                 <s:a class="nav-link" action="liste_ouvrage">Listes des ouvrages<span class="sr-only">(current)</span></s:a>
-            </li>--%>
+            </li>
             <li class="nav-item active">
                 <s:a class="nav-link" action="recherche">Rechercher un ouvrage<span class="sr-only">(current)</span></s:a>
             </li>

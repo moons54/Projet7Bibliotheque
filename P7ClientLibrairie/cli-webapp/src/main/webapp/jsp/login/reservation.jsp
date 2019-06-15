@@ -18,7 +18,10 @@
 <script type="text/javascript">
     function calcdateretour() {
         /* methode conv date */
-        let dateTemp = new Date();
+        let dateTemp1 = '<s:property value="%{#session.dureelivre}"/>';
+       let dateTemp = new Date();
+       dateTemp.setDate(dateTemp.getDate()+<s:property value="%{#session.dureelivre}"/>)
+
         var dateLocale = new Date(dateTemp).toLocaleDateString();
         document.write(dateLocale);
     }
@@ -70,9 +73,10 @@
             <div class="card container-fluid">
                 <div class="card-body">
                     <h3>Cliquer sur valider pour enregistrer la reservation de cet ouvrage</h3>
-                    <h4>Vous devrez le retourner au plus tard le : <script>calcdateretour()</script></h4>
+                   <h4>Vous devrez le retourner au plus tard le : <script>calcdateretour()</script></h4>
                         <s:hidden name="emprunt.lecteur.id" label="numéro id lecteur" requiredLabel="true" value="%{idutilisateur}"/>
                         <s:hidden name="emprunt.exemplaire.ID"  label="num ref exemplaire" value="%{id}" requiredLabel="true"/>
+
                     <div class="row">
                         <div class="col-md-offset-5 col-md-2 col-lg-offset-5 col-lg-2">
                             <s:reset value="Annuler" class="btn btn-danger btn-block" />

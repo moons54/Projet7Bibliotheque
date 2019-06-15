@@ -18,7 +18,9 @@
     <script type="text/javascript">
         function calcdateretour() {
             /* methode conv date */
+            let dateTemp1 = '<s:property value="%{#session.dureelivre}"/>';
             let dateTemp = new Date();
+            dateTemp.setDate(dateTemp.getDate()+<s:property value="%{#session.prolongation}"/>)
             var dateLocale = new Date(dateTemp).toLocaleDateString();
             document.write(dateLocale);
         }
