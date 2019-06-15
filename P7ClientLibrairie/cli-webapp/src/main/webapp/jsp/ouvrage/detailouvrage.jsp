@@ -68,12 +68,20 @@
                             <s:iterator value="exemplaireList">
                                 <s:if test="%{intituleBibliotheque==bibliotheque.intituleBibliotheque}">
                                     <li> Ouvrage Référence : <strong><s:property value="referenceInterne"/></strong>
-                                        <s:a action="nreservation">
+                                        <s:if test="%{#session.user==null}">
+                                            <s:a action="Login">
+                                                <u>S'authentifier pour le reserver</u>
+                                            </s:a>
+                                        </s:if>
+                                <s:if test="%{#session.user.identifiant!=''}">
+
+                                <s:a action="nreservation">
                                             <s:param name="id" value="ID"/>
                                             <s:param name="idutilisateur" value="#session.user.id"/>
                                             <u>reserver</u>
                                         </s:a>
                                     </li>
+                                </s:if>
                                 </s:if>
                             </s:iterator>
                         </div>

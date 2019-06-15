@@ -42,12 +42,20 @@
             <s:iterator value="editeurs">
                 <td><s:property value="intituleEditeur"/></td>
             </s:iterator>
-                    <td>
-                        <s:a action="detail_livre">
+            <td>
+                <s:if test="%{#session.user==null}">
+                    <s:a action="Login">
+                            <u>Se connecter</u>
+                    </s:a>
+                </s:if>
+                <s:if test="%{#session.user.identifiant!=''}">
+                    <s:a action="detail_livre">
                             <s:param name="numISBN" value="isbn"/>
                             <u>detail</u>
-                        </s:a>
-                    </td>
+                    </s:a>
+                </s:if>
+            </td>
+
         </tr>
     </s:iterator>
     </tbody>
