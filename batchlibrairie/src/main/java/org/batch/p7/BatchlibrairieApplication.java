@@ -14,19 +14,6 @@ import org.springframework.context.annotation.Bean;
 public class BatchlibrairieApplication implements CommandLineRunner {
 
 
-   /*public static void main(String[] args) {
-        SpringApplication.run(BatchlibrairieApplication.class, args);
-    }*/
- /*   @Bean
-    public CommandLineRunner demo(EmailServiceImpl emailService ) {
-        return (args) -> {
-          //  emailService.sendSimpleMessage("aurelien.mimouni@gmail.com","essais sujet","mon long texte");
-            emailService.relanceNiv1();
-
-            System.out.println(" voir si ça fonctionne");
-        };
-    }
-*/
 
 
         @Autowired

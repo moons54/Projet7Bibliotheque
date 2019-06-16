@@ -11,7 +11,31 @@
 
 <head>
     <%@ include file="../_include/head.jsp"%>
-    <title>Inscription</title>
+        <script type="text/javascript">
+         //   var re = /(?:\d{2}|\+\d{2}[ ]\d)([- ])\d{2}\1\d{2}\1\d{2}\1\d{2}/;
+           var re= /[a-z!?]/;
+            function testInfo(ide){
+                var OK = re.exec(ide.value);
+                if (!OK)
+                   window.alert(ide.input + " Vous devez saisir un identifiant ! Celui-ci vous permettra de reserver des livres dans nos librairies");
+            }
+         function passinfo(pass){
+             var OK = re.exec(pass.value);
+             if (!OK)
+                 window.alert(pass.input + " Vous devez saisir un mot de passe ! Celui-ci vous permettra de reserver des livres dans nos librairies");
+         }
+         function nominfo(nom){
+             var OK = re.exec(nom.value);
+             if (!OK)
+                 window.alert(nom.input + " Vous devez saisir votre nom et prenom afin que le formulaire soit valide");
+         }
+         function prenominfo(prenom) {
+             var OK = re.exec(prenom.value);
+             if (!OK)
+                 window.alert(prenom.input + "Vous devez saisir votre nom et prenom afin que le formulaire soit valide");
+         }
+        </script>
+        <title>Inscription</title>
 
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.0/css/select.bootstrap4.min.css"/>
@@ -29,15 +53,17 @@
                 <div class="header-panel primary">Inscription</div>
                 <div class="card-body">
                     <s:form action="nutilisateur" class="col-lg-12">
-                        <s:textfield name="identifiant" class="form-control"  label="Identifiant" labelSeparator="" labelposition="top"/>
-                        <s:password name="motDePasse" class="form-control" label="Mot de Passe" labelSeparator="" labelposition="top"/>
+                        <s:textfield name="identifiant" id="ide" class="form-control"  label="Identifiant" labelSeparator="" labelposition="top" onchange="testInfo(document.getElementById('ide'));"/>
+                        <s:password name="motDePasse" id="pass" class="form-control" label="Mot de Passe" labelSeparator="" labelposition="top" onchange="passinfo(document.getElementById('pass'));"/>
                         <s:password name="motDePasse2" class="form-control" label="deuxieme saisie mot de passe" labelSeparator="" labelposition="top"/>
-                        <s:textfield name="nom" class="form-control" label="nom" labelSeparator="" labelposition="top"/>
-                        <s:textfield name="prenom" class="form-control" label="prenom" labelSeparator="" labelposition="top" cssStyle="margin-bottom: 10px"/>
+                        <s:textfield name="nom"  id="nom" class="form-control" label="nom" labelSeparator="" labelposition="top" onchange="nominfo(document.getElementById('nom'))"/>
+                        <s:textfield name="prenom" id="prenom" class="form-control" label="prenom" labelSeparator="" labelposition="top" cssStyle="margin-bottom: 10px" onchange="prenominfo(document.getElementById('prenom'))"/>
                             <div class="row">
                                 <div class="col-md-offset-5 col-md-2 col-lg-offset-5 col-lg-2">
+
                                     <s:reset value="Annuler" class="btn btn-danger btn-block" />
-                                    <s:submit value="Valider" class="btn btn-primary btn-block" />
+                                    <s:submit id="valider" value="Valider" class="btn btn-primary btn-block" />
+
                                 </div>
                             </div>
                     </s:form>
